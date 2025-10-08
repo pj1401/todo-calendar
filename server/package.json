@@ -1,0 +1,23 @@
+{
+  "name": "express-typescript-template-server",
+  "version": "1.0.0",
+  "description": "Template for express application",
+  "main": "index.js",
+  "scripts": {
+    "lint": "npx eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Patricia Johansson <pat.joh.2025@gmail.com>",
+  "contributors": [
+    "Patricia Johansson <pj222uc@student.lnu.se>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@eslint/js": "^9.37.0",
+    "eslint": "^9.37.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.0"
+  }
+}
