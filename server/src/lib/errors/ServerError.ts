@@ -1,14 +1,10 @@
-export class ServerError extends Error {
+import { ApplicationError } from './ApplicationError.js'
+
+export class ServerError extends ApplicationError {
   constructor (message: string, cause?: Error | unknown) {
-    super(message)
+    super(message, cause)
 
     // Set the prototype explicitly.
     Object.setPrototypeOf(this, ServerError.prototype)
-
-    // Help to identify this error.
-    this.name = this.constructor.name
-
-    // Additional data about the error.
-    this.cause = cause
   }
 }

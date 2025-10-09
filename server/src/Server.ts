@@ -1,7 +1,8 @@
 // User-land modules.
 import express from 'express'
 
-import { ServerError } from './lib/errors/ServerError'
+import { logger } from './config/winston.js'
+import { ServerError } from './lib/errors/ServerError.js'
 
 /**
  * Represents an Express server.
@@ -31,11 +32,16 @@ export default class Server {
    * Start the server.
    */
   startServer () {
-    const server = this.#app.listen(this.#port, () => {
-      const address = server.address()
-      if (typeof address === 'object' && address !== null) {
-        console.log(`Server running at http://localhost:${address.port}`)
-      }
-    })
+    try {
+      const server = this.#app.listen(this.#port, () => {
+        const address = server.address()
+        if (typeof address === 'object' && address !== null) {
+          logger.info(`Server running at http://localhost:${address.port}`)
+        }
+        logger.info('Press Ctrl-C to terminate...')
+      })
+    } catch (err) {
+      logger.error(err)
+    }
   }
 }

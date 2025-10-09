@@ -19,6 +19,7 @@ export default defineConfig(
         jsdoc: jsdoc
       },
       rules: {
+        '@stylistic/indent': ['error', 2],
         '@stylistic/comma-dangle': ['error', 'never'],
         '@stylistic/space-before-function-paren': ['error', 'always'],
         '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
