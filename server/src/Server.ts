@@ -42,6 +42,7 @@ export default class Server {
       })
     } catch (err) {
       logger.error(err)
+      process.exitCode = 1
     }
   }
 }
