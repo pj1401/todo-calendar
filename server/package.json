@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "tsx watch --env-file=.env src/index.ts",
-    "lint": "npx eslint .",
+    "lint": "npx eslint ./src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,6 +17,7 @@
   "private": true,
   "devDependencies": {
     "@eslint/js": "^9.37.0",
+    "@stylistic/eslint-plugin": "^5.4.0",
     "@types/express": "^5.0.3",
     "eslint": "^9.37.0",
     "eslint-plugin-jsdoc": "^61.0.0",

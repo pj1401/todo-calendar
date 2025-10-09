@@ -21,10 +21,10 @@ export default class Server {
    */
   startServer () {
     const server = this.#app.listen(this.#port, () => {
-    const address = server.address()
-    if (typeof address === 'object' && address !== null) {
-      console.log(`Server running at http://localhost:${address.port}`)
-    }
-  })
+      const address = server.address()
+      if (typeof address === 'object' && address !== null) {
+        console.log(`Server running at http://localhost:${address.port}`)
+      }
+    })
   }
 }
