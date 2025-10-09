@@ -2,9 +2,10 @@
   "name": "express-typescript-template-server",
   "version": "1.0.0",
   "description": "Template for express application",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "lint": "npx eslint .",
+    "dev": "tsx watch --env-file=.env src/index.ts",
+    "lint": "npx eslint ./src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,8 +17,15 @@
   "private": true,
   "devDependencies": {
     "@eslint/js": "^9.37.0",
+    "@stylistic/eslint-plugin": "^5.4.0",
+    "@types/express": "^5.0.3",
     "eslint": "^9.37.0",
+    "eslint-plugin-jsdoc": "^61.0.0",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.0"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
   }
 }
