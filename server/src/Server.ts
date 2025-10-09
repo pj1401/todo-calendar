@@ -6,14 +6,23 @@ import express from 'express'
  */
 export default class Server {
   #app
-  #port
+  #port: number
 
   /**
    * Initialises a new instance.
+   *
+   * @param {number} port - The port number to listen on.
    */
   constructor (port: number) {
+    if (!this.#isValidPort(port)) {
+      throw new Error('❌ Could not parse port number.')
+    }
     this.#app = express()
     this.#port = port
+  }
+
+  #isValidPort (port: unknown) {
+    return typeof port === 'number' && !Number.isNaN(port)
   }
 
   /**

@@ -3,18 +3,22 @@ import Server from './Server.js'
 const NODEJS_EXPRESS_PORT = process.env.NODEJS_EXPRESS_PORT
 
 try {
-  if (typeof NODEJS_EXPRESS_PORT === 'undefined') {
-    throw new Error('❌ Port number not provided.')
+  if (!isString(NODEJS_EXPRESS_PORT)) {
+    throw new Error('❌ Port not provided.')
   }
-
-  const port = parseInt(NODEJS_EXPRESS_PORT)
-
-  if (typeof port !== 'number') {
-    throw new Error('❌ Could not parse port number.')
-  }
-
+  const port = parseInt(String(NODEJS_EXPRESS_PORT))
   const server = new Server(port)
   server.startServer()
 } catch (err) {
   console.error(err)
+}
+
+/**
+ * Check if an unknown is a string.
+ *
+ * @param {unknown} testString - The string to check.
+ * @returns {boolean} True if it is a string.
+ */
+function isString (testString: unknown): boolean {
+  return typeof testString !== 'undefined' && typeof testString === 'string'
 }
