@@ -1,6 +1,8 @@
 // User-land modules.
 import express from 'express'
 
+import { ServerError } from './lib/errors/ServerError'
+
 /**
  * Represents an Express server.
  */
@@ -15,7 +17,7 @@ export default class Server {
    */
   constructor (port: number) {
     if (!this.#isValidPort(port)) {
-      throw new Error('❌ Could not parse port number.')
+      throw new ServerError('❌ Could not parse port number.')
     }
     this.#app = express()
     this.#port = port
