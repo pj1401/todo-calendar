@@ -11,6 +11,7 @@ export default defineConfig(
   tseslint.configs.strict,
   tseslint.configs.stylistic,
   stylistic.configs.recommended,
+  jsdoc.configs['flat/recommended'],
   [
     {
       files: ['**/*.ts'],
@@ -18,10 +19,12 @@ export default defineConfig(
         jsdoc: jsdoc
       },
       rules: {
+        '@stylistic/indent': ['error', 2],
         '@stylistic/comma-dangle': ['error', 'never'],
         '@stylistic/space-before-function-paren': ['error', 'always'],
         '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
-        'jsdoc/require-description': 'warn'
+        'jsdoc/require-description': 'warn',
+        'jsdoc/tag-lines': ['error' | 'warn', 'any', { startLines: 1 }]
       }
     }
   ]

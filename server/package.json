@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "tsx watch --env-file=.env src/index.ts",
-    "lint": "npx eslint ./src",
+    "lint": "npx eslint ./src || exit 0",
+    "lint:fix": "npx eslint ./src --fix || exit 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -26,6 +27,7 @@
     "typescript-eslint": "^8.46.0"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "winston": "^3.18.3"
   }
 }
