@@ -1,3 +1,8 @@
+/**
+ * Config for winston logger.
+ * @see https://github.com/winstonjs/winston?tab=readme-ov-file#winston
+ */
+
 import { createLogger, format, transports } from 'winston'
 
 export const logger = createLogger({

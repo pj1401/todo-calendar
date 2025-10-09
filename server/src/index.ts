@@ -1,4 +1,5 @@
 import { StartError } from './lib/errors/StartError.js'
+import { logger } from './config/winston.js'
 import Server from './Server.js'
 
 const NODEJS_EXPRESS_PORT = process.env.NODEJS_EXPRESS_PORT
@@ -11,7 +12,12 @@ try {
   const server = new Server(port)
   server.startServer()
 } catch (err) {
-  console.error(err)
+  if (err instanceof Error) {
+    logger.error(err.message, { error: err })
+  } else {
+    logger.error(err)
+  }
+  process.exitCode = 1
 }
 
 /**
