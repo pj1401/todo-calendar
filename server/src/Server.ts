@@ -3,6 +3,7 @@ import express from 'express'
 
 import { logger } from './config/winston.js'
 import { ServerError } from './lib/errors/ServerError.js'
+import Router from './routes/Router.js'
 
 /**
  * Represents an Express server.
@@ -22,10 +23,16 @@ export default class Server {
     }
     this.#app = express()
     this.#port = port
+    this.#registerRoutes()
   }
 
   #isValidPort (port: unknown) {
     return typeof port === 'number' && !Number.isNaN(port)
+  }
+
+  #registerRoutes () {
+    const router = new Router()
+    this.#app.use('/', router.router)
   }
 
   /**
