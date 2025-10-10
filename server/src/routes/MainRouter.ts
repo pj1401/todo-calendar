@@ -1,5 +1,5 @@
-import HomeRouter from './HomeRouter'
-import Router from './Router'
+import HomeRouter from './HomeRouter.js'
+import Router from './Router.js'
 
 /**
  * Represents the main router.
