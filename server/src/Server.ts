@@ -3,7 +3,7 @@ import express from 'express'
 
 import { logger } from './config/winston.js'
 import { ServerError } from './lib/errors/ServerError.js'
-import Router from './routes/Router.js'
+import MainRouter from './routes/MainRouter.js'
 
 /**
  * Represents an Express server.
@@ -31,8 +31,8 @@ export default class Server {
   }
 
   #registerRoutes () {
-    const router = new Router()
-    this.#app.use('/', router.router)
+    const mainRouter = new MainRouter()
+    this.#app.use('/', mainRouter.router)
   }
 
   /**

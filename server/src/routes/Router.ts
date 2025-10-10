@@ -4,7 +4,7 @@ import express from 'express'
 /**
  * Represents an express router.
  */
-export default class Router {
+export default abstract class Router {
   router
 
   /**
@@ -12,12 +12,11 @@ export default class Router {
    */
   constructor () {
     this.router = express.Router()
-    this.#registerRoutes()
   }
 
-  #registerRoutes () {
+  protected registerRoutes () {
     this.router.get('/', function (req, res) {
-      res.send('Hello World!')
+      res.send('Not implemented')
     })
   }
 }
