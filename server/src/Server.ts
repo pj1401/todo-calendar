@@ -26,12 +26,31 @@ export default class Server {
     }
     this.#app = express()
     this.#port = port
-    this.#setupViewEngine()
-    this.#registerRoutes()
   }
 
   #isValidPort (port: unknown) {
     return typeof port === 'number' && !Number.isNaN(port)
+  }
+
+  /**
+   * Start the server.
+   */
+  startServer () {
+    try {
+      this.#setupViewEngine()
+      this.#registerRoutes()
+
+      const server = this.#app.listen(this.#port, () => {
+        const address = server.address()
+        if (typeof address === 'object' && address !== null) {
+          logger.info(`Server running at http://localhost:${address.port}`)
+        }
+        logger.info('Press Ctrl-C to terminate...')
+      })
+    } catch (err) {
+      logger.error(err)
+      process.exitCode = 1
+    }
   }
 
   #setupViewEngine () {
@@ -47,23 +66,5 @@ export default class Server {
   #registerRoutes () {
     const mainRouter = new MainRouter()
     this.#app.use('/', mainRouter.router)
-  }
-
-  /**
-   * Start the server.
-   */
-  startServer () {
-    try {
-      const server = this.#app.listen(this.#port, () => {
-        const address = server.address()
-        if (typeof address === 'object' && address !== null) {
-          logger.info(`Server running at http://localhost:${address.port}`)
-        }
-        logger.info('Press Ctrl-C to terminate...')
-      })
-    } catch (err) {
-      logger.error(err)
-      process.exitCode = 1
-    }
   }
 }
