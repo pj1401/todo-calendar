@@ -1,5 +1,8 @@
-// User-land modules.
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import express from 'express'
+import expressLayouts from 'express-ejs-layouts'
 
 import { logger } from './config/winston.js'
 import { ServerError } from './lib/errors/ServerError.js'
@@ -23,11 +26,22 @@ export default class Server {
     }
     this.#app = express()
     this.#port = port
+    this.#setupViewEngine()
     this.#registerRoutes()
   }
 
   #isValidPort (port: unknown) {
     return typeof port === 'number' && !Number.isNaN(port)
+  }
+
+  #setupViewEngine () {
+    const directoryFullName = dirname(fileURLToPath(import.meta.url))
+    this.#app.set('view engine', 'ejs')
+    this.#app.set('views', join(directoryFullName, 'views'))
+    this.#app.set('layout', join(directoryFullName, 'views', 'layouts', 'default'))
+    this.#app.set('layout extractScripts', true)
+    this.#app.set('layout extractStyles', true)
+    this.#app.use(expressLayouts)
   }
 
   #registerRoutes () {
