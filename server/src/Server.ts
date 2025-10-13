@@ -4,6 +4,7 @@ import httpContext from 'express-http-context'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { randomUUID } from 'node:crypto'
+import type { Server as nodeHttpServer } from 'node:http'
 
 import express from 'express'
 import expressLayouts from 'express-ejs-layouts'
@@ -26,6 +27,7 @@ export default class Server {
   #app
   #port: number
   #baseURL
+  #httpServer!: nodeHttpServer
 
   /**
    * Initialises a new instance.
@@ -42,6 +44,20 @@ export default class Server {
     this.#baseURL = process.env.BASE_URL || '/'
   }
 
+  /**
+   * Get the HTTP server object and start listening for connections.
+   * @returns {nodeHttpServer} The server object.
+   */
+  #getServer (): nodeHttpServer {
+    return this.#app.listen(this.#port, () => {
+      const address = this.#httpServer.address()
+      if (typeof address === 'object' && address !== null) {
+        logger.info(`Server running at http://localhost:${address.port}`)
+      }
+      logger.info('Press Ctrl-C to terminate...')
+    })
+  }
+
   #isValidPort (port: unknown) {
     return typeof port === 'number' && !Number.isNaN(port)
   }
@@ -54,15 +70,7 @@ export default class Server {
       this.#setupViewEngine()
       this.#setupMiddleware()
       this.#registerRoutes()
-
-      // Starts the HTTP server listening for connections.
-      const server = this.#app.listen(this.#port, () => {
-        const address = server.address()
-        if (typeof address === 'object' && address !== null) {
-          logger.info(`Server running at http://localhost:${address.port}`)
-        }
-        logger.info('Press Ctrl-C to terminate...')
-      })
+      this.#httpServer = this.#getServer()
     } catch (err) {
       logger.error(err)
       process.exitCode = 1
