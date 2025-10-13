@@ -1,5 +1,9 @@
+// Must be first!
+import httpContext from 'express-http-context'
+
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { randomUUID } from 'node:crypto'
 
 import express from 'express'
 import expressLayouts from 'express-ejs-layouts'
@@ -8,12 +12,20 @@ import { logger } from './config/winston.js'
 import { ServerError } from './lib/errors/ServerError.js'
 import MainRouter from './routes/MainRouter.js'
 
+// Express request object.
+declare module 'express-serve-static-core' {
+  interface Request {
+    requestUuid: string
+  }
+}
+
 /**
  * Represents an Express server.
  */
 export default class Server {
   #app
   #port: number
+  #baseURL
 
   /**
    * Initialises a new instance.
@@ -26,6 +38,8 @@ export default class Server {
     }
     this.#app = express()
     this.#port = port
+    // Set the base URL to use for all relative URLs in a document.
+    this.#baseURL = process.env.BASE_URL || '/'
   }
 
   #isValidPort (port: unknown) {
@@ -38,8 +52,10 @@ export default class Server {
   startServer () {
     try {
       this.#setupViewEngine()
+      this.#setupMiddleware()
       this.#registerRoutes()
 
+      // Starts the HTTP server listening for connections.
       const server = this.#app.listen(this.#port, () => {
         const address = server.address()
         if (typeof address === 'object' && address !== null) {
@@ -61,6 +77,20 @@ export default class Server {
     this.#app.set('layout extractScripts', true)
     this.#app.set('layout extractStyles', true)
     this.#app.use(expressLayouts)
+  }
+
+  #setupMiddleware () {
+    this.#app.use((req, res, next) => {
+      // Add a request UUID to each request and store information about
+      // each request in the request-scoped context.
+      req.requestUuid = randomUUID()
+      httpContext.set('request', req)
+
+      // Pass the base URL to the views.
+      res.locals.baseURL = this.#baseURL
+
+      next()
+    })
   }
 
   #registerRoutes () {
