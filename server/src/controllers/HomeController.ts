@@ -14,7 +14,7 @@ export default class HomeController {
    */
   index (req: Request, res: Response, next: NextFunction) {
     try {
-      res.send('Hello World!')
+      res.render('home/index')
     } catch (err) {
       next(err)
     }
