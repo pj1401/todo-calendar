@@ -28,6 +28,7 @@ export default class Server {
   #port: number
   #baseURL
   #httpServer!: nodeHttpServer
+  #directoryFullName
 
   /**
    * Initialises a new instance.
@@ -40,8 +41,12 @@ export default class Server {
     }
     this.#app = express()
     this.#port = port
+
     // Set the base URL to use for all relative URLs in a document.
     this.#baseURL = process.env.BASE_URL || '/'
+
+    // Get the directory name of this module's path.
+    this.#directoryFullName = dirname(fileURLToPath(import.meta.url))
   }
 
   /**
@@ -68,6 +73,8 @@ export default class Server {
   startServer () {
     try {
       this.#setupViewEngine()
+      this.#serveStaticFiles()
+      this.#addContext()
       this.#setupMiddleware()
       this.#registerRoutes()
       this.#httpServer = this.#getServer()
@@ -78,13 +85,24 @@ export default class Server {
   }
 
   #setupViewEngine () {
-    const directoryFullName = dirname(fileURLToPath(import.meta.url))
     this.#app.set('view engine', 'ejs')
-    this.#app.set('views', join(directoryFullName, 'views'))
-    this.#app.set('layout', join(directoryFullName, 'views', 'layouts', 'default'))
+    this.#app.set('views', join(this.#directoryFullName, 'views'))
+    this.#app.set('layout', join(this.#directoryFullName, 'views', 'layouts', 'default'))
     this.#app.set('layout extractScripts', true)
     this.#app.set('layout extractStyles', true)
     this.#app.use(expressLayouts)
+  }
+
+  #serveStaticFiles () {
+    this.#app.use(express.static(join(this.#directoryFullName, '..', 'public')))
+  }
+
+  /**
+   * Add the request-scoped context.
+   */
+  #addContext () {
+    // NOTE! Must be placed before any middle that needs access to the context!
+    this.#app.use(httpContext.middleware)
   }
 
   #setupMiddleware () {
