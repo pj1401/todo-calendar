@@ -6,7 +6,7 @@ const store = new ConnectSessionKnexStore({
   knex: knexConstructor({
     client: 'sqlite',
     connection: {
-      filename: './var/session.sqlite'
+      filename: './src/var/db/session.sqlite'
     }
   }),
   cleanupInterval: 1000 * 60 * 60 * 24 // Clear sessions after 1 day.
