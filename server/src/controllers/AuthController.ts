@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from 'express'
 
+import { auth } from '../utils/auth.js'
 import AuthService from '../services/AuthService.js'
 
 /**
@@ -28,9 +29,17 @@ export default class AuthController {
     }
   }
 
-  loginPost (req: Request, res: Response, next: NextFunction) {
+  async loginPost (req: Request, res: Response, next: NextFunction) {
     try {
-      this.#service.login(req.body.username, req.body.password)
+      // this.#service.login(req.body.username, req.body.password)
+      const response = await auth.api.signInUsername({
+        body: {
+          username: req.body.username,
+          password: req.body.password
+        },
+        asResponse: true
+      })
+      // Store user in session if authenticated.
     } catch (err) {
       next(err)
     }

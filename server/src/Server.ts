@@ -76,6 +76,7 @@ export default class Server {
   startServer () {
     try {
       this.#setupViewEngine()
+      this.#app.use(express.urlencoded({ extended: false }))
       this.#serveStaticFiles()
       this.#setupSession()
       this.#addContext()
