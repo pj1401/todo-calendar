@@ -11,6 +11,13 @@ export default class AuthRouter extends Router {
   }
 
   #registerRoutes () {
+    this.router.get('/signup', (req, res, next) => {
+      this.#controller.signUp(req, res, next)
+    })
+    this.router.post('/signup', (req, res, next) => {
+      this.#controller.signUpPost(req, res, next)
+    })
+
     this.router.get('/login', (req, res, next) => {
       this.#controller.login(req, res, next)
     })

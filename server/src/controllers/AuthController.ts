@@ -13,6 +13,32 @@ export default class AuthController {
     this.#service = service
   }
 
+  signUp (req: Request, res: Response, next: NextFunction) {
+    try {
+      res.render('auth/signup')
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  async signUpPost (req: Request, res: Response, next: NextFunction) {
+    try {
+      // this.#service.signUp(req.body.username, req.body.password)
+      const response = await auth.api.signUpEmail({
+        body: {
+          email: req.body.email, // required
+          name: req.body.name, // required
+          password: req.body.password, // required
+          username: req.body.username, // required
+          displayUsername: req.body.username
+        }
+      })
+      res.redirect('./login')
+    } catch (err) {
+      next(err)
+    }
+  }
+
   /**
    * Renders a view and sends the rendered HTML string as an HTTP response.
    * index GET.
@@ -40,6 +66,7 @@ export default class AuthController {
         asResponse: true
       })
       // Store user in session if authenticated.
+      res.redirect('..')
     } catch (err) {
       next(err)
     }

@@ -4,6 +4,9 @@ import Database from 'better-sqlite3'
 
 export const auth = betterAuth({
   database: new Database('./src/var/db/todos.db'),
+  emailAndPassword: {
+    enabled: true
+  },
   plugins: [
     username()
   ]
