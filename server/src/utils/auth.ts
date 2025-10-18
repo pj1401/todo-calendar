@@ -1,11 +1,19 @@
 import { betterAuth } from 'better-auth'
 import { username } from 'better-auth/plugins'
-import Database from 'better-sqlite3'
+import db from '../config/db.js'
 
 export const auth = betterAuth({
-  database: new Database('./src/var/db/todos.db'),
+  database: {
+    type: 'sqlite',
+    client: db
+  },
+  emailVerification: {
+    sendOnSignUp: false
+  },
   emailAndPassword: {
-    enabled: true
+    enabled: true,
+    requireEmailVerification: false,
+    autoSignIn: false
   },
   session: {
     expiresIn: 60 * 60 * 24, // 1 day

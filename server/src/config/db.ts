@@ -1,27 +1,31 @@
-// import bcrypt from 'bcrypt'
-// import { Database } from 'sqlite3'
-import { mkdirp } from 'mkdirp'
+import fs from 'node:fs'
+import path from 'node:path'
 
-mkdirp.sync('../var/db')
+import Database from 'better-sqlite3'
 
-// const db = new Database('../var/db/session.sqlite')
+// Create database file if it doesn't exist.
+const dbPath = path.resolve(__dirname, '../var/db/todos.sqlite')
+fs.mkdirSync(path.dirname(dbPath), { recursive: true })
+
+const db = new Database(dbPath)
 
 // Setup the database schema.
-// db.serialize(async () => {
-//   db.run('CREATE TABLE IF NOT EXISTS users ( \
-//     id INTEGER PRIMARY KEY, \
-//     username TEXT UNIQUE, \
-//     hashed_password BLOB, \
-//     name TEXT, \
-//     email TEXT UNIQUE, \
-//     email_verified INTEGER \
-//   )')
+db.exec(`
+  CREATE TABLE IF NOT EXISTS users (
+    id TEXT NOT NULL PRIMARY KEY,
+    email TEXT UNIQUE NOT NULL,
+    name TEXT,
+    username TEXT UNIQUE
+    password TEXT
+  );
 
-//   const password = await bcrypt.hash('098letmein', 10)
-//   db.run('INSERT OR IGNORE INTO users (username, hashed_password) VALUES (?, ?)', [
-//     'pat',
-//     password
-//   ])
-// })
+  CREATE TABLE IF NOT EXISTS todos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    userId TEXT NOT NULL,
+    title TEXT NOT NULL,
+    completed BOOLEAN DEFAULT 0,
+    FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
+  );
+`)
 
-// module.exports = db
+export default db
