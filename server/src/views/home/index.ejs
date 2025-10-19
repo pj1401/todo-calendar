@@ -1,7 +1,14 @@
 <div class="container">
   <h2>Hello World!</h2>
   <% if (viewData?.user) { %>
-  <span>Logged in as <%= viewData.user.displayUsername %></span>
+    <div class="row">
+      <span>Logged in as <%= viewData.user.displayUsername %></span>
+    </div>
+    <div class="row">
+      <form action="./auth/logout" method="post">
+        <button class="waves-effect waves-teal btn" type="submit">Sign out</button>
+      </form>
+    </div>
   <% } %>
 </div>
 <div class="container">

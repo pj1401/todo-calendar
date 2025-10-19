@@ -1,7 +1,9 @@
 import type { Request, Response, NextFunction } from 'express'
 
+import { fromNodeHeaders } from 'better-auth/node'
 import { auth } from '../utils/auth.js'
 import { LoginError } from '../lib/errors/LoginError.js'
+import { SignOutError } from '../lib/errors/SignOutError.js'
 
 /**
  * Encapsulates a controller.
@@ -62,7 +64,7 @@ export default class AuthController {
         throw new LoginError('Invalid login attempt.')
       }
 
-      this.#storeCookie(res, response)
+      this.#updateCookie(res, response)
 
       res.redirect('..')
     } catch (err) {
@@ -71,14 +73,31 @@ export default class AuthController {
   }
 
   /**
-   * Store cookie manually.
+   * Updates the cookie manually.
    *
    * @param {Response} res - Express request object.
    * @param {Response} response - Better-auth Response object.
    */
-  #storeCookie (res: Response, response: globalThis.Response) {
+  #updateCookie (res: Response, response: globalThis.Response) {
     for (const [key, value] of response.headers.entries()) {
       res.setHeader(key, value)
+    }
+  }
+
+  async logoutPost (req: Request, res: Response, next: NextFunction) {
+    try {
+      const response = await auth.api.signOut({
+        headers: fromNodeHeaders(req.headers),
+        asResponse: true
+      })
+      if (!response.ok) {
+        throw new SignOutError()
+      }
+      this.#updateCookie(res, response)
+
+      res.redirect('../home')
+    } catch (err) {
+      next(err)
     }
   }
 }
