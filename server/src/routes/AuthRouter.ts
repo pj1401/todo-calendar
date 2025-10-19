@@ -1,4 +1,5 @@
 import AuthController from '../controllers/AuthController.js'
+import { authorizeLoggedOff } from '../middlewares/auth.js'
 import Router from './Router.js'
 
 export default class AuthRouter extends Router {
@@ -11,17 +12,17 @@ export default class AuthRouter extends Router {
   }
 
   #registerRoutes () {
-    this.router.get('/signup', (req, res, next) => {
+    this.router.get('/signup', authorizeLoggedOff, (req, res, next) => {
       this.#controller.signUp(req, res, next)
     })
-    this.router.post('/signup', (req, res, next) => {
+    this.router.post('/signup', authorizeLoggedOff, (req, res, next) => {
       this.#controller.signUpPost(req, res, next)
     })
 
-    this.router.get('/login', (req, res, next) => {
+    this.router.get('/login', authorizeLoggedOff, (req, res, next) => {
       this.#controller.login(req, res, next)
     })
-    this.router.post('/login', (req, res, next) => {
+    this.router.post('/login', authorizeLoggedOff, (req, res, next) => {
       this.#controller.loginPost(req, res, next)
     })
   }
