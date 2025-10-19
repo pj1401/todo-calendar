@@ -7,6 +7,7 @@ import Database from 'better-sqlite3'
 const dbPath = path.resolve(__dirname, '../var/db/todos.sqlite')
 fs.mkdirSync(path.dirname(dbPath), { recursive: true })
 
+// Create the database instance.
 const db = new Database(dbPath)
 
 // Setup the database schema.
@@ -15,7 +16,7 @@ db.exec(`
     id TEXT NOT NULL PRIMARY KEY,
     email TEXT UNIQUE NOT NULL,
     name TEXT,
-    username TEXT UNIQUE
+    username TEXT UNIQUE,
     password TEXT
   );
 

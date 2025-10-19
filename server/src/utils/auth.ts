@@ -3,10 +3,7 @@ import { username } from 'better-auth/plugins'
 import db from '../config/db.js'
 
 export const auth = betterAuth({
-  database: {
-    type: 'sqlite',
-    client: db
-  },
+  database: db,
   emailVerification: {
     sendOnSignUp: false
   },
