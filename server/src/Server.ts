@@ -11,10 +11,8 @@ import expressLayouts from 'express-ejs-layouts'
 import morgan from 'morgan'
 
 import { logger } from './config/winston.js'
-import { sessionOptions } from './config/sessionOptions.js'
 import { ServerError } from './lib/errors/ServerError.js'
 import MainRouter from './routes/MainRouter.js'
-import session from 'express-session'
 
 // Express request object.
 declare module 'express-serve-static-core' {
@@ -78,7 +76,6 @@ export default class Server {
       this.#setupViewEngine()
       this.#app.use(express.urlencoded({ extended: false }))
       this.#serveStaticFiles()
-      this.#setupSession()
       this.#addContext()
       this.#setupMorganLogger()
       this.#setupMiddleware()
@@ -101,10 +98,6 @@ export default class Server {
 
   #serveStaticFiles () {
     this.#app.use(express.static(join(this.#directoryFullName, '..', 'public')))
-  }
-
-  #setupSession () {
-    this.#app.use(session(sessionOptions))
   }
 
   /**
