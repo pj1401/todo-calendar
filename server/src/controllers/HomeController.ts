@@ -19,4 +19,12 @@ export default class HomeController {
       next(err)
     }
   }
+
+  home (req: Request, res: Response, next: NextFunction) {
+    try {
+      res.render('home/home')
+    } catch (err) {
+      next(err)
+    }
+  }
 }
