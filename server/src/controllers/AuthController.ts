@@ -1,18 +1,12 @@
 import type { Request, Response, NextFunction } from 'express'
 
 import { auth } from '../utils/auth.js'
-import AuthService from '../services/AuthService.js'
+import { LoginError } from '../lib/errors/LoginError.js'
 
 /**
  * Encapsulates a controller.
  */
 export default class AuthController {
-  #service
-
-  constructor (service: AuthService = new AuthService()) {
-    this.#service = service
-  }
-
   signUp (req: Request, res: Response, next: NextFunction) {
     try {
       res.render('auth/signup')
@@ -57,7 +51,6 @@ export default class AuthController {
 
   async loginPost (req: Request, res: Response, next: NextFunction) {
     try {
-      // this.#service.login(req.body.username, req.body.password)
       const response = await auth.api.signInUsername({
         body: {
           username: req.body.username,
@@ -67,17 +60,26 @@ export default class AuthController {
       })
 
       if (!response.ok) {
-        throw new Error('Failed login.')
+        throw new LoginError('Invalid login attempt.')
       }
 
-      // Store user in session if authenticated.
-      for (const [key, value] of response.headers.entries()) {
-        res.setHeader(key, value)
-      }
+      this.#storeCookie(res, response)
 
       res.redirect('..')
     } catch (err) {
       next(err)
+    }
+  }
+
+  /**
+   * Store cookie manually.
+   *
+   * @param {Response} res - Express request object.
+   * @param {Response} response - Better-auth Response object.
+   */
+  #storeCookie (res: Response, response: globalThis.Response) {
+    for (const [key, value] of response.headers.entries()) {
+      res.setHeader(key, value)
     }
   }
 }

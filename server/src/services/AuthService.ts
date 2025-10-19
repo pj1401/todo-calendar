@@ -11,9 +11,9 @@ export default class AuthService {
     this.#repository = repository
   }
 
-  login (username: string, password: string) {
+  async login (username: string, password: string) {
     try {
-      this.#repository.login(username, password)
+      return this.#repository.login(username, password)
     } catch (err) {
       throw new LoginError('Invalid login attempt.', err)
     }
