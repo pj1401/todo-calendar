@@ -17,8 +17,7 @@ export default class AuthController {
 
   async signUpPost (req: Request, res: Response, next: NextFunction) {
     try {
-      // this.#service.signUp(req.body.username, req.body.password)
-      const response = await auth.api.signUpEmail({
+      await auth.api.signUpEmail({
         body: {
           email: req.body.email, // required
           name: req.body.name, // required
