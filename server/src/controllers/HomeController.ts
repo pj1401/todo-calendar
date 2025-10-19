@@ -1,4 +1,6 @@
 import type { Request, Response, NextFunction } from 'express'
+import { fromNodeHeaders } from 'better-auth/node'
+import { auth } from '../utils/auth.js'
 
 /**
  * Encapsulates a controller.
@@ -12,9 +14,15 @@ export default class HomeController {
    * @param {Response} res - Express response object.
    * @param {NextFunction} next - Express next middleware function.
    */
-  index (req: Request, res: Response, next: NextFunction) {
+  async index (req: Request, res: Response, next: NextFunction) {
     try {
-      res.render('home/index')
+      const session = await auth.api.getSession({
+        headers: fromNodeHeaders(req.headers)
+      })
+      const viewData = {
+        user: { displayUsername: session?.user.displayUsername }
+      }
+      res.render('home/index', { viewData })
     } catch (err) {
       next(err)
     }
