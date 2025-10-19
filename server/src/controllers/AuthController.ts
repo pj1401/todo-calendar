@@ -65,7 +65,16 @@ export default class AuthController {
         },
         asResponse: true
       })
+
+      if (!response.ok) {
+        throw new Error('Failed login.')
+      }
+
       // Store user in session if authenticated.
+      for (const [key, value] of response.headers.entries()) {
+        res.setHeader(key, value)
+      }
+
       res.redirect('..')
     } catch (err) {
       next(err)

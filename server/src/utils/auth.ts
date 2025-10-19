@@ -16,6 +16,17 @@ export const auth = betterAuth({
     expiresIn: 60 * 60 * 24, // 1 day
     disableSessionRefresh: true
   },
+  advanced: {
+    cookies: {
+      session_token: {
+        attributes: {
+          httpOnly: true,
+          sameSite: 'lax',
+          secure: process.env.NODE_ENV === 'production' // Serve secure cookies in production environment.
+        }
+      }
+    }
+  },
   plugins: [
     username()
   ]
