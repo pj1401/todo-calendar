@@ -1,4 +1,5 @@
 import HomeController from '../controllers/HomeController.js'
+import { authorizeLoggedOff, authorizeSignedIn } from '../middlewares/auth.js'
 import Router from './Router.js'
 
 export default class HomeRouter extends Router {
@@ -11,8 +12,11 @@ export default class HomeRouter extends Router {
   }
 
   #registerRoutes () {
-    this.router.get('/', (req, res, next) => {
+    this.router.get('/', authorizeSignedIn, (req, res, next) => {
       this.#controller.index(req, res, next)
+    })
+    this.router.get('/home', authorizeLoggedOff, (req, res, next) => {
+      this.#controller.home(req, res, next)
     })
   }
 }

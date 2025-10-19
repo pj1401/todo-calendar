@@ -8,6 +8,7 @@ import type { Server as nodeHttpServer } from 'node:http'
 
 import express from 'express'
 import expressLayouts from 'express-ejs-layouts'
+import morgan from 'morgan'
 
 import { logger } from './config/winston.js'
 import { ServerError } from './lib/errors/ServerError.js'
@@ -73,8 +74,10 @@ export default class Server {
   startServer () {
     try {
       this.#setupViewEngine()
+      this.#app.use(express.urlencoded({ extended: false }))
       this.#serveStaticFiles()
       this.#addContext()
+      this.#setupMorganLogger()
       this.#setupMiddleware()
       this.#registerRoutes()
       this.#httpServer = this.#getServer()
@@ -103,6 +106,22 @@ export default class Server {
   #addContext () {
     // NOTE! Must be placed before any middle that needs access to the context!
     this.#app.use(httpContext.middleware)
+  }
+
+  #setupMorganLogger () {
+    const morganLogger = morgan('tiny', {
+      stream: {
+      /**
+       * Writes the message to the logger.
+       *
+       * @param {string} message - The message to write.
+       */
+        write: (message) => {
+          logger.http(message.trim())
+        }
+      }
+    })
+    this.#app.use(morganLogger)
   }
 
   #setupMiddleware () {
