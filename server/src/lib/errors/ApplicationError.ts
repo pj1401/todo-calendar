@@ -2,6 +2,12 @@
  * Represents an ApplicationError, a custom error.
  */
 export class ApplicationError extends Error {
+  /**
+   * Creates an instance of ApplicationError.
+   *
+   * @param {string} message - A human-readable description of the error.
+   * @param {Error | unknown} cause - A value indicating the specific cause of the error.
+   */
   constructor (message: string, cause?: Error | unknown) {
     super(message)
 

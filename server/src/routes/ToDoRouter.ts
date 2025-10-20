@@ -1,8 +1,8 @@
-import HomeController from '../controllers/HomeController.js'
+import HomeController from '../controllers/ToDoController.js'
 import { authorizeLoggedOff, authorizeSignedIn } from '../middlewares/auth.js'
 import Router from './Router.js'
 
-export default class HomeRouter extends Router {
+export default class ToDoRouter extends Router {
   #controller
 
   constructor () {
