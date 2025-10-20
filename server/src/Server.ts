@@ -13,11 +13,13 @@ import morgan from 'morgan'
 import { logger } from './config/winston.js'
 import { ServerError } from './lib/errors/ServerError.js'
 import MainRouter from './routes/MainRouter.js'
+import { UserDoc } from './lib/interfaces/UserDoc.js'
 
 // Express request object.
 declare module 'express-serve-static-core' {
   interface Request {
     requestUuid: string
+    userDoc: UserDoc | undefined
   }
 }
 
