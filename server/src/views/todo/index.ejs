@@ -1,13 +1,5 @@
 <div class="container">
-  <% if (viewData?.user) { %>
-    <div class="row">
-      <span>Logged in as <%= viewData.user.displayUsername %></span>
-    </div>
-    <div class="row">
-      <form action="./auth/logout" method="post">
-        <button class="waves-effect waves-teal btn" type="submit">Sign out</button>
-      </form>
-    </div>
+  <% if (viewData?.todos) { %>
     <div class="container">
       <div class="row col s12">
         <form action="./" method="post">
