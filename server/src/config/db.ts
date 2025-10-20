@@ -1,11 +1,15 @@
 import fs from 'node:fs'
-import path from 'node:path'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 import Database from 'better-sqlite3'
 
+// Get the directory name of this module's path.
+const directoryFullName = dirname(fileURLToPath(import.meta.url))
+
 // Create database file if it doesn't exist.
-const dbPath = path.resolve(__dirname, '../var/db/todos.sqlite')
-fs.mkdirSync(path.dirname(dbPath), { recursive: true })
+const dbPath = resolve(directoryFullName, '../var/db/todos.sqlite')
+fs.mkdirSync(dirname(dbPath), { recursive: true })
 
 // Create the database instance.
 const db = new Database(dbPath)
