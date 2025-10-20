@@ -1,5 +1,5 @@
-import HomeController from '../controllers/ToDoController.js'
-import { authorizeLoggedOff, authorizeSignedIn } from '../middlewares/auth.js'
+import ToDoController from '../controllers/ToDoController.js'
+import { authorizeLoggedOff, authorizeSignedIn, loadUserId } from '../middlewares/auth.js'
 import Router from './Router.js'
 
 export default class ToDoRouter extends Router {
@@ -7,7 +7,7 @@ export default class ToDoRouter extends Router {
 
   constructor () {
     super()
-    this.#controller = new HomeController()
+    this.#controller = new ToDoController()
     this.#registerRoutes()
   }
 
@@ -17,6 +17,10 @@ export default class ToDoRouter extends Router {
     })
     this.router.get('/home', authorizeLoggedOff, (req, res, next) => {
       this.#controller.home(req, res, next)
+    })
+
+    this.router.post('/', authorizeSignedIn, loadUserId, (req, res, next) => {
+      this.#controller.createPost(req, res, next)
     })
   }
 }

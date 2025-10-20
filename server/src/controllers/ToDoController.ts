@@ -47,4 +47,20 @@ export default class ToDoController {
       next(err)
     }
   }
+
+  async createPost (req: Request, res: Response, next: NextFunction) {
+    try {
+      const { title, userId } = req.body
+      if (!title) {
+        throw new Error('Title is required.')
+      }
+      const todo = await this.#service.insert(title.trim(), userId)
+      if (!todo) {
+        throw new Error('Failed to create todo.')
+      }
+      res.redirect('/')
+    } catch (err) {
+      next(err)
+    }
+  }
 }

@@ -40,3 +40,15 @@ export const authorizeLoggedOff = async (req: Request, res: Response, next: Next
   }
   next()
 }
+
+export const loadUserId = async (req: Request, res: Response, next: NextFunction) => {
+  const session = await auth.api.getSession({
+    headers: fromNodeHeaders(req.headers)
+  })
+  if (!session) {
+    const error = new Error('Failed to get session.')
+    next(error)
+  }
+  req.body.userId = session?.session.userId
+  next()
+}

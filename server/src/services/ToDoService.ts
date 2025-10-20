@@ -18,4 +18,12 @@ export default class ToDoService {
       throw new ApplicationError('Failed to get documents.', err)
     }
   }
+
+  async insert (title: string, userId: string) {
+    try {
+      return await this.#repository.insert(title, userId)
+    } catch (err) {
+      throw new ApplicationError('Failed to insert documents.', err)
+    }
+  }
 }
