@@ -11,11 +11,25 @@ export default class ToDoService {
     this.#repository = repository
   }
 
+  /**
+   * Get all documents.
+   *
+   * @param {string} userId - The userId.
+   * @returns {Promise<object>} All documents.
+   */
   async get (userId: string) {
     try {
       return await this.#repository.get(userId)
     } catch (err) {
       throw new ApplicationError('Failed to get documents.', err)
+    }
+  }
+
+  async insert (title: string, userId: string) {
+    try {
+      return await this.#repository.insert(title, userId)
+    } catch (err) {
+      throw new ApplicationError('Failed to insert documents.', err)
     }
   }
 }

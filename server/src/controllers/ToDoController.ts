@@ -1,6 +1,4 @@
 import type { Request, Response, NextFunction } from 'express'
-import { fromNodeHeaders } from 'better-auth/node'
-import { auth } from '../utils/auth.js'
 import ToDoService from '../services/ToDoService.js'
 
 /**
@@ -23,16 +21,13 @@ export default class ToDoController {
    */
   async index (req: Request, res: Response, next: NextFunction) {
     try {
-      const session = await auth.api.getSession({
-        headers: fromNodeHeaders(req.headers)
-      })
-      if (!session) {
-        throw new Error('Failed to get session.')
+      if (!req.userDoc) {
+        throw new Error('Failed to load user.')
       }
-      const todos = await this.#service.get(session?.session.userId)
+      const todos = await this.#service.get(req.userDoc?.id)
       const viewData = {
         todos,
-        user: { displayUsername: session?.user.displayUsername }
+        user: { displayUsername: req.userDoc?.displayUsername }
       }
       res.render('todo/index', { viewData })
     } catch (err) {
@@ -43,6 +38,22 @@ export default class ToDoController {
   home (req: Request, res: Response, next: NextFunction) {
     try {
       res.render('todo/home')
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  async createPost (req: Request, res: Response, next: NextFunction) {
+    try {
+      const { title, userId } = req.body
+      if (!title) {
+        throw new Error('Title is required.')
+      }
+      const todo = await this.#service.insert(title.trim(), userId)
+      if (!todo) {
+        throw new Error('Failed to create todo.')
+      }
+      res.redirect('/')
     } catch (err) {
       next(err)
     }

@@ -1,0 +1,13 @@
+<% if (locals.viewData && viewData?.user) { %>
+  <li><a class="nav-link" href="./">Home</a></li>
+  <li>
+    <form method="post" action="./auth/logout">
+      <button class="waves-effect waves-teal btn" type="submit">Sign out</button>
+    </form>
+  </li>
+  <li><span>Logged in as <%= viewData.user.displayUsername %></span></li>
+<% } else { %>
+  <li><a class="nav-link" href="./home">Home</a></li>
+  <li><a class="nav-link" href="./auth/login">Sign in</a></li>
+  <li><a class="nav-link" href="./auth/signup">Sign up</a></li>
+<% } %>
