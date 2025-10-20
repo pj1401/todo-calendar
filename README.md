@@ -10,7 +10,8 @@ A server-side rendered application.
    - `cd todo-calendar/server`
  - **Configure Environment Variables:** Set up the `.env` file with required environment variables.
    - `.example.env` contains a list of necessary environment variables.
- - **Start server:**
+ - **Install Dependencies:**
    - Run `npm i`.
+ - **Start server:**
    - Run `npm start`.
    - The application is accessible via `http://localhost:<PORT>` . PORT is specified in the `.env` file.
