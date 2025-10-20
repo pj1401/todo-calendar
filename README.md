@@ -1,6 +1,6 @@
 # Todo + Calendar
 
-Template for a server-side rendered application using express.
+A server-side rendered application.
 
 ## Installation instructions
 
