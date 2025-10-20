@@ -74,7 +74,7 @@ export default class Server {
   startServer () {
     try {
       this.#setupViewEngine()
-      this.#app.use(express.urlencoded({ extended: false }))
+      this.#addRequestBody()
       this.#serveStaticFiles()
       this.#addContext()
       this.#setupMorganLogger()
@@ -94,6 +94,13 @@ export default class Server {
     this.#app.set('layout extractScripts', true)
     this.#app.set('layout extractStyles', true)
     this.#app.use(expressLayouts)
+  }
+
+  /**
+   * Parse requests of the content type application/x-www-form-urlencoded. Populates the request object with a body object (req.body).
+   */
+  #addRequestBody () {
+    this.#app.use(express.urlencoded({ extended: false }))
   }
 
   #serveStaticFiles () {
@@ -116,7 +123,7 @@ export default class Server {
        *
        * @param {string} message - The message to write.
        */
-        write: (message) => {
+        write: (message: string) => {
           logger.http(message.trim())
         }
       }
