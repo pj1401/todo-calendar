@@ -1,16 +1,24 @@
 <div class="container">
-  <% if (viewData?.todos) { %>
-    <div class="container">
-      <div class="row col s12">
-        <form action="./" method="post">
-          <div class="input-field col s8">
-            <input type="text" name="title" id="titleInput" required>
-            <label for="titleInput">New ToDo</label>
-          </div>
+  <% if (viewData?.user) { %>
+    <div class="row col s12">
+      <form action="./" method="post">
+        <div class="input-field col s9">
+          <input type="text" name="title" id="titleInput" required>
+          <label for="titleInput">New ToDo</label>
+        </div>
+        <div class="col s3">
           <button class="waves-effect waves-teal btn" type="submit">Add</button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
+  <% } %>
+  <% if (viewData?.todos?.length) { %>
+    <% for (const todo of viewData.todos) { %>
+      <div class="todo-container">
+        <span><%= todo.title %></span>
+        <span><%= todo.completed %></span>
+      </div>
+    <% } %>
   <% } %>
 </div>
 <div class="container">
