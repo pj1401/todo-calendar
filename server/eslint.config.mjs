@@ -25,7 +25,8 @@ export default defineConfig(
         '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
         'jsdoc/require-description': 'warn',
         'jsdoc/tag-lines': ['error' | 'warn', 'any', { startLines: 1 }]
-      }
+      },
+      ignores: ['dist/*']
     }
   ]
 )

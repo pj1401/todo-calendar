@@ -4,7 +4,11 @@
   "description": "Template for express application",
   "main": "src/index.js",
   "scripts": {
+    "start": "npm run build && npm run copy && npm run copyPublic && nodemon --inspect --env-file=.env dist/src/index.js",
     "dev": "tsx watch --env-file=.env src/index.ts",
+    "build": "npx tsc --project tsconfig.json",
+    "copy": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.ejs dist/src/",
+    "copyPublic": "copyfiles -u 1 public/**/*.html public/**/*.css public/**/*.js public/**/*.ico dist/public/",
     "lint": "npx eslint ./src || exit 0",
     "lint:fix": "npx eslint ./src --fix || exit 0",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,19 +20,6 @@
   ],
   "license": "MIT",
   "private": true,
-  "devDependencies": {
-    "@eslint/js": "^9.37.0",
-    "@stylistic/eslint-plugin": "^5.4.0",
-    "@types/better-sqlite3": "^7.6.13",
-    "@types/express": "^5.0.3",
-    "@types/express-ejs-layouts": "^2.5.4",
-    "@types/morgan": "^1.9.10",
-    "eslint": "^9.37.0",
-    "eslint-plugin-jsdoc": "^61.0.0",
-    "tsx": "^4.20.6",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.0"
-  },
   "dependencies": {
     "better-auth": "^1.3.27",
     "better-sqlite3": "^12.4.1",
@@ -38,5 +29,21 @@
     "express-http-context": "^2.0.1",
     "morgan": "^1.10.1",
     "winston": "^3.18.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.37.0",
+    "@stylistic/eslint-plugin": "^5.4.0",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/express": "^5.0.3",
+    "@types/express-ejs-layouts": "^2.5.4",
+    "@types/morgan": "^1.9.10",
+    "copyfiles": "^2.4.1",
+    "eslint": "^9.37.0",
+    "eslint-plugin-jsdoc": "^61.0.0",
+    "nodemon": "^3.1.10",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.0"
   }
 }
