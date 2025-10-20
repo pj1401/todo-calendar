@@ -1,11 +1,18 @@
 import type { Request, Response, NextFunction } from 'express'
 import { fromNodeHeaders } from 'better-auth/node'
 import { auth } from '../utils/auth.js'
+import ToDoService from '../services/ToDoService.js'
 
 /**
  * Encapsulates a controller.
  */
 export default class ToDoController {
+  #service
+
+  constructor (service: ToDoService = new ToDoService()) {
+    this.#service = service
+  }
+
   /**
    * Renders a view and sends the rendered HTML string as an HTTP response.
    * index GET.
@@ -19,7 +26,13 @@ export default class ToDoController {
       const session = await auth.api.getSession({
         headers: fromNodeHeaders(req.headers)
       })
+      if (!session) {
+        throw new Error('Failed to get session.')
+      }
+      const todos = await this.#service.get(session?.session.userId)
+      console.log(todos)
       const viewData = {
+        todos,
         user: { displayUsername: session?.user.displayUsername }
       }
       res.render('todo/index', { viewData })
