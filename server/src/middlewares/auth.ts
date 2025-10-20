@@ -3,6 +3,19 @@ import { fromNodeHeaders } from 'better-auth/node'
 import { auth } from '../utils/auth.js'
 
 /**
+ * Get the session object.
+ *
+ * @param {Request} req - Express request object.
+ * @returns {object} The session object.
+ */
+async function getSession (req: Request) {
+  const session = await auth.api.getSession({
+    headers: fromNodeHeaders(req.headers)
+  })
+  return session
+}
+
+/**
  * Authorize if a user is signed in.
  *
  * @param {Request} req - Express request object.
@@ -10,9 +23,8 @@ import { auth } from '../utils/auth.js'
  * @param {NextFunction} next - Express next middleware function.
  */
 export const authorizeSignedIn = async (req: Request, res: Response, next: NextFunction) => {
-  const session = await auth.api.getSession({
-    headers: fromNodeHeaders(req.headers)
-  })
+  const session = await getSession(req)
+
   if (!session) {
     const error = new Error('Not Found')
     next(error)
@@ -29,9 +41,7 @@ export const authorizeSignedIn = async (req: Request, res: Response, next: NextF
  * @param {NextFunction} next - Express next middleware function.
  */
 export const authorizeLoggedOff = async (req: Request, res: Response, next: NextFunction) => {
-  const session = await auth.api.getSession({
-    headers: fromNodeHeaders(req.headers)
-  })
+  const session = await getSession(req)
 
   if (session) {
     const error = new Error('Not Found')
@@ -42,9 +52,8 @@ export const authorizeLoggedOff = async (req: Request, res: Response, next: Next
 }
 
 export const loadUser = async (req: Request, res: Response, next: NextFunction) => {
-  const session = await auth.api.getSession({
-    headers: fromNodeHeaders(req.headers)
-  })
+  const session = await getSession(req)
+
   if (!session) {
     const error = new Error('Failed to get session.')
     next(error)
@@ -54,9 +63,8 @@ export const loadUser = async (req: Request, res: Response, next: NextFunction) 
 }
 
 export const loadUserId = async (req: Request, res: Response, next: NextFunction) => {
-  const session = await auth.api.getSession({
-    headers: fromNodeHeaders(req.headers)
-  })
+  const session = await getSession(req)
+
   if (!session) {
     const error = new Error('Failed to get session.')
     next(error)
