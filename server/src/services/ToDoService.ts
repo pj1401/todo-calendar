@@ -1,3 +1,4 @@
+import { ApplicationError } from '../lib/errors/index.js'
 import ToDoRepository from '../repositories/ToDoRepository.js'
 
 /**
@@ -14,7 +15,7 @@ export default class ToDoService {
     try {
       return await this.#repository.get(userId)
     } catch (err) {
-      throw new Error('Failed to get documents.', err)
+      throw new ApplicationError('Failed to get documents.', err)
     }
   }
 }

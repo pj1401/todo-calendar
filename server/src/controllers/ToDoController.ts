@@ -30,7 +30,6 @@ export default class ToDoController {
         throw new Error('Failed to get session.')
       }
       const todos = await this.#service.get(session?.session.userId)
-      console.log(todos)
       const viewData = {
         todos,
         user: { displayUsername: session?.user.displayUsername }
