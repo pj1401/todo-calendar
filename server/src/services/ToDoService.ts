@@ -19,7 +19,12 @@ export default class ToDoService {
    */
   async get (userId: string) {
     try {
-      return await this.#repository.get(userId)
+      const todos = await this.#repository.get(userId)
+      // TODO: Use interface for todo object.
+      return todos.map((todo) => ({
+        ...todo,
+        completed: Boolean(todo.completed)
+      }))
     } catch (err) {
       throw new ApplicationError('Failed to get documents.', err)
     }
