@@ -15,8 +15,12 @@
   <% if (viewData?.todos?.length) { %>
     <% for (const todo of viewData.todos) { %>
       <div class="todo-container">
-        <span><%= todo.title %></span>
-        <span><%= todo.completed %></span>
+        <form action="./<%= todo.id %>/update" method="post">
+          <label for="completedInput">
+            <input type="checkbox" name="completed" id="completedInput" checked="<%= todo.completed %>" class="filled-in">
+            <span><%= todo.title %></span>
+          </label>
+        </form>
       </div>
     <% } %>
   <% } %>
