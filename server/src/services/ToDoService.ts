@@ -36,4 +36,12 @@ export default class ToDoService {
       throw new ApplicationError('Failed to insert todo.', err)
     }
   }
+
+  async updateCompleted (id: string, completed: number) {
+    try {
+      return await this.#repository.update(id, completed)
+    } catch (err) {
+      throw new ApplicationError('Failed to update todo.', err)
+    }
+  }
 }

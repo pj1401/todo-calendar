@@ -27,4 +27,13 @@ export default class ToDoRepository {
       throw new RepositoryError('Failed to create row.', err)
     }
   }
+
+  async update (id: string, completed: number) {
+    try {
+      const statement = db.prepare('UPDATE todos SET completed = ? WHERE id = ?')
+      return await statement.run(completed ? 1 : 0, id)
+    } catch (err) {
+      throw new RepositoryError('Failed to update row.', err)
+    }
+  }
 }

@@ -75,6 +75,7 @@ export default class Server {
    */
   startServer () {
     try {
+      this.#parseRequests()
       this.#setupViewEngine()
       this.#addRequestBody()
       this.#serveStaticFiles()
@@ -87,6 +88,13 @@ export default class Server {
       logger.error(err)
       process.exitCode = 1
     }
+  }
+
+  /**
+   * Parse requests of the content type application/json.
+   */
+  #parseRequests () {
+    this.#app.use(express.json())
   }
 
   #setupViewEngine () {
