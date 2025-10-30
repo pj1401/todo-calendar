@@ -68,7 +68,7 @@ db.exec(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     userId TEXT NOT NULL,
     title TEXT NOT NULL,
-    completed INTEGER NOT NULL,
+    completed INTEGER NOT NULL DEFAULT 0,
     FOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE
   );
 `)
