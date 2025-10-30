@@ -3,6 +3,7 @@
 import eslint from '@eslint/js'
 import { defineConfig } from 'eslint/config'
 import tseslint from 'typescript-eslint'
+import globals from 'globals'
 import jsdoc from 'eslint-plugin-jsdoc'
 import stylistic from '@stylistic/eslint-plugin'
 
@@ -25,6 +26,12 @@ export default defineConfig(
         '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
         'jsdoc/require-description': 'warn',
         'jsdoc/tag-lines': ['error' | 'warn', 'any', { startLines: 1 }]
+      },
+      languageOptions: {
+        globals: {
+          ...globals.browser,
+          ...globals.node
+        }
       },
       ignores: ['dist/*']
     }
