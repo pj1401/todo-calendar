@@ -58,4 +58,15 @@ export default class ToDoController {
       next(err)
     }
   }
+
+  async togglePost (req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params
+      const { completed } = req.body
+      await this.#service.updateCompleted(id, completed)
+      res.redirect('/')
+    } catch (err) {
+      next(err)
+    }
+  }
 }

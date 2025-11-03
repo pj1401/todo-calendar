@@ -13,13 +13,13 @@ import morgan from 'morgan'
 import { logger } from './config/winston.js'
 import { ServerError } from './lib/errors/ServerError.js'
 import MainRouter from './routes/MainRouter.js'
-import { UserDoc } from './lib/interfaces/UserDoc.js'
+import { User } from './lib/interfaces/index.js'
 
 // Express request object.
 declare module 'express-serve-static-core' {
   interface Request {
     requestUuid: string
-    userDoc: UserDoc | undefined
+    userDoc: User | undefined
   }
 }
 
@@ -75,6 +75,7 @@ export default class Server {
    */
   startServer () {
     try {
+      this.#parseRequests()
       this.#setupViewEngine()
       this.#addRequestBody()
       this.#serveStaticFiles()
@@ -87,6 +88,13 @@ export default class Server {
       logger.error(err)
       process.exitCode = 1
     }
+  }
+
+  /**
+   * Parse requests of the content type application/json.
+   */
+  #parseRequests () {
+    this.#app.use(express.json())
   }
 
   #setupViewEngine () {

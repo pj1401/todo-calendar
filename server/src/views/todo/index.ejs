@@ -14,9 +14,19 @@
   <% } %>
   <% if (viewData?.todos?.length) { %>
     <% for (const todo of viewData.todos) { %>
-      <div class="todo-container">
-        <span><%= todo.title %></span>
-        <span><%= todo.completed %></span>
+      <div class="todo-container row" data-id="<%= todo.id %>">
+        <form action="./<%= todo.id %>/toggle" method="post" class="todo-form col s9">
+          <label>
+            <% if (todo.completed) { %>
+              <input type="checkbox" name="completed" id="completedInput" class="todo-checkbox filled-in" checked>
+            <% } else { %>
+              <input type="checkbox" name="completed" id="completedInput" class="todo-checkbox filled-in">
+            <% } %>
+            <span class="black-text"><%= todo.title %></span>
+          </label>
+        </form>
+        <!-- TODO: Add edit view -->
+        <a class="waves-effect waves-light btn" href="./<%= todo.id %>/update">Edit</a>
       </div>
     <% } %>
   <% } %>
