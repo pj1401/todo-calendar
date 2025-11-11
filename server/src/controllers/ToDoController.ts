@@ -70,11 +70,18 @@ export default class ToDoController {
     }
   }
 
+  /**
+   * Render the update todo view.
+   * @param {Request} req - Express request object.
+   * @param {Response} res - Express response object.
+   * @param {NextFunction} next - Express next middleware function.
+   */
   async update (req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params
-      const todo = await this.#service.getById(id)
-      console.log(todo)
+      const userId = req.userDoc?.id
+      // TODO: Check for undefined userId.
+      const todo = await this.#service.getOne(parseInt(id), userId)
       res.render('todo/update', {
         viewData: todo
       })
