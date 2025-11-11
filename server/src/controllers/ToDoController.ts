@@ -69,4 +69,17 @@ export default class ToDoController {
       next(err)
     }
   }
+
+  async update (req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params
+      const todo = await this.#service.getById(id)
+      console.log(todo)
+      res.render('todo/update', {
+        viewData: todo
+      })
+    } catch (err) {
+      next(err)
+    }
+  }
 }

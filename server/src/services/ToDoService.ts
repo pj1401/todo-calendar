@@ -29,6 +29,23 @@ export default class ToDoService {
     }
   }
 
+  /**
+   * Get a todo by id.
+   * @param {string} id - The id of the todo.
+   * @returns {Promise<ToDoRow>} The requested row.
+   */
+  async getById (id: string) {
+    try {
+      const todo = await this.#repository.getById(id)
+      return {
+        ...todo,
+        completed: Boolean(todo.completed)
+      }
+    } catch (err) {
+      throw new ApplicationError('Failed to get todo.', err)
+    }
+  }
+
   async insert (title: string, userId: string) {
     try {
       return await this.#repository.insert(title, userId)

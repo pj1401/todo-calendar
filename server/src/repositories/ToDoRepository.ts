@@ -19,6 +19,20 @@ export default class ToDoRepository {
     }
   }
 
+  /**
+   * Get a todo by id.
+   * @param {string} id - The id of the todo.
+   * @returns {Promise<ToDoRow>} The requested row.
+   */
+  async getById (id: string): Promise<ToDoRow> {
+    try {
+      // TODO: Also check user id.
+      return await db.prepare('SELECT * FROM todos WHERE id = ?').get(id) as ToDoRow
+    } catch (err) {
+      throw new RepositoryError('Failed to get row.', err)
+    }
+  }
+
   async insert (title: string, userId: string) {
     try {
       const statement = db.prepare('INSERT INTO todos (userId, title) VALUES (?, ?)')
