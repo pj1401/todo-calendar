@@ -15,7 +15,7 @@ export default defineConfig(
   jsdoc.configs['flat/recommended'],
   [
     {
-      files: ['**/*.ts'],
+      files: ['**/*.js', '**/*.ts'],
       plugins: {
         jsdoc: jsdoc
       },

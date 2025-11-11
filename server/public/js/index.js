@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Update the checkbox
-  document.querySelectorAll('.todo-checkbox').forEach(cb => {
-    cb.addEventListener('change', async (event) => {
+  document.querySelectorAll('.todo-checkbox').forEach((checkbox) => {
+    checkbox.addEventListener('change', async (event) => {
       const container = event.target.closest('.todo-container')
       const id = container.dataset.id
       const completed = event.target.checked
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
   // Stop default form submission.
-  document.querySelectorAll('.todo-form').forEach(form => {
-    form.addEventListener('submit', (e) => e.preventDefault())
+  document.querySelectorAll('.todo-form').forEach((form) => {
+    form.addEventListener('submit', event => event.preventDefault())
   })
 })

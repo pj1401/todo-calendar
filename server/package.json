@@ -9,8 +9,8 @@
     "build": "npx tsc --project tsconfig.json",
     "copy": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.ejs dist/src/",
     "copyPublic": "copyfiles -u 1 public/**/*.html public/**/*.css public/**/*.js public/**/*.ico dist/public/",
-    "lint": "npx eslint ./src || exit 0",
-    "lint:fix": "npx eslint ./src --fix || exit 0",
+    "lint": "npx eslint ./src ./public || exit 0",
+    "lint:fix": "npx eslint ./src ./public --fix || exit 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
