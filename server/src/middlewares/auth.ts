@@ -54,21 +54,10 @@ export const authorizeLoggedOff = async (req: Request, res: Response, next: Next
 export const loadUser = async (req: Request, res: Response, next: NextFunction) => {
   const session = await getSession(req)
 
-  if (!session) {
+  if (!session || !session.user) {
     const error = new Error('Failed to get session.')
-    next(error)
+    return next(error)
   }
-  req.userDoc = session?.user
-  next()
-}
-
-export const loadUserId = async (req: Request, res: Response, next: NextFunction) => {
-  const session = await getSession(req)
-
-  if (!session) {
-    const error = new Error('Failed to get session.')
-    next(error)
-  }
-  req.body.userId = session?.session.userId
+  req.user = session?.user
   next()
 }

@@ -21,13 +21,13 @@ export default class ToDoController {
    */
   async index (req: Request, res: Response, next: NextFunction) {
     try {
-      if (!req.userDoc) {
+      if (!req.user) {
         throw new Error('Failed to load user.')
       }
-      const todos = await this.#service.get(req.userDoc?.id)
+      const todos = await this.#service.get(req.user?.id)
       const viewData = {
         todos,
-        user: { displayUsername: req.userDoc?.displayUsername }
+        user: { displayUsername: req.user?.displayUsername }
       }
       res.render('todo/index', { viewData })
     } catch (err) {
@@ -79,8 +79,7 @@ export default class ToDoController {
   async update (req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params
-      const userId = req.userDoc?.id
-      // TODO: Check for undefined userId.
+      const userId = req.user.id
       const todo = await this.#service.getOne(parseInt(id), userId)
       res.render('todo/update', {
         viewData: todo

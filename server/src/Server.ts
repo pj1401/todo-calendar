@@ -19,7 +19,7 @@ import { User } from './lib/interfaces/index.js'
 declare module 'express-serve-static-core' {
   interface Request {
     requestUuid: string
-    userDoc: User | undefined
+    user: User
   }
 }
 
