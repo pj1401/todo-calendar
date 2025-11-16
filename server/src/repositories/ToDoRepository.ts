@@ -42,10 +42,10 @@ export default class ToDoRepository {
     }
   }
 
-  async update (id: string, completed: number) {
+  async update (id: string, userId: string, completed: number) {
     try {
-      const statement = db.prepare('UPDATE todos SET completed = ? WHERE id = ?')
-      return await statement.run(completed ? 1 : 0, id)
+      const statement = db.prepare('UPDATE todos SET completed = ? WHERE id = ? AND userId = ?')
+      return await statement.run(completed ? 1 : 0, id, userId)
     } catch (err) {
       throw new RepositoryError('Failed to update row.', err)
     }

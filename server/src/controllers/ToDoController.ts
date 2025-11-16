@@ -63,7 +63,7 @@ export default class ToDoController {
     try {
       const { id } = req.params
       const { completed } = req.body
-      await this.#service.updateCompleted(id, completed)
+      await this.#service.updateCompleted(id, req.user.id, completed)
       res.redirect('/')
     } catch (err) {
       next(err)

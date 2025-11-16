@@ -23,7 +23,7 @@ export default class ToDoRouter extends Router {
       this.#controller.createPost(req, res, next)
     })
 
-    this.router.post('/:id/toggle', authorizeSignedIn, (req, res, next) => {
+    this.router.post('/:id/toggle', authorizeSignedIn, loadUser, (req, res, next) => {
       this.#controller.togglePost(req, res, next)
     })
 

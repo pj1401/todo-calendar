@@ -55,9 +55,9 @@ export default class ToDoService {
     }
   }
 
-  async updateCompleted (id: string, completed: number) {
+  async updateCompleted (id: string, userId: string, completed: number) {
     try {
-      return await this.#repository.update(id, completed)
+      return await this.#repository.update(id, userId, completed)
     } catch (err) {
       throw new ApplicationError('Failed to update todo.', err)
     }
