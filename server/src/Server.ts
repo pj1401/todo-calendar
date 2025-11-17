@@ -20,7 +20,7 @@ declare module 'express-serve-static-core' {
   interface Request {
     requestUuid: string
     user: User
-    todo: ToDo
+    resource: ToDo
   }
 }
 

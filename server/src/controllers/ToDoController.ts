@@ -12,7 +12,7 @@ export default class ToDoController {
   }
 
   /**
-   * Provide req.todo if :id is present.
+   * Provide req.resource if :id is present.
    * @param {Request} req - Express request object.
    * @param {Response} res - Express response object.
    * @param {NextFunction} next - Express next middleware function.
@@ -20,7 +20,7 @@ export default class ToDoController {
    */
   async loadToDo (req: Request, res: Response, next: NextFunction, id: string) {
     try {
-      req.todo = await this.#service.getById(parseInt(id))
+      req.resource = await this.#service.getById(parseInt(id))
       next()
     } catch (err) {
       next(err)

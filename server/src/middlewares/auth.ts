@@ -61,3 +61,18 @@ export const loadUser = async (req: Request, res: Response, next: NextFunction) 
   req.user = session?.user
   next()
 }
+
+/**
+ * Authorize if the user should have access to the requested resource.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
+ * @param {NextFunction} next - Express next middleware function.
+ */
+export const authorizeUser = (req: Request, res: Response, next: NextFunction) => {
+  if (req.user.id !== req.resource.userId) {
+    const error = new Error('Forbidden')
+    next(error)
+    return
+  }
+  next()
+}
