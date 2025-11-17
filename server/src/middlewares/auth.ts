@@ -51,24 +51,35 @@ export const authorizeLoggedOff = async (req: Request, res: Response, next: Next
   next()
 }
 
+/**
+ * Load user object.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
+ * @param {NextFunction} next - Express next middleware function.
+ */
 export const loadUser = async (req: Request, res: Response, next: NextFunction) => {
   const session = await getSession(req)
 
-  if (!session) {
+  if (!session || !session.user) {
     const error = new Error('Failed to get session.')
     next(error)
+    return
   }
-  req.userDoc = session?.user
+  req.user = session.user
   next()
 }
 
-export const loadUserId = async (req: Request, res: Response, next: NextFunction) => {
-  const session = await getSession(req)
-
-  if (!session) {
-    const error = new Error('Failed to get session.')
+/**
+ * Authorize if the user should have access to the requested resource.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
+ * @param {NextFunction} next - Express next middleware function.
+ */
+export const authorizeUser = (req: Request, res: Response, next: NextFunction) => {
+  if (req.user.id !== req.resource.userId) {
+    const error = new Error('Forbidden')
     next(error)
+    return
   }
-  req.body.userId = session?.session.userId
   next()
 }

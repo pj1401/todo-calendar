@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <form action="./<%= viewData?.id %>/update" method="post" class="col s12">
+      <div class="row">
+        <div class="input-field col s9">
+          <input placeholder="Placeholder" name="title" id="titleInput" type="text" value="<%= viewData?.title %>" class="validate">
+          <label for="titleInput">ToDo Title</label>
+        </div>
+        <div class="col s3">
+          <button class="waves-effect waves-teal btn" type="submit">Update</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="row">
+    <button class="waves-effect waves-teal btn" type="submit">Delete</button>
+  </div>
+</div>

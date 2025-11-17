@@ -1,5 +1,5 @@
 import ToDoController from '../controllers/ToDoController.js'
-import { authorizeLoggedOff, authorizeSignedIn, loadUser, loadUserId } from '../middlewares/auth.js'
+import { authorizeLoggedOff, authorizeSignedIn, authorizeUser, loadUser } from '../middlewares/auth.js'
 import Router from './Router.js'
 
 export default class ToDoRouter extends Router {
@@ -8,7 +8,14 @@ export default class ToDoRouter extends Router {
   constructor () {
     super()
     this.#controller = new ToDoController()
+    this.#useParams()
     this.#registerRoutes()
+  }
+
+  #useParams () {
+    this.router.param('id', (req, res, next, id) => {
+      this.#controller.loadToDo(req, res, next, id)
+    })
   }
 
   #registerRoutes () {
@@ -19,12 +26,19 @@ export default class ToDoRouter extends Router {
       this.#controller.home(req, res, next)
     })
 
-    this.router.post('/', authorizeSignedIn, loadUserId, (req, res, next) => {
+    this.router.post('/', authorizeSignedIn, loadUser, (req, res, next) => {
       this.#controller.createPost(req, res, next)
     })
 
-    this.router.post('/:id/toggle', authorizeSignedIn, (req, res, next) => {
+    this.router.post('/:id/toggle', authorizeSignedIn, loadUser, authorizeUser, (req, res, next) => {
       this.#controller.togglePost(req, res, next)
+    })
+
+    this.router.get('/:id/update', authorizeSignedIn, loadUser, authorizeUser, (req, res, next) => {
+      this.#controller.update(req, res, next)
+    })
+    this.router.post('/:id/update', authorizeSignedIn, loadUser, authorizeUser, (req, res, next) => {
+      this.#controller.updatePost(req, res, next)
     })
   }
 }
