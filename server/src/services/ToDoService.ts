@@ -1,3 +1,4 @@
+import type { RunResult } from 'better-sqlite3'
 import { ApplicationError } from '../lib/errors/index.js'
 import { ToDo, ToDoRow } from '../lib/interfaces/index.js'
 import ToDoRepository from '../repositories/ToDoRepository.js'
@@ -32,7 +33,7 @@ export default class ToDoService {
   /**
    * Get a todo by id.
    * @param {number} id - The id of the todo.
-   * @returns {Promise<ToDo>} The requested row.
+   * @returns {Promise<ToDo>} The requested todo.
    */
   async getById (id: number): Promise<ToDo> {
     try {
@@ -50,7 +51,7 @@ export default class ToDoService {
    * Get one todo.
    * @param {number} id - The id of the todo.
    * @param {string} userId - The userId.
-   * @returns {Promise<ToDo>} The requested row.
+   * @returns {Promise<ToDo>} The requested todo.
    */
   async getOne (id: number, userId: string): Promise<ToDo> {
     try {
@@ -64,7 +65,13 @@ export default class ToDoService {
     }
   }
 
-  async insert (title: string, userId: string) {
+  /**
+   * Insert a new todo.
+   * @param {string} title - The title of the todo.
+   * @param {string} userId - The userId.
+   * @returns {Promise<RunResult>} An info object.
+   */
+  async insert (title: string, userId: string): Promise<RunResult> {
     try {
       return await this.#repository.insert(title, userId)
     } catch (err) {
@@ -72,7 +79,14 @@ export default class ToDoService {
     }
   }
 
-  async updateCompleted (id: string, userId: string, completed: number) {
+  /**
+   * Update the completed property.
+   * @param {number} id - The id of the todo.
+   * @param {string} userId - The userId.
+   * @param {number} completed - The new value of the completed property.
+   * @returns {Promise<RunResult>} An info object.
+   */
+  async updateCompleted (id: string, userId: string, completed: number): Promise<RunResult> {
     try {
       return await this.#repository.update(id, userId, completed)
     } catch (err) {

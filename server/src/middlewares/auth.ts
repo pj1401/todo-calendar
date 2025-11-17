@@ -51,14 +51,21 @@ export const authorizeLoggedOff = async (req: Request, res: Response, next: Next
   next()
 }
 
+/**
+ * Load user object.
+ * @param {Request} req - Express request object.
+ * @param {Response} res - Express response object.
+ * @param {NextFunction} next - Express next middleware function.
+ */
 export const loadUser = async (req: Request, res: Response, next: NextFunction) => {
   const session = await getSession(req)
 
   if (!session || !session.user) {
     const error = new Error('Failed to get session.')
-    return next(error)
+    next(error)
+    return
   }
-  req.user = session?.user
+  req.user = session.user
   next()
 }
 

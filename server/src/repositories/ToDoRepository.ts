@@ -1,3 +1,4 @@
+import type { RunResult } from 'better-sqlite3'
 import db from '../config/db.js'
 import { RepositoryError } from '../lib/errors/index.js'
 import { ToDoRow } from '../lib/interfaces/index.js'
@@ -20,7 +21,7 @@ export default class ToDoRepository {
   }
 
   /**
-   * Get a single todo by id.
+   * Get a single row by id.
    * @param {number} id - The id of the todo.
    * @returns {Promise<ToDoRow>} The requested row.
    */
@@ -33,7 +34,7 @@ export default class ToDoRepository {
   }
 
   /**
-   * Get a single todo.
+   * Get a single row.
    * @param {number} id - The id of the todo.
    * @param {string} userId - The userId.
    * @returns {Promise<ToDoRow>} The requested row.
@@ -46,7 +47,13 @@ export default class ToDoRepository {
     }
   }
 
-  async insert (title: string, userId: string) {
+  /**
+   * Insert a new row.
+   * @param {string} title - The title of the todo.
+   * @param {string} userId - The userId.
+   * @returns {Promise<RunResult>} An info object.
+   */
+  async insert (title: string, userId: string): Promise<RunResult> {
     try {
       const statement = db.prepare('INSERT INTO todos (userId, title) VALUES (?, ?)')
       return await statement.run(userId, title)
@@ -55,7 +62,14 @@ export default class ToDoRepository {
     }
   }
 
-  async update (id: string, userId: string, completed: number) {
+  /**
+   * Update the completed property.
+   * @param {number} id - The id of the todo.
+   * @param {string} userId - The userId.
+   * @param {number} completed - The new value of the completed property.
+   * @returns {Promise<RunResult>} An info object.
+   */
+  async update (id: string, userId: string, completed: number): Promise<RunResult> {
     try {
       const statement = db.prepare('UPDATE todos SET completed = ? WHERE id = ? AND userId = ?')
       return await statement.run(completed ? 1 : 0, id, userId)
