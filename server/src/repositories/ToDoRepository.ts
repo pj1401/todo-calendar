@@ -22,6 +22,19 @@ export default class ToDoRepository {
   /**
    * Get a single todo by id.
    * @param {number} id - The id of the todo.
+   * @returns {Promise<ToDoRow>} The requested row.
+   */
+  async getById (id: number): Promise<ToDoRow> {
+    try {
+      return await db.prepare('SELECT * FROM todos WHERE id = ? LIMIT 1').get(id) as ToDoRow
+    } catch (err) {
+      throw new RepositoryError('Failed to get row.', err)
+    }
+  }
+
+  /**
+   * Get a single todo.
+   * @param {number} id - The id of the todo.
    * @param {string} userId - The userId.
    * @returns {Promise<ToDoRow>} The requested row.
    */

@@ -32,6 +32,23 @@ export default class ToDoService {
   /**
    * Get a todo by id.
    * @param {number} id - The id of the todo.
+   * @returns {Promise<ToDo>} The requested row.
+   */
+  async getById (id: number): Promise<ToDo> {
+    try {
+      const todo = await this.#repository.getById(id)
+      return {
+        ...todo,
+        completed: Boolean(todo.completed)
+      }
+    } catch (err) {
+      throw new ApplicationError('Failed to get todo.', err)
+    }
+  }
+
+  /**
+   * Get one todo.
+   * @param {number} id - The id of the todo.
    * @param {string} userId - The userId.
    * @returns {Promise<ToDo>} The requested row.
    */

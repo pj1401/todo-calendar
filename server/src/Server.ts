@@ -13,13 +13,14 @@ import morgan from 'morgan'
 import { logger } from './config/winston.js'
 import { ServerError } from './lib/errors/ServerError.js'
 import MainRouter from './routes/MainRouter.js'
-import { User } from './lib/interfaces/index.js'
+import { ToDo, User } from './lib/interfaces/index.js'
 
 // Express request object.
 declare module 'express-serve-static-core' {
   interface Request {
     requestUuid: string
     user: User
+    todo: ToDo
   }
 }
 

@@ -12,6 +12,22 @@ export default class ToDoController {
   }
 
   /**
+   * Provide req.todo if :id is present.
+   * @param {Request} req - Express request object.
+   * @param {Response} res - Express response object.
+   * @param {NextFunction} next - Express next middleware function.
+   * @param {string} id - The id of the todo to load.
+   */
+  async loadToDo (req: Request, res: Response, next: NextFunction, id: string) {
+    try {
+      req.todo = await this.#service.getById(parseInt(id))
+      next()
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  /**
    * Renders a view and sends the rendered HTML string as an HTTP response.
    * index GET.
    *
