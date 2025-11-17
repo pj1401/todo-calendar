@@ -11,7 +11,7 @@
     "copyPublic": "copyfiles -u 1 public/**/*.html public/**/*.css public/**/*.js public/**/*.ico dist/public/",
     "lint": "npx eslint ./src ./public || exit 0",
     "lint:fix": "npx eslint ./src ./public --fix || exit 0",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "Patricia Johansson <pat.joh.2025@gmail.com>",
@@ -42,6 +42,7 @@
     "eslint": "^9.37.0",
     "eslint-plugin-jsdoc": "^61.0.0",
     "globals": "^16.4.0",
+    "jest": "^30.2.0",
     "nodemon": "^3.1.10",
     "rimraf": "^6.0.1",
     "tsx": "^4.20.6",
