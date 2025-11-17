@@ -123,4 +123,28 @@ export default class ToDoController {
       next(err)
     }
   }
+
+  /**
+   * Update the todo.
+   * @param {Request} req - Express request object.
+   * @param {Response} res - Express response object.
+   * @param {NextFunction} next - Express next middleware function.
+   */
+  async updatePost (req: Request, res: Response, next: NextFunction) {
+    try {
+      const { title } = req.body
+      if (!title) {
+        throw new Error('Title is required.')
+      }
+      const userId = req.user.id
+      const id = req.resource.id
+      const info = await this.#service.update(id, userId, title.trim())
+      if (!info) {
+        throw new Error('Failed to update todo.')
+      }
+      res.redirect('../')
+    } catch (err) {
+      next(err)
+    }
+  }
 }

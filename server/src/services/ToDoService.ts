@@ -80,6 +80,21 @@ export default class ToDoService {
   }
 
   /**
+   * Update the todo title.
+   * @param {number} id - The id of the todo.
+   * @param {string} userId - The userId.
+   * @param {string} title - The new title.
+   * @returns {Promise<RunResult>} An info object.
+   */
+  async update (id: number, userId: string, title: string): Promise<RunResult> {
+    try {
+      return await this.#repository.update(id, userId, title)
+    } catch (err) {
+      throw new ApplicationError('Failed to update todo.', err)
+    }
+  }
+
+  /**
    * Update the completed property.
    * @param {number} id - The id of the todo.
    * @param {string} userId - The userId.
@@ -88,7 +103,7 @@ export default class ToDoService {
    */
   async updateCompleted (id: string, userId: string, completed: number): Promise<RunResult> {
     try {
-      return await this.#repository.update(id, userId, completed)
+      return await this.#repository.updateCompleted(id, userId, completed)
     } catch (err) {
       throw new ApplicationError('Failed to update todo.', err)
     }
