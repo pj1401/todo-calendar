@@ -9,6 +9,7 @@ import type { Server as nodeHttpServer } from 'node:http'
 import express from 'express'
 import expressLayouts from 'express-ejs-layouts'
 import morgan from 'morgan'
+import helmet from 'helmet'
 
 import { logger } from './config/winston.js'
 import { ServerError } from './lib/errors/ServerError.js'
@@ -76,6 +77,7 @@ export default class Server {
    */
   startServer () {
     try {
+      this.#setHeaders()
       this.#parseRequests()
       this.#setupViewEngine()
       this.#addRequestBody()
@@ -89,6 +91,23 @@ export default class Server {
       logger.error(err)
       process.exitCode = 1
     }
+  }
+
+  /**
+   * Set security headers using helmet.
+   */
+  #setHeaders () {
+    this.#app.use(helmet())
+    this.#app.use(
+      helmet.contentSecurityPolicy({
+        directives: {
+          ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+          /* eslint-disable @stylistic/quotes */
+          'script-src': ["'self'", 'cdnjs.cloudflare.com']
+          /* eslint-enable @stylistic/quotes */
+        }
+      })
+    )
   }
 
   /**

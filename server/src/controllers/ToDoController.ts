@@ -142,7 +142,7 @@ export default class ToDoController {
       if (!info) {
         throw new Error('Failed to update todo.')
       }
-      res.redirect('../')
+      res.redirect('/')
     } catch (err) {
       next(err)
     }
