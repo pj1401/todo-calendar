@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Template for express application",
   "main": "src/index.js",
+  "jest": "./jest.config.js",
   "scripts": {
     "start": "npm run build && npm run copy && npm run copyPublic && nodemon --inspect --env-file=.env dist/src/index.js",
     "dev": "tsx watch --env-file=.env src/index.ts",
@@ -37,6 +38,7 @@
     "@types/better-sqlite3": "^7.6.13",
     "@types/express": "^5.0.3",
     "@types/express-ejs-layouts": "^2.5.4",
+    "@types/jest": "^30.0.0",
     "@types/morgan": "^1.9.10",
     "copyfiles": "^2.4.1",
     "eslint": "^9.37.0",
@@ -45,6 +47,7 @@
     "jest": "^30.2.0",
     "nodemon": "^3.1.10",
     "rimraf": "^6.0.1",
+    "ts-jest": "^29.4.5",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.0"

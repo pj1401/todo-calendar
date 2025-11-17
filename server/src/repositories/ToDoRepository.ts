@@ -7,6 +7,8 @@ import { ToDoRow } from '../lib/interfaces/index.js'
  * Encapsulates a repository.
  */
 export default class ToDoRepository {
+  // TODO: Pass db object in constructor.
+
   /**
    * Get todos.
    * @param {string} userId - The userId as a string.
