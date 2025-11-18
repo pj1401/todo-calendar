@@ -9,16 +9,22 @@ describe('ToDoRepository', () => {
   beforeEach(() => {
     db = getTestDb()
     repository = new ToDoRepository(db)
+    db.prepare(`INSERT INTO user (id, name, email, emailVerified, createdAt, updatedAt, username, displayUsername)
+                VALUES ('u1', 'Test User', 'test@example.com', 1, datetime('now'), datetime('now'), 'user1', 'testUser')`).run()
   })
 
   afterEach(() => {
     db.close()
   })
 
-  it('can insert and fetch todos', async () => {
-    db.prepare(`INSERT INTO user (id, name, email, emailVerified, createdAt, updatedAt, username, displayUsername)
-                VALUES ('u1', 'Test User', 'test@example.com', 1, datetime('now'), datetime('now'), 'user1', 'testUser')`).run()
+  it('can insert a todo', async () => {
+    const info = await repository.insert('Test todo', 'u1')
 
+    const numberOfNewRows = 1
+    expect(info.changes).toEqual(numberOfNewRows)
+  })
+
+  it('can get todos', async () => {
     db.prepare(`INSERT INTO todos (userId, title, completed) VALUES ('u1', 'Test todo', 0)`).run()
 
     const todos = await repository.get('u1')
