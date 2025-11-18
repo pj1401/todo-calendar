@@ -33,4 +33,11 @@ describe('ToDoRepository', () => {
     expect(todos[0].title).toBe('Test todo')
     expect(todos[0].completed).toEqual(0)
   })
+
+  it('can delete a todo', async () => {
+    db.prepare(`INSERT INTO todos (id, userId, title, completed) VALUES (1, 'u1', 'Test todo', 0)`).run()
+    const id = 1
+    const result = await repository.delete(id)
+    expect(result.id).toEqual(id)
+  })
 })
