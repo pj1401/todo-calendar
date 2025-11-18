@@ -1,7 +1,7 @@
 import type { RunResult } from 'better-sqlite3'
 import { ApplicationError } from '../lib/errors/index.js'
 import { ToDo, ToDoRow } from '../lib/interfaces/index.js'
-import ToDoRepository from '../repositories/ToDoRepository.js'
+import type ToDoRepository from '../repositories/ToDoRepository.js'
 
 /**
  * Encapsulates a service.

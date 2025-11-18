@@ -1,23 +1,23 @@
-import AuthRouter from './AuthRouter.js'
-import HomeRouter from './ToDoRouter.js'
 import Router from './Router.js'
+import type AuthRouter from './AuthRouter.js'
+import type ToDoRouter from './ToDoRouter.js'
 
 /**
  * Represents the main router.
  */
 export default class MainRouter extends Router {
-  #homeRouter
-  #authRouter
+  #todoRouter: ToDoRouter
+  #authRouter: AuthRouter
 
-  constructor () {
+  constructor (todoRouter: ToDoRouter, authRouter: AuthRouter) {
     super()
-    this.#homeRouter = new HomeRouter()
-    this.#authRouter = new AuthRouter()
+    this.#todoRouter = todoRouter
+    this.#authRouter = authRouter
     this.#registerRoutes()
   }
 
   #registerRoutes () {
-    this.router.use('/', this.#homeRouter.router)
+    this.router.use('/', this.#todoRouter.router)
     this.router.use('/auth', this.#authRouter.router)
   }
 }

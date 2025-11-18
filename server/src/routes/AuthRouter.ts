@@ -1,13 +1,13 @@
-import AuthController from '../controllers/AuthController.js'
-import { authorizeLoggedOff, authorizeSignedIn } from '../middlewares/auth.js'
 import Router from './Router.js'
+import { authorizeLoggedOff, authorizeSignedIn } from '../middlewares/auth.js'
+import type AuthController from '../controllers/AuthController.js'
 
 export default class AuthRouter extends Router {
-  #controller
+  #controller: AuthController
 
-  constructor () {
+  constructor (controller: AuthController) {
     super()
-    this.#controller = new AuthController()
+    this.#controller = controller
     this.#registerRoutes()
   }
 

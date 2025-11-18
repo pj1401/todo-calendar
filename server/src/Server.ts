@@ -15,6 +15,14 @@ import { logger } from './config/winston.js'
 import { ServerError } from './lib/errors/ServerError.js'
 import MainRouter from './routes/MainRouter.js'
 import { ToDo, User } from './lib/interfaces/index.js'
+import ToDoRouter from './routes/ToDoRouter.js'
+import ToDoRepository from './repositories/ToDoRepository.js'
+import db from './config/db.js'
+import ToDoService from './services/ToDoService.js'
+import ToDoController from './controllers/ToDoController.js'
+import AuthController from './controllers/AuthController.js'
+import { auth } from './utils/auth.js'
+import AuthRouter from './routes/AuthRouter.js'
 
 // Express request object.
 declare module 'express-serve-static-core' {
@@ -176,7 +184,13 @@ export default class Server {
   }
 
   #registerRoutes () {
-    const mainRouter = new MainRouter()
+    const todoRepository = new ToDoRepository(db)
+    const todoService = new ToDoService(todoRepository)
+    const todoController = new ToDoController(todoService)
+    const authController = new AuthController(auth)
+    const authRouter = new AuthRouter(authController)
+    const todoRouter = new ToDoRouter(todoController)
+    const mainRouter = new MainRouter(todoRouter, authRouter)
     this.#app.use('/', mainRouter.router)
   }
 }
