@@ -13,7 +13,7 @@ import helmet from 'helmet'
 
 import { logger } from './config/winston.js'
 import { ServerError } from './lib/errors/ServerError.js'
-import MainRouter from './routes/MainRouter.js'
+import type MainRouter from './routes/MainRouter.js'
 import { ToDo, User } from './lib/interfaces/index.js'
 
 // Express request object.
@@ -31,21 +31,23 @@ declare module 'express-serve-static-core' {
 export default class Server {
   #app
   #port: number
+  #mainRouter: MainRouter
   #baseURL
   #httpServer!: nodeHttpServer
   #directoryFullName
 
   /**
    * Initialises a new instance.
-   *
    * @param {number} port - The port number to listen on.
+   * @param {MainRouter} mainRouter - The main router for the server.
    */
-  constructor (port: number) {
+  constructor (port: number, mainRouter: MainRouter) {
     if (!this.#isValidPort(port)) {
       throw new ServerError('❌ Could not parse port number.')
     }
     this.#app = express()
     this.#port = port
+    this.#mainRouter = mainRouter
 
     // Set the base URL to use for all relative URLs in a document.
     this.#baseURL = process.env.BASE_URL || '/'
@@ -176,7 +178,6 @@ export default class Server {
   }
 
   #registerRoutes () {
-    const mainRouter = new MainRouter()
-    this.#app.use('/', mainRouter.router)
+    this.#app.use('/', this.#mainRouter.router)
   }
 }

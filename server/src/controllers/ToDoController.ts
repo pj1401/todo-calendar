@@ -1,13 +1,13 @@
 import type { Request, Response, NextFunction } from 'express'
-import ToDoService from '../services/ToDoService.js'
+import type ToDoService from '../services/ToDoService.js'
 
 /**
  * Encapsulates a controller.
  */
 export default class ToDoController {
-  #service
+  #service: ToDoService
 
-  constructor (service: ToDoService = new ToDoService()) {
+  constructor (service: ToDoService) {
     this.#service = service
   }
 

@@ -1,6 +1,15 @@
 import { StartError } from './lib/errors/StartError.js'
 import { logger } from './config/winston.js'
 import Server from './Server.js'
+import { auth } from './utils/auth.js'
+import db from './config/db.js'
+import ToDoRepository from './repositories/ToDoRepository.js'
+import ToDoService from './services/ToDoService.js'
+import ToDoController from './controllers/ToDoController.js'
+import AuthController from './controllers/AuthController.js'
+import AuthRouter from './routes/AuthRouter.js'
+import MainRouter from './routes/MainRouter.js'
+import ToDoRouter from './routes/ToDoRouter.js'
 
 /**
  * Represents the main application.
@@ -25,7 +34,7 @@ export default class Application {
    */
   run () {
     try {
-      const server = new Server(this.#port)
+      const server = new Server(this.#port, this.#getRouter())
       server.startServer()
     } catch (err) {
       if (err instanceof Error) {
@@ -45,5 +54,15 @@ export default class Application {
    */
   #isString (testString: unknown): boolean {
     return typeof testString !== 'undefined' && typeof testString === 'string'
+  }
+
+  #getRouter () {
+    const todoRepository = new ToDoRepository(db)
+    const todoService = new ToDoService(todoRepository)
+    const todoController = new ToDoController(todoService)
+    const authController = new AuthController(auth)
+    const authRouter = new AuthRouter(authController)
+    const todoRouter = new ToDoRouter(todoController)
+    return new MainRouter(todoRouter, authRouter)
   }
 }

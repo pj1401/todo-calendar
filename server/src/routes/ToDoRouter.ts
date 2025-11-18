@@ -1,13 +1,13 @@
-import ToDoController from '../controllers/ToDoController.js'
-import { authorizeLoggedOff, authorizeSignedIn, authorizeUser, loadUser } from '../middlewares/auth.js'
 import Router from './Router.js'
+import { authorizeLoggedOff, authorizeSignedIn, authorizeUser, loadUser } from '../middlewares/auth.js'
+import type ToDoController from '../controllers/ToDoController.js'
 
 export default class ToDoRouter extends Router {
-  #controller
+  #controller: ToDoController
 
-  constructor () {
+  constructor (controller: ToDoController) {
     super()
-    this.#controller = new ToDoController()
+    this.#controller = controller
     this.#useParams()
     this.#registerRoutes()
   }

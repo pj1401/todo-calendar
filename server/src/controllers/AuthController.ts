@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express'
-
 import { fromNodeHeaders } from 'better-auth/node'
-import { auth } from '../utils/auth.js'
+
+import type { auth } from '../utils/auth.js'
 import { LoginError } from '../lib/errors/LoginError.js'
 import { SignOutError } from '../lib/errors/SignOutError.js'
 
@@ -9,6 +9,16 @@ import { SignOutError } from '../lib/errors/SignOutError.js'
  * Encapsulates a controller.
  */
 export default class AuthController {
+  #auth: typeof auth
+
+  /**
+   * Initialises a new instance.
+   * @param {typeof auth} authApi - The better-auth auth instance.
+   */
+  constructor (authApi: typeof auth) {
+    this.#auth = authApi
+  }
+
   signUp (req: Request, res: Response, next: NextFunction) {
     try {
       res.render('auth/signup')
@@ -19,7 +29,7 @@ export default class AuthController {
 
   async signUpPost (req: Request, res: Response, next: NextFunction) {
     try {
-      await auth.api.signUpEmail({
+      await this.#auth.api.signUpEmail({
         body: {
           email: req.body.email, // required
           name: req.body.name, // required
@@ -52,7 +62,7 @@ export default class AuthController {
 
   async loginPost (req: Request, res: Response, next: NextFunction) {
     try {
-      const response = await auth.api.signInUsername({
+      const response = await this.#auth.api.signInUsername({
         body: {
           username: req.body.username,
           password: req.body.password
@@ -86,7 +96,7 @@ export default class AuthController {
 
   async logoutPost (req: Request, res: Response, next: NextFunction) {
     try {
-      const response = await auth.api.signOut({
+      const response = await this.#auth.api.signOut({
         headers: fromNodeHeaders(req.headers),
         asResponse: true
       })

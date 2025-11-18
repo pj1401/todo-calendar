@@ -15,3 +15,8 @@ A server-side rendered application.
  - **Start server:**
    - Run `npm start`.
    - The application is accessible via `http://localhost:<PORT>` . PORT is specified in the `.env` file.
+   
+
+## Testing
+
+See [Testing instructions](./docs/testing.md#run-tests)

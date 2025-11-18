@@ -23,3 +23,7 @@ Något som jag inte har tänkt så mycket på är abstraktionsnivåerna. **One L
 ## Kapitel 10 Classes
 
 ## Kapitel 11 Systems
+
+Jag införde **Dependency Injection** genom att ändra klass konstruktorer som skapade nya objekt till att ta emot beroenden som parametrar.
+Anledningen till att jag uppdaterade koden var för att göra den mer testbar.
+Till exempel kan testerna använda en test databas när `ToDoRepository` testas.
