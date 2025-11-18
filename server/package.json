@@ -12,7 +12,8 @@
     "copyPublic": "copyfiles -u 1 public/**/*.html public/**/*.css public/**/*.js public/**/*.ico dist/public/",
     "lint": "npx eslint ./src ./public || exit 0",
     "lint:fix": "npx eslint ./src ./public --fix || exit 0",
-    "test": "npx --node-options=--experimental-vm-modules jest --config ./jest.config.js || exit 0"
+    "test": "npx --node-options=--experimental-vm-modules jest --config ./jest.config.js || exit 0",
+    "test:only": "npx --node-options=--experimental-vm-modules jest --config ./jest.config.js -t"
   },
   "keywords": [],
   "author": "Patricia Johansson <pat.joh.2025@gmail.com>",
