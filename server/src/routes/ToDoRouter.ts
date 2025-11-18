@@ -1,13 +1,18 @@
-import ToDoController from '../controllers/ToDoController.js'
-import { authorizeLoggedOff, authorizeSignedIn, authorizeUser, loadUser } from '../middlewares/auth.js'
 import Router from './Router.js'
+import { authorizeLoggedOff, authorizeSignedIn, authorizeUser, loadUser } from '../middlewares/auth.js'
+import ToDoRepository from '../repositories/ToDoRepository.js'
+import ToDoService from '../services/ToDoService.js'
+import ToDoController from '../controllers/ToDoController.js'
+import db from '../config/db.js'
 
 export default class ToDoRouter extends Router {
   #controller
 
   constructor () {
     super()
-    this.#controller = new ToDoController()
+    const repository = new ToDoRepository(db)
+    const service = new ToDoService(repository)
+    this.#controller = new ToDoController(service)
     this.#useParams()
     this.#registerRoutes()
   }

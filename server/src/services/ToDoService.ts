@@ -9,7 +9,7 @@ import ToDoRepository from '../repositories/ToDoRepository.js'
 export default class ToDoService {
   #repository: ToDoRepository
 
-  constructor (repository: ToDoRepository = new ToDoRepository()) {
+  constructor (repository: ToDoRepository) {
     this.#repository = repository
   }
 
