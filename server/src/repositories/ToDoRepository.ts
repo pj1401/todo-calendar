@@ -1,12 +1,12 @@
 import type { RunResult } from 'better-sqlite3'
 import type { Database } from 'better-sqlite3'
 import { RepositoryError } from '../lib/errors/index.js'
-import { ToDoRow } from '../lib/interfaces/index.js'
+import { IToDoRepository, ToDoRow } from '../lib/interfaces/index.js'
 
 /**
  * Encapsulates a repository.
  */
-export default class ToDoRepository {
+export default class ToDoRepository implements IToDoRepository {
   #db: Database
 
   constructor (db: Database) {
