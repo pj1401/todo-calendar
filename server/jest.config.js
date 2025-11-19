@@ -17,3 +17,4 @@ export const transform = {
 }
 export const moduleNameMapper = { '(.+)\\.js': '$1' }
 export const extensionsToTreatAsEsm = ['.ts']
+export const setupFiles = ['<rootDir>/test/test-setup.ts']
