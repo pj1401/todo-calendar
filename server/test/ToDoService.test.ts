@@ -10,7 +10,6 @@ describe('ToDoService', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     repository = new ToDoRepository()
-    // TODO: Create a repository base class and have ToDoService take that as an argument.
     service = new ToDoService(repository)
   })
 

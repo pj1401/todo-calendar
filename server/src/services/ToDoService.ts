@@ -1,15 +1,14 @@
 import type { RunResult } from 'better-sqlite3'
 import { ApplicationError } from '../lib/errors/index.js'
-import { ToDo, ToDoRow } from '../lib/interfaces/index.js'
-import type ToDoRepository from '../repositories/ToDoRepository.js'
+import { IToDoRepository, ToDo, ToDoRow } from '../lib/interfaces/index.js'
 
 /**
  * Encapsulates a service.
  */
 export default class ToDoService {
-  #repository: ToDoRepository
+  #repository: IToDoRepository
 
-  constructor (repository: ToDoRepository) {
+  constructor (repository: IToDoRepository) {
     this.#repository = repository
   }
 
