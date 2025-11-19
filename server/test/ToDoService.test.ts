@@ -14,7 +14,7 @@ describe('ToDoService', () => {
   })
 
   it('should convert completed from number to boolean', async () => {
-    const result = await service.get('abc')
+    const result = await service.get('u1')
 
     expect(result).toEqual([
       { id: 1, userId: 'u1', title: 'Test 1', completed: false },
