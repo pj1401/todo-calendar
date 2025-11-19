@@ -99,4 +99,19 @@ export default class ToDoRepository {
       throw new RepositoryError('Failed to update row.', err)
     }
   }
+
+  /**
+   * Delete a row.
+   * @param {number} id - The id of the row.
+   * @param {string} userId - The userId.
+   * @returns {Promise<ToDoRow>} The requested row.
+   */
+  async delete (id: number, userId: string): Promise<RunResult> {
+    try {
+      const statement = this.#db.prepare('DELETE FROM todos WHERE id = ? AND userId = ? LIMIT 1')
+      return await statement.run(id, userId)
+    } catch (err) {
+      throw new RepositoryError('Failed to delete row.', err)
+    }
+  }
 }
