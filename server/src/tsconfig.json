@@ -4,6 +4,9 @@
   },
   "include": ["./"],
   "exclude": [
-        "./var/**/*"
+        "node_modules",
+        "var/**/*",
+        "lib/interfaces/**/*",
+        "**/__mocks__"
   ]
 }
