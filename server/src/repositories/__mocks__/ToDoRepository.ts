@@ -1,4 +1,4 @@
-import { IToDoRepository } from '../../lib/interfaces/index.js'
+import type { IToDoRepository } from '../../lib/interfaces/index.js'
 
 export const mockTodos = [
   { id: 1, userId: 'u1', title: 'Test 1', completed: 0 },

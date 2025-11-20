@@ -2,7 +2,7 @@
  * Exports all interfaces.
  */
 
-export { DB, ToDoRow } from './DB.js'
-export { User } from './User.js'
-export { ToDo } from './ToDo.js'
-export { IToDoRepository } from './ToDoRepository.js'
+export type { DB, ToDoRow } from './DB.js'
+export type { User } from './User.js'
+export type { ToDo } from './ToDo.js'
+export type { IToDoRepository } from './ToDoRepository.js'

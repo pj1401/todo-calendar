@@ -1,7 +1,7 @@
 import type { RunResult } from 'better-sqlite3'
 import type { Database } from 'better-sqlite3'
 import { RepositoryError } from '../lib/errors/index.js'
-import { IToDoRepository, ToDoRow } from '../lib/interfaces/index.js'
+import type { IToDoRepository, ToDoRow } from '../lib/interfaces/index.js'
 
 /**
  * Encapsulates a repository.
