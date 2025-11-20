@@ -13,6 +13,16 @@
     </form>
   </div>
   <div class="row">
-    <button class="waves-effect waves-teal btn" type="submit">Delete</button>
+    <a class="waves-effect waves-light red btn modal-trigger" href="#delete-confirm">Delete</a>
+  </div>
+  <div id="delete-confirm" class="modal">
+    <div class="modal-content">
+      <h4>Delete ToDo</h4>
+      <p>Delete this ToDo?</p>
+    </div>
+    <div class="modal-footer">
+      <a href="./<%= viewData?.id %>/update/#" class="modal-close waves-effect waves-red btn-flat">Delete</a>
+      <a href="./<%= viewData?.id %>/update/#" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+    </div>
   </div>
 </div>

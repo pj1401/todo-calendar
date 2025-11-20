@@ -18,4 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.todo-form').forEach((form) => {
     form.addEventListener('submit', event => event.preventDefault())
   })
+
+  // For materialize modal element.
+  const modalElement = document.querySelectorAll('.modal')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-undef
+  const instances = M.Modal.init(modalElement)
 })
