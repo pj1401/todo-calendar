@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+  },
+  "include": ["./"],
+  "exclude": [
+        "node_modules",
+        "var/**/*",
+        "lib/interfaces/**/*",
+        "**/__mocks__"
+  ]
+}

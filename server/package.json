@@ -7,7 +7,7 @@
   "scripts": {
     "start": "npm run build && npm run copy && nodemon --inspect --env-file=.env dist/src/index.js",
     "dev": "tsx watch --env-file=.env src/index.ts",
-    "build": "npx tsc --project ./src/tsconfig.json",
+    "build": "npx tsc --project ./src/tsconfig.build.json",
     "copy:src": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.ejs dist/src/",
     "copy:public": "copyfiles -u 1 public/**/*.html public/**/*.css public/**/*.js public/**/*.ico dist/public/",
     "copy": "npm run copy:src && npm run copy:public",
