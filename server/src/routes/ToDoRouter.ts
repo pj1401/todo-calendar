@@ -40,5 +40,9 @@ export default class ToDoRouter extends Router {
     this.router.post('/:id/update', authorizeSignedIn, loadUser, authorizeUser, (req, res, next) => {
       this.#controller.updatePost(req, res, next)
     })
+
+    this.router.post('/:id/delete', authorizeSignedIn, loadUser, authorizeUser, (req, res, next) => {
+      this.#controller.deletePost(req, res, next)
+    })
   }
 }

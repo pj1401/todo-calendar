@@ -107,4 +107,18 @@ export default class ToDoService {
       throw new ApplicationError('Failed to update todo.', err)
     }
   }
+
+  /**
+   * Delete a todo.
+   * @param {number} id - The id of the todo.
+   * @param {string} userId - The userId.
+   * @returns {Promise<RunResult>} An info object.
+   */
+  async delete (id: number, userId: string): Promise<RunResult> {
+    try {
+      return await this.#repository.delete(id, userId)
+    } catch (err) {
+      throw new ApplicationError('Failed to delete todo.', err)
+    }
+  }
 }
