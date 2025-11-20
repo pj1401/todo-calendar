@@ -22,6 +22,11 @@ Något som jag inte har tänkt så mycket på är abstraktionsnivåerna. **One L
 
 ## Kapitel 10 Classes
 
+**Single Responsibility Principle**
+Till exempel ansvarar controllers för rendering och redirects.
+Service formaterar data innan det skickas till controllern.
+Repository hämtar data från databasen.
+
 ## Kapitel 11 Systems
 
 Jag införde **Dependency Injection** genom att ändra klass konstruktorer som skapade nya objekt till att ta emot beroenden som parametrar.
