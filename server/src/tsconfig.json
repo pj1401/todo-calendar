@@ -4,6 +4,7 @@
   },
   "include": ["./"],
   "exclude": [
-        "./var/**/*"
+        "node_modules",
+        "var/**/*"
   ]
 }

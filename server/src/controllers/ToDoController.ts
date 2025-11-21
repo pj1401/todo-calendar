@@ -116,9 +116,11 @@ export default class ToDoController {
       const { id } = req.params
       const userId = req.user.id
       const todo = await this.#service.getOne(parseInt(id), userId)
-      res.render('todo/update', {
-        viewData: todo
-      })
+      const viewData = {
+        todo,
+        user: { displayUsername: req.user?.displayUsername }
+      }
+      res.render('todo/update', { viewData })
     } catch (err) {
       next(err)
     }
@@ -141,6 +143,26 @@ export default class ToDoController {
       const info = await this.#service.update(id, userId, title.trim())
       if (!info) {
         throw new Error('Failed to update todo.')
+      }
+      res.redirect('/')
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  /**
+   * Update the todo.
+   * @param {Request} req - Express request object.
+   * @param {Response} res - Express response object.
+   * @param {NextFunction} next - Express next middleware function.
+   */
+  async deletePost (req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user.id
+      const id = req.resource.id
+      const info = await this.#service.delete(id, userId)
+      if (!info) {
+        throw new Error('Failed to delete todo.')
       }
       res.redirect('/')
     } catch (err) {

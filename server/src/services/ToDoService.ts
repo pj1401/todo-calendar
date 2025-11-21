@@ -1,15 +1,14 @@
 import type { RunResult } from 'better-sqlite3'
 import { ApplicationError } from '../lib/errors/index.js'
-import { ToDo, ToDoRow } from '../lib/interfaces/index.js'
-import type ToDoRepository from '../repositories/ToDoRepository.js'
+import type { IToDoRepository, ToDo, ToDoRow } from '../lib/interfaces/index.js'
 
 /**
  * Encapsulates a service.
  */
 export default class ToDoService {
-  #repository: ToDoRepository
+  #repository: IToDoRepository
 
-  constructor (repository: ToDoRepository) {
+  constructor (repository: IToDoRepository) {
     this.#repository = repository
   }
 
@@ -106,6 +105,20 @@ export default class ToDoService {
       return await this.#repository.updateCompleted(id, userId, completed)
     } catch (err) {
       throw new ApplicationError('Failed to update todo.', err)
+    }
+  }
+
+  /**
+   * Delete a todo.
+   * @param {number} id - The id of the todo.
+   * @param {string} userId - The userId.
+   * @returns {Promise<RunResult>} An info object.
+   */
+  async delete (id: number, userId: string): Promise<RunResult> {
+    try {
+      return await this.#repository.delete(id, userId)
+    } catch (err) {
+      throw new ApplicationError('Failed to delete todo.', err)
     }
   }
 }
