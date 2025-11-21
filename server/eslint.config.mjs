@@ -33,7 +33,7 @@ export default defineConfig(
           ...globals.node
         }
       },
-      ignores: ['dist/*']
+      ignores: ['dist/*', 'deploy/*']
     }
   ]
 )

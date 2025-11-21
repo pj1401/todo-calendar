@@ -1,0 +1,4 @@
+/**
+ * Exports all interfaces.
+ */
+export {};
