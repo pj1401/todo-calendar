@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url'
 import { randomUUID } from 'node:crypto'
 import type { Server as nodeHttpServer } from 'node:http'
 
-import express from 'express'
+import express, { ErrorRequestHandler } from 'express'
 import expressLayouts from 'express-ejs-layouts'
 import morgan from 'morgan'
 import helmet from 'helmet'
@@ -15,6 +15,7 @@ import { logger } from './config/winston.js'
 import { ServerError } from './lib/errors/ServerError.js'
 import type MainRouter from './routes/MainRouter.js'
 import type { ToDo, User } from './lib/interfaces/index.js'
+import { UnauthorizedError } from './lib/errors/index.js'
 
 // Express request object.
 declare module 'express-serve-static-core' {
@@ -88,6 +89,7 @@ export default class Server {
       this.#setupMorganLogger()
       this.#setupMiddleware()
       this.#registerRoutes()
+      this.#setupErrorHandler()
       this.#httpServer = this.#getServer()
     } catch (err) {
       logger.error(err)
@@ -179,5 +181,17 @@ export default class Server {
 
   #registerRoutes () {
     this.#app.use('/', this.#mainRouter.router)
+  }
+
+  #setupErrorHandler () {
+    const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+      logger.error(err.message, { error: err })
+      if (err instanceof UnauthorizedError) {
+        res.redirect('/home')
+      } else {
+        res.render('error', { error: err })
+      }
+    }
+    this.#app.use(errorHandler)
   }
 }
