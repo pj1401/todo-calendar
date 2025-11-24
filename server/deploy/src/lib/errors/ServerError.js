@@ -1,8 +1,0 @@
-import { ApplicationError } from './ApplicationError.js';
-export class ServerError extends ApplicationError {
-    constructor(message, cause) {
-        super(message, cause);
-        // Set the prototype explicitly.
-        Object.setPrototypeOf(this, ServerError.prototype);
-    }
-}
