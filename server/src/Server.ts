@@ -15,7 +15,6 @@ import { logger } from './config/winston.js'
 import { ServerError } from './lib/errors/ServerError.js'
 import type MainRouter from './routes/MainRouter.js'
 import type { ToDo, User } from './lib/interfaces/index.js'
-import { UnauthorizedError } from './lib/errors/index.js'
 
 // Express request object.
 declare module 'express-serve-static-core' {
@@ -184,13 +183,17 @@ export default class Server {
   }
 
   #setupErrorHandler () {
-    const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+    const errorHandler: ErrorRequestHandler = (err, req, res) => {
       logger.error(err.message, { error: err })
-      if (err instanceof UnauthorizedError) {
-        res.redirect('/home')
-      } else {
-        res.render('error', { error: err })
+      if (process.env.NODE_ENV === 'production') {
+        res
+          .status(500)
+          .sendFile(join(this.#directoryFullName, 'views', 'errors', '500.html'))
+        return
       }
+      res
+        .status(err.status || 500)
+        .render('errors/error', { error: err })
     }
     this.#app.use(errorHandler)
   }
