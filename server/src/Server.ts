@@ -193,7 +193,9 @@ export default class Server {
       }
       res
         .status(err.status || 500)
-        .render('errors/error', { error: err })
+        .render('errors/error', { error: {
+          status: err.status || 500,
+          message: err.message } })
     }
     this.#app.use(errorHandler)
   }
