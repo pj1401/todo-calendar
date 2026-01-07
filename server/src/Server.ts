@@ -183,7 +183,7 @@ export default class Server {
   }
 
   #setupErrorHandler () {
-    const errorHandler: ErrorRequestHandler = (err, req, res) => {
+    const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
       logger.error(err.message, { error: err })
       if (process.env.NODE_ENV === 'production') {
         res
