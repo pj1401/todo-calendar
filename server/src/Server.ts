@@ -186,13 +186,19 @@ export default class Server {
   #setupErrorHandler () {
     const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
       logger.error(err.message, { error: err })
+      const httpError = convertToHttpError(err)
+      if (httpError.status === 401) {
+        res
+          .status(401)
+          .redirect('/home')
+        return
+      }
       if (process.env.NODE_ENV === 'production') {
         res
           .status(500)
           .sendFile(join(this.#directoryFullName, 'views', 'errors', '500.html'))
         return
       }
-      const httpError = convertToHttpError(err)
       res
         .status(httpError.status || 500)
         .render('errors/error', { error: {
