@@ -15,6 +15,7 @@ import { logger } from './config/winston.js'
 import { ServerError } from './lib/errors/ServerError.js'
 import type MainRouter from './routes/MainRouter.js'
 import type { ToDo, User } from './lib/interfaces/index.js'
+import { convertToHttpError } from './lib/util.js'
 
 // Express request object.
 declare module 'express-serve-static-core' {
@@ -191,11 +192,12 @@ export default class Server {
           .sendFile(join(this.#directoryFullName, 'views', 'errors', '500.html'))
         return
       }
+      const httpError = convertToHttpError(err)
       res
-        .status(err.status || 500)
+        .status(httpError.status || 500)
         .render('errors/error', { error: {
-          status: err.status || 500,
-          message: err.message } })
+          status: httpError.status || 500,
+          message: httpError.message } })
     }
     this.#app.use(errorHandler)
   }
