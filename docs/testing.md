@@ -24,3 +24,14 @@ npm run test:only ToDoRepository
  * Redirected to the update page
  * Click the `Delete` button
  * Confirm deletion of todo by clicking the `Delete` button on the dialog box
+
+### TC?.? Try to access ToDo list when not logged in
+
+#### Test steps
+ * Start the app
+ * Go to `http://localhost:<PORT>`.
+
+#### Expected
+ * Redirected to `http://localhost:<PORT>/home`.
+
+### TC?.? 

@@ -193,6 +193,18 @@ export default class Server {
           .redirect('/home')
         return
       }
+      if (httpError.status === 403) {
+        res
+          .status(403)
+          .sendFile(join(this.#directoryFullName, 'views', 'errors', '403.html'))
+        return
+      }
+      if (httpError.status === 404) {
+        res
+          .status(403)
+          .sendFile(join(this.#directoryFullName, 'views', 'errors', '404.html'))
+        return
+      }
       if (process.env.NODE_ENV === 'production') {
         res
           .status(500)
