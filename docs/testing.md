@@ -11,7 +11,20 @@ npm run test:only # runs specific tests
 npm run test:only ToDoRepository
 ```
 
-## Manual Testing
+## Manuell testning
+
+### TC1.1 Skapa ett konto
+
+#### Test steg
+ * Starta appen
+ * Gå till `<root>/home`.
+ * Klicka på `Sign up`.
+ * Ett formulär visas.
+ * Skriv `example@domain.com` i `Email`, `Example` i `Name`, `Ex01` i `Username`, och `letmein0987` i `Password`.
+ * Klicka på `Sign up` knappen längst ner i formuläret.
+
+#### Förväntat
+ * Omdirigerad till `<root>/auth/login`.
 
 ### TC?.1 Delete ToDo
 
