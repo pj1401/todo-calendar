@@ -25,7 +25,15 @@ export default defineConfig(
         '@stylistic/space-before-function-paren': ['error', 'always'],
         '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
         'jsdoc/require-description': 'warn',
-        'jsdoc/tag-lines': ['error' | 'warn', 'any', { startLines: 1 }]
+        'jsdoc/tag-lines': ['error' | 'warn', 'any', { startLines: 1 }],
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": [
+          "error", { 
+            "argsIgnorePattern": "^_", 
+            "varsIgnorePattern": "^_",
+            "caughtErrorsIgnorePattern": "^_"
+          }
+        ]
       },
       languageOptions: {
         globals: {

@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from 'express'
 import { fromNodeHeaders } from 'better-auth/node'
 import { auth } from '../utils/auth.js'
+import { ForbiddenError, NotFoundError, UnauthorizedError } from '../lib/errors/index.js'
 
 /**
  * Get the session object.
@@ -26,7 +27,7 @@ export const authorizeSignedIn = async (req: Request, res: Response, next: NextF
   const session = await getSession(req)
 
   if (!session) {
-    const error = new Error('Not Found')
+    const error = new UnauthorizedError()
     next(error)
     return
   }
@@ -44,7 +45,7 @@ export const authorizeLoggedOff = async (req: Request, res: Response, next: Next
   const session = await getSession(req)
 
   if (session) {
-    const error = new Error('Not Found')
+    const error = new ForbiddenError()
     next(error)
     return
   }
@@ -77,7 +78,7 @@ export const loadUser = async (req: Request, res: Response, next: NextFunction) 
  */
 export const authorizeUser = (req: Request, res: Response, next: NextFunction) => {
   if (req.user.id !== req.resource.userId) {
-    const error = new Error('Forbidden')
+    const error = new NotFoundError()
     next(error)
     return
   }
