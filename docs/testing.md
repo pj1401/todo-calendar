@@ -26,6 +26,21 @@ npm run test:only ToDoRepository
 #### Förväntat
  * Omdirigerad till `<root>/auth/login`.
 
+### TC1.2 Försök skapa ett konto med en e-postadress som redan används
+
+Förutsättning: TC1.1 är genomfört.
+
+#### Test steg
+ * Starta appen
+ * Gå till `<root>/auth/signup`.
+ * Ett formulär visas.
+ * Skriv `example@domain.com` i `Email`, `John` i `Name`, `john2` i `Username`, och `1234Not0987` i `Password`.
+ * Klicka på `Sign up` knappen längst ner i formuläret.
+
+#### Förväntat
+ * Ett felmeddelande om att e-postadressen var ogiltig visas.
+ * Formuläret visas fortfarande.
+
 ### TC?.1 Delete ToDo
 
 #### Test steps
