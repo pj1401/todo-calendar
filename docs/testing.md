@@ -15,6 +15,8 @@ npm run test:only ToDoRepository
 
 ### TC1.1 Skapa ett konto
 
+Förutsättning: Det bör inte finnas en `todos.sqlite` fil i `server/src/var/db`, radera filen om den finns.
+
 #### Test steg
  * Starta appen
  * Gå till `<root>/home`.
@@ -28,13 +30,15 @@ npm run test:only ToDoRepository
 
 ### TC1.2 Försök skapa ett konto med en e-postadress som redan används
 
-Förutsättning: TC1.1 är genomfört.
+#### Förutsättningar
+ * Det bör inte finnas en `todos.sqlite` fil i `/server/src/var/db`, radera filen om den finns.
+ * Kör `npm run test:setup:signup` i `/server`.
 
 #### Test steg
  * Starta appen
  * Gå till `<root>/auth/signup`.
  * Ett formulär visas.
- * Skriv `example@domain.com` i `Email`, `John` i `Name`, `john2` i `Username`, och `1234Not0987` i `Password`.
+ * Skriv `duplicate@domain.com` i `Email`, `John` i `Name`, `john2` i `Username`, och `1234Not0987` i `Password`.
  * Klicka på `Sign up` knappen längst ner i formuläret.
 
 #### Förväntat
