@@ -14,7 +14,7 @@ import helmet from 'helmet'
 import { logger } from './config/winston.js'
 import { ServerError } from './lib/errors/ServerError.js'
 import type MainRouter from './routes/MainRouter.js'
-import type { ToDo, User } from './lib/interfaces/index.js'
+import type { Flash, ToDo, User } from './lib/interfaces/index.js'
 import { convertToHttpError } from './lib/util.js'
 
 // Express request object.
@@ -23,6 +23,7 @@ declare module 'express-serve-static-core' {
     requestUuid: string
     user: User
     resource: ToDo
+    flash: Flash
   }
 }
 

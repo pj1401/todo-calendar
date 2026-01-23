@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from 'express'
 import { fromNodeHeaders } from 'better-auth/node'
+import { APIError } from 'better-auth/api'
 
 import type { auth } from '../utils/auth.js'
 import { LoginError } from '../lib/errors/LoginError.js'
@@ -24,6 +25,12 @@ export default class AuthController {
 
   signUp (req: Request, res: Response, next: NextFunction) {
     try {
+      if (req.flash) {
+        const viewData = { flash: req.flash }
+        // delete req.flash
+        res.render('/auth/signup', { viewData })
+        return
+      }
       res.render('auth/signup')
     } catch (err) {
       next(err)
@@ -43,14 +50,11 @@ export default class AuthController {
       })
       res.redirect('./login')
     } catch (err) {
-      if (typeof err === 'object' && err !== null && 'body' in err) {
-        if (err.body.code === EMAIL_TAKEN_CODE) {
-          console.log(err.body.message)
-          // TODO: Send flash message to the view?
-        }
+      if (err instanceof APIError) {
+        // TODO: Send flash message to the view
+        req.flash = { text: err.body?.message }
       }
       res.redirect('/auth/signup')
-      // next(err)
     }
   }
 
