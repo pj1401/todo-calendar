@@ -5,6 +5,9 @@ import type { auth } from '../utils/auth.js'
 import { LoginError } from '../lib/errors/LoginError.js'
 import { SignOutError } from '../lib/errors/SignOutError.js'
 
+const EMAIL_TAKEN_CODE = 'USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL'
+const USERNAME_TAKEN_CODE = 'USERNAME_IS_ALREADY_TAKEN_PLEASE_TRY_ANOTHER'
+
 /**
  * Encapsulates a controller.
  */
@@ -40,7 +43,14 @@ export default class AuthController {
       })
       res.redirect('./login')
     } catch (err) {
-      next(err)
+      if (typeof err === 'object' && err !== null && 'body' in err) {
+        if (err.body.code === EMAIL_TAKEN_CODE) {
+          console.log(err.body.message)
+          // TODO: Send flash message to the view?
+        }
+      }
+      res.redirect('/auth/signup')
+      // next(err)
     }
   }
 
