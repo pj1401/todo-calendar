@@ -8,10 +8,12 @@ import type { Server as nodeHttpServer } from 'node:http'
 
 import express, { ErrorRequestHandler } from 'express'
 import expressLayouts from 'express-ejs-layouts'
+import session from 'express-session'
 import morgan from 'morgan'
 import helmet from 'helmet'
 
 import { logger } from './config/winston.js'
+import { sessionOptions } from './config/sessionOptions.js'
 import { ServerError } from './lib/errors/ServerError.js'
 import type MainRouter from './routes/MainRouter.js'
 import type { Flash, ToDo, User } from './lib/interfaces/index.js'
@@ -23,6 +25,10 @@ declare module 'express-serve-static-core' {
     requestUuid: string
     user: User
     resource: ToDo
+  }
+}
+declare module 'express-session' {
+  interface Session {
     flash: Flash
   }
 }
@@ -86,6 +92,7 @@ export default class Server {
       this.#setupViewEngine()
       this.#addRequestBody()
       this.#serveStaticFiles()
+      this.#setupSession()
       this.#addContext()
       this.#setupMorganLogger()
       this.#setupMiddleware()
@@ -142,6 +149,13 @@ export default class Server {
     this.#app.use(express.static(join(this.#directoryFullName, '..', 'public')))
   }
 
+  #setupSession () {
+    if (process.env.NODE_ENV === 'production') {
+      this.#app.set('trust proxy', 1) // trust first proxy
+    }
+    this.#app.use(session(sessionOptions))
+  }
+
   /**
    * Add the request-scoped context.
    */
@@ -175,6 +189,12 @@ export default class Server {
 
       // Pass the base URL to the views.
       res.locals.baseURL = this.#baseURL
+      // Flash messages - survives only a round trip.
+      if (req.session.flash) {
+        res.locals.flash = req.session.flash
+        // TODO:
+        // delete req.session.flash
+      }
 
       next()
     })

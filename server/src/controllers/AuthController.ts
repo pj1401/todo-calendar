@@ -25,12 +25,12 @@ export default class AuthController {
 
   signUp (req: Request, res: Response, next: NextFunction) {
     try {
-      if (req.flash) {
-        const viewData = { flash: req.flash }
-        // delete req.flash
-        res.render('/auth/signup', { viewData })
-        return
-      }
+      // if (req.flash) {
+      //   const viewData = { flash: req.flash }
+      //   // delete req.flash
+      //   res.render('/auth/signup', { viewData })
+      //   return
+      // }
       res.render('auth/signup')
     } catch (err) {
       next(err)
@@ -51,8 +51,8 @@ export default class AuthController {
       res.redirect('./login')
     } catch (err) {
       if (err instanceof APIError) {
-        // TODO: Send flash message to the view
-        req.flash = { text: err.body?.message }
+        // TODO: Change message text.
+        req.session.flash = { text: err.body?.message }
       }
       res.redirect('/auth/signup')
     }
