@@ -23,21 +23,26 @@ export default class AuthController {
     this.#auth = authApi
   }
 
+  /**
+   * Renders the view for the sign up form.
+   * @param {Request} req - Express request object.
+   * @param {Response} res - Express response object.
+   * @param {NextFunction} next - Express next middleware function.
+   */
   signUp (req: Request, res: Response, next: NextFunction) {
     try {
-      // if (req.flash) {
-      //   const viewData = { flash: req.flash }
-      //   // delete req.flash
-      //   res.render('/auth/signup', { viewData })
-      //   return
-      // }
       res.render('auth/signup')
     } catch (err) {
       next(err)
     }
   }
 
-  async signUpPost (req: Request, res: Response, next: NextFunction) {
+  /**
+   * Creates a new user.
+   * @param {Request} req - Express request object.
+   * @param {Response} res - Express response object.
+   */
+  async signUpPost (req: Request, res: Response) {
     try {
       await this.#auth.api.signUpEmail({
         body: {
@@ -48,20 +53,33 @@ export default class AuthController {
           displayUsername: req.body.username
         }
       })
-      res.redirect('./login')
+      res.redirect('/auth/login')
     } catch (err) {
-      if (err instanceof APIError) {
-        // TODO: Change message text.
-        req.session.flash = { text: err.body?.message }
-      }
+      this.#handleError(err, req)
       res.redirect('/auth/signup')
+    }
+  }
+
+  /**
+   * Handle the error.
+   * @param {unknown} err - The Error object.
+   * @param {Request} req - Express request object.
+   */
+  #handleError (err: unknown, req: Request) {
+    if (err instanceof APIError) {
+      let flashText = ''
+      if (err.body?.code === USERNAME_TAKEN_CODE) {
+        flashText = 'The entered username is invalid. Please try something else.'
+      } else if (err.body?.code === EMAIL_TAKEN_CODE) {
+        flashText = 'The entered email is invalid. Please use another email.'
+      }
+      req.session.flash = { text: flashText }
     }
   }
 
   /**
    * Renders a view and sends the rendered HTML string as an HTTP response.
    * index GET.
-   *
    * @param {Request} req - Express request object.
    * @param {Response} res - Express response object.
    * @param {NextFunction} next - Express next middleware function.
@@ -74,6 +92,12 @@ export default class AuthController {
     }
   }
 
+  /**
+   * Authenticate a user.
+   * @param {Request} req - Express request object.
+   * @param {Response} res - Express response object.
+   * @param {NextFunction} next - Express next middleware function.
+   */
   async loginPost (req: Request, res: Response, next: NextFunction) {
     try {
       const response = await this.#auth.api.signInUsername({
@@ -98,7 +122,6 @@ export default class AuthController {
 
   /**
    * Updates the cookie manually.
-   *
    * @param {Response} res - Express request object.
    * @param {Response} response - Better-auth Response object.
    */
@@ -108,6 +131,12 @@ export default class AuthController {
     }
   }
 
+  /**
+   * Log out a user.
+   * @param {Request} req - Express request object.
+   * @param {Response} res - Express response object.
+   * @param {NextFunction} next - Express next middleware function.
+   */
   async logoutPost (req: Request, res: Response, next: NextFunction) {
     try {
       const response = await this.#auth.api.signOut({
@@ -118,8 +147,14 @@ export default class AuthController {
         throw new SignOutError()
       }
       this.#updateCookie(res, response)
+      req.session.destroy((err) => {
+        // cannot access session.
+        if (err) {
+          throw new Error('Failed to access session.')
+        }
+      })
 
-      res.redirect('../home')
+      res.redirect('/home')
     } catch (err) {
       next(err)
     }

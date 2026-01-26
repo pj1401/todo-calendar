@@ -29,7 +29,7 @@ declare module 'express-serve-static-core' {
 }
 declare module 'express-session' {
   interface Session {
-    flash: Flash
+    flash?: Flash
   }
 }
 
@@ -192,8 +192,7 @@ export default class Server {
       // Flash messages - survives only a round trip.
       if (req.session.flash) {
         res.locals.flash = req.session.flash
-        // TODO:
-        // delete req.session.flash
+        delete req.session.flash
       }
 
       next()

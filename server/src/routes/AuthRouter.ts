@@ -15,8 +15,8 @@ export default class AuthRouter extends Router {
     this.router.get('/signup', authorizeLoggedOff, (req, res, next) => {
       this.#controller.signUp(req, res, next)
     })
-    this.router.post('/signup', authorizeLoggedOff, (req, res, next) => {
-      this.#controller.signUpPost(req, res, next)
+    this.router.post('/signup', authorizeLoggedOff, (req, res) => {
+      this.#controller.signUpPost(req, res)
     })
 
     this.router.get('/login', authorizeLoggedOff, (req, res, next) => {
