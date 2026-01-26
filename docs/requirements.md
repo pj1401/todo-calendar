@@ -13,6 +13,7 @@
 | 9 | Funktionell | Användare ska kunna lägga till stoppdatum till todos | [#15] |
 | 10 | Funktionell | Användare ska omdirigeras om de inte har rättigheterna till en resurs | [#17] |
 | 11 | Icke-funktionell | Appen ska vara tillgänglig över internet | [#14] |
+| 12 | Funktionell | Användare ska kunna radera sitt konto |  |
 
 [#22]: https://github.com/pj1401/todo-calendar/issues/22
 [#24]: https://github.com/pj1401/todo-calendar/issues/24
