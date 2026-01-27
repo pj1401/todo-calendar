@@ -62,6 +62,21 @@ Förutsättning: Det bör inte finnas en `todos.sqlite` fil i `server/src/var/db
  * Ett felmeddelande om att användarnamnet var ogiltigt visas.
  * Formuläret visas fortfarande.
 
+### TC2.1 Logga in en användare
+
+Förutsättning: TC1.1 är genomfört.
+
+#### Test steg
+ * Starta appen
+ * Gå till `<root>/home`.
+ * Klicka på `Sign in`.
+ * Ett formulär visas.
+ * Skriv `john01` i `Username`, och `letmein0987` i `Password`.
+ * Klicka på `Sign in` knappen längst ner i formuläret.
+
+#### Förväntat
+ * Omdirigerad till `<root>`. Ett formulär för att skapa todos visas.
+
 ### TC?.1 Delete ToDo
 
 #### Test steps
