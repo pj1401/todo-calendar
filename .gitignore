@@ -239,3 +239,4 @@ $RECYCLE.BIN/
 # Extra
 var/
 dist/
+modules/

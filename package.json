@@ -20,5 +20,8 @@
     "url": "https://github.com/pj1401/todo-calendar/issues"
   },
   "homepage": "https://github.com/pj1401/todo-calendar#readme",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "date-utils": "file:modules/date-utils"
+  }
 }
