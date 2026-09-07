@@ -1,0 +1,38 @@
+{
+  "name": "date-utils",
+  "version": "1.0.0",
+  "description": "Date utilities",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "lint": "npx eslint index.js ./src ./test || exit 0",
+    "lint:fix": "npx eslint index.js ./src ./test --fix || exit 0",
+    "test": "npx --node-options=--experimental-vm-modules jest || exit 0",
+    "test:only": "npx --node-options=--experimental-vm-modules jest -t"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pj1401/date-utils.git"
+  },
+  "keywords": [],
+  "author": "Patricia Johansson <pj222uc@student.lnu.se>",
+  "contributors": [
+    "Patricia Johansson <pj222uc@student.lnu.se>"
+  ],
+  "bugs": {
+    "url": "https://github.com/pj1401/date-utils/issues"
+  },
+  "homepage": "https://github.com/pj1401/date-utils#readme",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@jest/globals": "^30.5.1",
+    "@lnu/eslint-config": "^1.1.10",
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "jest": "^30.1.3",
+    "ts-jest": "^29.4.12",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.23.13",
+    "typescript": "npm:@typescript/typescript6@^6.0.2"
+  }
+}
