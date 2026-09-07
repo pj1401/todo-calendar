@@ -4,6 +4,7 @@
   "description": "A calendar app",
   "main": "index.js",
   "scripts": {
+    "start": "tsx watch index.ts || exit 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +21,8 @@
     "url": "https://github.com/pj1401/todo-calendar/issues"
   },
   "homepage": "https://github.com/pj1401/todo-calendar#readme",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "date-utils": "file:modules/date-utils"
+  }
 }

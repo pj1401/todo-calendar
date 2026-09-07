@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "lib": ["ESNext", "DOM"],
+    "strict": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "jsx": "preserve",
+    "noFallthroughCasesInSwitch": true,
+    "isolatedModules": true
+  }
+}
