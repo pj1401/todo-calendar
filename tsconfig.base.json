@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "ES2022",
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "lib": ["es6"],
+    "strict": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "jsx": "preserve",
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "erasableSyntaxOnly": true
+  }
+}
