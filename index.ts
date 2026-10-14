@@ -1,4 +1,4 @@
-import { DateUtil } from "date-utils";
+import { DateUtil } from 'date-utils'
 
 const dateUtil = new DateUtil()
 

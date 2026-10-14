@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "tsx watch index.ts || exit 0",
+    "lint": "npx eslint index.ts || exit 0",
+    "lint:fix": "npx eslint index.ts --fix || exit 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,5 +26,16 @@
   "private": true,
   "dependencies": {
     "date-utils": "file:modules/date-utils"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "eslint": "^10.11.0",
+    "eslint-plugin-jsdoc": "^65.2.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.23.15",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "typescript-eslint": "^8.71.0"
   }
 }
