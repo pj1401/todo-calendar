@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "A calendar app",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "start": "tsx watch ./src/index.ts || exit 0",
     "lint": "npx eslint ./src || exit 0",
     "lint:fix": "npx eslint ./src --fix || exit 0",
@@ -24,15 +28,20 @@
     "url": "https://github.com/pj1401/todo-calendar/issues"
   },
   "homepage": "https://github.com/pj1401/todo-calendar#readme",
+  "dependencies": {
+    "mithril": "^2.3.8"
+  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
+    "@types/mithril": "^2.2.9",
     "@typescript/native": "npm:typescript@^7.0.2",
     "eslint": "^10.11.0",
     "eslint-plugin-jsdoc": "^65.2.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.23.15",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
-    "typescript-eslint": "^8.71.0"
+    "typescript-eslint": "^8.71.0",
+    "vite": "^8.3.4"
   }
 }
