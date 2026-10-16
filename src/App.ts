@@ -1,4 +1,5 @@
 import m from 'mithril'
+import './App.css'
 
 export const App = () => {
   // Local state ...
