@@ -1,13 +1,7 @@
-import { DateUtil } from 'date-utils'
+import m from 'mithril'
+import { App } from './App'
 
-const dateUtil = new DateUtil()
-
-const nextWeek = new Date()
-nextWeek.setDate(nextWeek.getDate() + 7)
-
-console.log(dateUtil.countDays(nextWeek))
-
-const lastWeek = new Date()
-lastWeek.setDate(lastWeek.getDate() - 7)
-
-console.log(dateUtil.countDays(lastWeek))
+const mountNode = document.querySelector('#app')
+if (mountNode) {
+  m.mount(mountNode, App)
+}
