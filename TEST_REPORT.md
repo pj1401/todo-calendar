@@ -17,6 +17,8 @@ Answer:
 
 **Manual tests:**
 
+All test steps are in the linked issues.
+
 | Test case | Requirement | Issue link |
 | --------- | ----------- | ---------- |
 | TC-FR1.1 Create a task | FR1.1 [#8] | [#22] |
