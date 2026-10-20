@@ -15,6 +15,13 @@ test, and why?*
 
 Answer:
 
+**Manual tests:**
+
+| Test case | Requirement | Issue link |
+| --------- | ----------- | ---------- |
+| TC-FR1.1 Create a task | FR1.1 [#8] | [#22] |
+| TC-FR2.1 Schedule a task | FR2.1 [#9] | [#23] |
+
 ## Test Results
 
 **Example** (shows what filled-in rows can look like – remove this example table before
@@ -42,3 +49,8 @@ show up, and how you handled them (e.g. a workaround, or a link to an issue you 
 module's repository). Write "None found" if there weren't any.*
 
 Answer:
+
+[#8]: https://github.com/pj1401/todo-calendar/issues/8
+[#9]: https://github.com/pj1401/todo-calendar/issues/9
+[#22]: https://github.com/pj1401/todo-calendar/issues/22
+[#23]: https://github.com/pj1401/todo-calendar/issues/23
