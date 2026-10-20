@@ -79,3 +79,7 @@ jobs:
       
       - name: Run vite build
         run: npm run build
+
+      - name: Publish build
+        run: |
+          sudo rsync -a --delete dist/ /var/www/todo-calendar/
