@@ -73,3 +73,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
+
+      - name: npm clean install
+        run: npm ci
+      
+      - name: Run vite build
+        run: npm run build
