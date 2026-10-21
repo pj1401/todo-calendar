@@ -20,7 +20,7 @@ export const TaskForm = () => {
           } }),
         m('button', { type: 'button', id: 'new-todo-done-btn', disabled: !ToDo.canSubmit(),
           onclick: () => {
-            TaskStore.add(ToDo.task)
+            TaskStore.add(ToDo.task, ToDo.date)
             ToDo.reset()
           } }, 'Done'),
       )

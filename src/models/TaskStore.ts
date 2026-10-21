@@ -2,6 +2,7 @@ export interface TaskItem {
   id: string
   title: string
   completed: boolean
+  date: string
 }
 
 const STORAGE_KEY = 'todo-calendar.tasks'
@@ -23,8 +24,8 @@ const save = () => {
 
 const TaskStore = {
   tasks: load(),
-  add: function (title: string) {
-    TaskStore.tasks.push({ id: crypto.randomUUID(), title, completed: false })
+  add: function (title: string, date: string) {
+    TaskStore.tasks.push({ id: crypto.randomUUID(), title, completed: false, date })
     save()
   },
   toggle: function (id: string) {
