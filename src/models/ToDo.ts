@@ -8,7 +8,12 @@ const ToDo = {
     ToDo.completed = value
   },
   canSubmit: function () {
-    return ToDo.task !== ''
+    return ToDo.task.trim() !== ''
+  },
+  reset: function () {
+    ToDo.task = ''
+    ToDo.completed = false
+    console.log(ToDo.task)
   },
 }
 
