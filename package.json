@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/pj1401/todo-calendar#readme",
   "dependencies": {
+    "@pj1401/date-utils": "^1.2.2",
     "mithril": "^2.3.8"
   },
   "devDependencies": {

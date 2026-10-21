@@ -13,9 +13,14 @@ export const TaskForm = () => {
 
             ToDo.setTask(value)
           } }),
+        m('input', { type: 'date', id: 'new-todo-date', value: ToDo.date,
+          oninput: (event: InputEvent) => {
+            const value = (event.target as HTMLInputElement).value
+            ToDo.setDate(value)
+          } }),
         m('button', { type: 'button', id: 'new-todo-done-btn', disabled: !ToDo.canSubmit(),
           onclick: () => {
-            TaskStore.add(ToDo.task)
+            TaskStore.add(ToDo.task, ToDo.date)
             ToDo.reset()
           } }, 'Done'),
       )
