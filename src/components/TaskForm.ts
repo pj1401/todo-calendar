@@ -7,10 +7,10 @@ export const TaskForm = () => {
       return m('div',
         m('input', { type: 'text', id: 'new-todo', placeholder: 'New ToDo', value: ToDo.task,
           oninput: (event: InputEvent) => {
-            const target = event.target as HTMLInputElement
-            if (target) {
-              ToDo.setTask(target.value)
-            }
+            // TypeScript requires that the type of event.target is known.
+            const value = (event.target as HTMLInputElement).value
+
+            ToDo.setTask(value)
           } }),
         m('button', { type: 'button', id: 'new-todo-done-btn', disabled: !ToDo.canSubmit(),
           onclick: () => {
