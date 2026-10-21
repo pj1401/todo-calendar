@@ -1,5 +1,6 @@
 import m from 'mithril'
 import ToDo from '../models/ToDo.js'
+import TaskStore from '../models/TaskStore.js'
 
 export const TaskForm = () => {
   return {
@@ -14,6 +15,7 @@ export const TaskForm = () => {
           } }),
         m('button', { type: 'button', id: 'new-todo-done-btn', disabled: !ToDo.canSubmit(),
           onclick: () => {
+            TaskStore.add(ToDo.task)
             ToDo.reset()
           } }, 'Done'),
       )
