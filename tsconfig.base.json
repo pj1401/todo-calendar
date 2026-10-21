@@ -4,6 +4,7 @@
     "target": "ESNext",
     "esModuleInterop": true,
     "lib": ["es6", "DOM"],
+    "types": ["node"],
     "strict": true,
     "sourceMap": true,
     "resolveJsonModule": true,
