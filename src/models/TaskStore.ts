@@ -6,14 +6,20 @@ export interface TaskItem {
 
 const STORAGE_KEY = 'todo-calendar.tasks'
 
+const load = (): TaskItem[] => {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]')
+  } catch {
+    return []
+  }
+}
+
 const save = () => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(TaskStore.tasks))
 }
 
-const tasks: TaskItem[] = []
-
 const TaskStore = {
-  tasks: tasks,
+  tasks: load(),
   add: function (title: string) {
     TaskStore.tasks.push({ id: 'todo-calendar', title, completed: false })
     save()
