@@ -24,6 +24,13 @@ const TaskStore = {
     TaskStore.tasks.push({ id: 'todo-calendar', title, completed: false })
     save()
   },
+  toggle: function (id: string) {
+    const task = TaskStore.tasks.find((task: TaskItem) => task.id === id)
+    if (task) {
+      task.completed = !task.completed
+      save()
+    }
+  },
 }
 
 export default TaskStore
