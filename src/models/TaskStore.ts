@@ -8,7 +8,10 @@ const STORAGE_KEY = 'todo-calendar.tasks'
 
 const load = (): TaskItem[] => {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]')
+    const stored: Partial<TaskItem>[] = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]')
+
+    // Tasks saved before the date attribute existed get an empty date.
+    return stored.map((task: Partial<TaskItem>) => ({ date: '', ...task })) as TaskItem[]
   } catch {
     return []
   }
