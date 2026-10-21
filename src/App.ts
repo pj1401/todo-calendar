@@ -1,11 +1,14 @@
 import m from 'mithril'
 import './App.css'
+import { Task } from './components/Task.js'
 
 export const App = () => {
-  // Local state ...
   return {
     view: () => {
-      return m('h1', 'My Mithril TypeScript App')
+      return m('div',
+        m('h1', 'ToDo Calendar'),
+        m(Task),
+      )
     },
   }
 }
