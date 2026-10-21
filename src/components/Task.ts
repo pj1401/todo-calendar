@@ -1,7 +1,8 @@
 import m from 'mithril'
-import TaskStore, { TaskItem } from '../models/TaskStore.js'
+import TaskStore from '../models/TaskStore.js'
+import TaskModel from '../models/TaskModel.js'
 
-export const Task: m.ClosureComponent<{ task: TaskItem }> = () => {
+export const Task: m.ClosureComponent<{ task: TaskModel }> = () => {
   return {
     view: ({ attrs: { task } }) => {
       return m('div',
@@ -12,6 +13,7 @@ export const Task: m.ClosureComponent<{ task: TaskItem }> = () => {
           onchange: () => TaskStore.toggle(task.id),
         }),
         m('label', { for: `task-${task.id}` }, task.title),
+        m('span', task.getDateString()),
       )
     },
   }

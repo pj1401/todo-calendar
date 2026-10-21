@@ -1,18 +1,13 @@
-export interface TaskItem {
-  id: string
-  title: string
-  completed: boolean
-  date: string
-}
+import TaskModel, { TaskItem } from './TaskModel.js'
 
+// Tasks saved before the date attribute existed have no date field.
+type StoredTask = Omit<TaskItem, 'date'> & { date?: string }
 const STORAGE_KEY = 'todo-calendar.tasks'
 
-const load = (): TaskItem[] => {
+const load = (): TaskModel[] => {
   try {
-    const stored: Partial<TaskItem>[] = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]')
-
-    // Tasks saved before the date attribute existed get an empty date.
-    return stored.map((task: Partial<TaskItem>) => ({ date: '', ...task })) as TaskItem[]
+    const stored: StoredTask[] = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]')
+    return stored.map(({ id, title, completed, date }) => new TaskModel(id, title, completed, date ?? ''))
   } catch {
     return []
   }
@@ -25,7 +20,7 @@ const save = () => {
 const TaskStore = {
   tasks: load(),
   add: function (title: string, date: string) {
-    TaskStore.tasks.push({ id: crypto.randomUUID(), title, completed: false, date })
+    TaskStore.tasks.push(new TaskModel(crypto.randomUUID(), title, false, date))
     save()
   },
   toggle: function (id: string) {
