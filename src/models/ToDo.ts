@@ -1,16 +1,14 @@
-const date: Date | null = null
-
 const ToDo = {
   task: '',
   completed: false,
-  date: date,
+  date: '',
   setTask: function (value: string) {
     ToDo.task = value
   },
   setCompleted: function (value: boolean) {
     ToDo.completed = value
   },
-  setDate: function (value: Date) {
+  setDate: function (value: string) {
     ToDo.date = value
   },
   canSubmit: function () {
@@ -19,7 +17,7 @@ const ToDo = {
   reset: function () {
     ToDo.task = ''
     ToDo.completed = false
-    console.log(ToDo.task)
+    ToDo.date = ''
   },
 }
 
