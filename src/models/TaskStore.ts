@@ -21,7 +21,7 @@ const save = () => {
 const TaskStore = {
   tasks: load(),
   add: function (title: string) {
-    TaskStore.tasks.push({ id: 'todo-calendar', title, completed: false })
+    TaskStore.tasks.push({ id: crypto.randomUUID(), title, completed: false })
     save()
   },
   toggle: function (id: string) {
