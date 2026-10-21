@@ -8,9 +8,10 @@ export const Task: m.ClosureComponent<{ task: TaskItem }> = () => {
         m('input', {
           type: 'checkbox',
           checked: task.completed,
+          id: `task-${task.id}`,
           onchange: () => TaskStore.toggle(task.id),
         }),
-        m('label', task.title),
+        m('label', { for: `task-${task.id}` }, task.title),
       )
     },
   }
