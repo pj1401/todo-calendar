@@ -1,9 +1,15 @@
-import { TaskItem } from './TaskStore'
 import { DateUtil } from '@pj1401/date-utils'
 
 const dateUtil = new DateUtil()
 
-export default class Task implements TaskItem {
+export interface TaskItem {
+  id: string
+  title: string
+  completed: boolean
+  date: string
+}
+
+export default class TaskModel implements TaskItem {
   id: string
   title: string
   completed: boolean
