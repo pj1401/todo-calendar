@@ -1,5 +1,12 @@
 # ToDo Calendar
 
+## Vision
+
+**Planned features:**
+
+- A calendar grid where scheduled tasks are displayed.
+- Unscheduled tasks are displayed in a list.
+
 ## Requirements
 
 | ID | Type | Requirement | Issue link |
