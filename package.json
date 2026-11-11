@@ -39,7 +39,7 @@
     "@types/node": "^26.6.6",
     "@typescript/native": "npm:typescript@^7.0.2",
     "eslint": "^10.14.0",
-    "eslint-plugin-jsdoc": "^65.4.2",
+    "eslint-plugin-jsdoc": "^65.4.5",
     "ts-node": "^10.9.2",
     "tsx": "^4.23.15",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
