@@ -22,7 +22,6 @@ export default defineConfig(
         '@stylistic/indent': ['error', 2],
         '@stylistic/space-before-function-paren': ['error', 'always'],
         '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
-        '@stylistic/list-style': ['off'],
         'jsdoc/require-description': 'warn',
         'jsdoc/tag-lines': ['error' | 'warn', 'any', { startLines: 1 }],
         'no-unused-vars': 'off',
