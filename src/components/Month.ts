@@ -1,23 +1,12 @@
 import m from 'mithril'
-import { getDaysInMonth } from '@pj1401/date-utils'
+import { getFirstDayOfMonth, getMonthDays } from '@pj1401/date-utils'
 
-// TODO: Move this to date-utils
 const currentDate = new Date()
-const daysInMonth = getDaysInMonth(currentDate.getFullYear(), currentDate.getMonth())
-const days = Array.from({ length: daysInMonth }, (v, i) => i + 1)
+const days = getMonthDays(currentDate.getFullYear(), currentDate.getMonth())
 
-/**
- * Get the day of the week represented by a number. 0 represents Sunday.
- * @param {number} year The year the month is in.
- * @param {number} month The number representing the month. Zero-based, 0 represents January.
- * @returns {number} A number representing the day of the week.
- */
-function firstDayOfMonth (year: number, month: number): number {
-  const date = new Date(year, month, 1)
-  return date.getDay()
-}
-
-const startDay = firstDayOfMonth(currentDate.getFullYear(), currentDate.getMonth()) + 1
+// Add 1 to get the correct grid-column-start value.
+// The value should not be 0 for the grid to display correctly.
+const startDay = getFirstDayOfMonth(currentDate.getFullYear(), currentDate.getMonth()) + 1
 
 export const Month = () => {
   return {
