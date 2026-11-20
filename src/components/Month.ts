@@ -22,8 +22,8 @@ const startDay = firstDayOfMonth(currentDate.getFullYear(), currentDate.getMonth
 export const Month = () => {
   return {
     view: () => {
-      return m('div', { class: 'month', style: `grid-column-start: ${startDay};` },
-        days.map((day, _) => m('span', day)),
+      return m('div', { class: 'month' },
+        days.map((day, i) => m('span', i === 0 ? { style: `grid-column-start: ${startDay};`} : {}, day)),
       )
     },
   }
