@@ -1,10 +1,18 @@
 import m from 'mithril'
 
-export const Day: m.ClosureComponent<{ day: number }> = () => {
+interface DayAttrs {
+  day: number
+  startColumn?: number
+}
+
+export const Day: m.ClosureComponent<DayAttrs> = () => {
   return {
-    view: ({ attrs: { day } }) => {
-      return m('div', { class: 'day' },
-        m('span', day),
+    view: ({ attrs: { day, startColumn } }) => {
+      return m('div', {
+        class: 'day',
+        style: startColumn ? { gridColumnStart: startColumn } : undefined,
+      },
+      m('span', day),
       )
     },
   }
