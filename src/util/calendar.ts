@@ -17,6 +17,16 @@ function getStartColumn (year: number, month: number): number {
   return ((getFirstDayOfMonth(year, month) + 6) % 7) + 1
 }
 
+/**
+ * Determine if the day starts the month. Returns the value for gird-column-start if the day starts the month.
+ * @param {number} index The index of the day element.
+ * @param {number} startColumn The value for grid-column-start.
+ * @returns {number | undefined} The startColumn value if the day is the month start day.
+ */
+function isStartDay (index: number, startColumn: number): number | undefined {
+  return index === 0 ? startColumn : undefined
+}
+
 const months = [
   'January',
   'February',
@@ -32,4 +42,4 @@ const months = [
   'December',
 ]
 
-export { getStartColumn, months }
+export { getStartColumn, isStartDay, months }
