@@ -17,4 +17,19 @@ function getStartColumn (year: number, month: number): number {
   return ((getFirstDayOfMonth(year, month) + 6) % 7) + 1
 }
 
-export { getStartColumn }
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+]
+
+export { getStartColumn, months }
