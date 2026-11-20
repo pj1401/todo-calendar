@@ -11,6 +11,7 @@ export default defineConfig(
   tseslint.configs.strict,
   tseslint.configs.stylistic,
   stylistic.configs.recommended,
+  {ignores: ['**/dist/*'],},
   jsdoc.configs['flat/recommended'],
   [
     {
@@ -34,7 +35,6 @@ export default defineConfig(
           },
         ],
       },
-      ignores: ['dist/*'],
     },
   ],
 )
