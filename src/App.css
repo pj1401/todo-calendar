@@ -2,8 +2,11 @@ body {
   font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Lucida Sans Regular', Geneva, Verdana, sans-serif;
 }
 
-.month {
+.calendar {
   width: 500px;
+}
+
+.month {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
