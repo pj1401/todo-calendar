@@ -2,8 +2,9 @@ import m from 'mithril'
 import { Month } from './Month.js'
 import { Header } from './Header.js'
 import { months } from '../util/calendar.js'
+import TaskModel from '../models/TaskModel.js'
 
-export const Calendar = () => {
+export const Calendar: m.ClosureComponent<{ tasks: TaskModel[] }> = () => {
   return {
     view: () => {
       const now = new Date()

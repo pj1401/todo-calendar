@@ -11,9 +11,11 @@ interface ToDoCalendarAttrs {
 export const ToDoCalendar: m.ClosureComponent<ToDoCalendarAttrs> = () => {
   return {
     view: ({ attrs: { store } }) => {
+      const datedTasks = store.tasks.filter((task) => task.dateIsNotEmpty())
+
       return m('div',
         m(TaskForm, { onAdd: (title: string, date: string) => store.add(title, date) }),
-        m(Calendar),
+        m(Calendar, { tasks: datedTasks }),
         store.tasks.map((task) =>
           m(Task, { key: task.id, task, onToggle: () => store.toggle(task.id) }),
         ),

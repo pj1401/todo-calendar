@@ -1,8 +1,10 @@
 import m from 'mithril'
+import TaskModel from '../models/TaskModel.js'
 
 interface DayAttrs {
   day: number
   startColumn?: number
+  task?: TaskModel
 }
 
 export const Day: m.ClosureComponent<DayAttrs> = () => {

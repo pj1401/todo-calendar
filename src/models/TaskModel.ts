@@ -29,9 +29,17 @@ export default class TaskModel implements TaskItem {
   getDateString (): string {
     const date = new Date(`${this.date}T00:00:00`)
     let dateString = ''
-    if (this.date.trim() !== '') {
+    if (this.dateIsNotEmpty()) {
       dateString = ` ${dateUtil.countDays(date)} days`
     }
     return dateString
+  }
+
+  /**
+   * Checks if a Task has a date.
+   * @returns {boolean} True if the task has a set date.
+   */
+  dateIsNotEmpty (): boolean {
+    return this.date.trim() !== ''
   }
 }
