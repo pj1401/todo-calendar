@@ -1,6 +1,6 @@
 import m from 'mithril'
-import { Month } from './Month'
-import { Header } from './Header'
+import { Month } from './Month.js'
+import { Header } from './Header.js'
 import { months } from '../util/calendar.js'
 
 export const Calendar = () => {

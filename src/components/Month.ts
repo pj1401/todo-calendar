@@ -1,6 +1,6 @@
 import m from 'mithril'
 import { getMonthDays } from '@pj1401/date-utils'
-import { Day } from './Day'
+import { Day } from './Day.js'
 import { getStartColumn, isStartDay } from '../util/calendar.js'
 
 export const Month = () => {

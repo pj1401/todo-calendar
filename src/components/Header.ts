@@ -6,7 +6,7 @@ export const Header = () => {
   return {
     view: () => {
       return m('div', { class: 'header' },
-        weekdays.map(weekday => m('span', weekday)),
+        weekdays.map((weekday) => m('span', weekday)),
       )
     },
   }
