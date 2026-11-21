@@ -24,6 +24,7 @@ export default defineConfig(
         '@stylistic/space-before-function-paren': ['error', 'always'],
         '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
         '@stylistic/list-style': ['off'],
+        '@stylistic/arrow-parens': ['error', 'always'],
         'jsdoc/require-description': 'warn',
         'jsdoc/tag-lines': ['error' | 'warn', 'any', { startLines: 1 }],
         'no-unused-vars': 'off',

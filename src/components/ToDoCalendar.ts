@@ -1,13 +1,18 @@
 import m from 'mithril'
 import { TaskForm } from './TaskForm.js'
 import { Calendar } from './Calendar.js'
+import { TaskRepository } from '../models/TaskRepository.js'
 
-export const ToDoCalendar: m.ClosureComponent = () => {
+interface ToDoCalendarAttrs {
+  store: TaskRepository
+}
+
+export const ToDoCalendar: m.ClosureComponent<ToDoCalendarAttrs> = () => {
   return {
-    view: () => {
+    view: ({ attrs: { store } }) => {
       return m('div',
-        m(TaskForm),
-        m(Calendar),
+        m(TaskForm, { onAdd: (title: string, date: string) => store.add(title, date) }),
+        m(Calendar)
       )
     },
   }

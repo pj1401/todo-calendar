@@ -10,7 +10,7 @@ export const App = () => {
     view: () => {
       return m('div',
         m('h1', 'ToDo Calendar'),
-        m(ToDoCalendar),
+        m(ToDoCalendar, { store: TaskStore }),
         TaskStore.tasks.map((task: TaskModel) => m(Task, { key: task.id, task })),
       )
     },
