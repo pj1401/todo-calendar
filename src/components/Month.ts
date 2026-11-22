@@ -8,14 +8,13 @@ import { TaskRepository } from '../models/TaskRepository.js'
 interface MonthAttrs {
   tasks: TaskModel[]
   onToggle: TaskRepository['toggle']
+  year: number
+  month: number
 }
 
 export const Month: m.ClosureComponent<MonthAttrs> = () => {
   return {
-    view: ({ attrs: { tasks, onToggle } }) => {
-      const now = new Date()
-      const year = now.getFullYear()
-      const month = now.getMonth()
+    view: ({ attrs: { tasks, onToggle, year, month } }) => {
       const days = getMonthDays(year, month)
       const startColumn = getStartColumn(year, month)
       return m('div', { class: 'month' },

@@ -16,6 +16,7 @@ export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
   const now = new Date()
   const year = now.getFullYear()
   const month = now.getMonth()
+
   return {
     view: ({ attrs: { tasks, onToggle }}) => {
       return m('div', { class: 'calendar' },
@@ -23,7 +24,7 @@ export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
         m(MonthSelector, { month }),
         m(YearSelector, { year }),
         m(Header),
-        m(Month, { tasks, onToggle }),
+        m(Month, { tasks, onToggle, year, month }),
       )
     },
   }
