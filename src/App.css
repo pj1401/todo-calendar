@@ -3,10 +3,22 @@ body {
 }
 
 .calendar {
-  width: 500px;
+  width: 800px;
 }
 
 .month, .header {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+}
+
+.day {
+  text-overflow: ellipsis;
+}
+
+.task > label, .task > span {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 80px;
 }
