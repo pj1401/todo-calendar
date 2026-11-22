@@ -4,6 +4,8 @@ import { Header } from './Header.js'
 import { months } from '../util/calendar.js'
 import TaskModel from '../models/TaskModel.js'
 import { TaskRepository } from '../models/TaskRepository.js'
+import { MonthSelector } from './MonthSelector.js'
+import { YearSelector } from './YearSelector.js'
 
 interface CalendarAttrs {
   tasks: TaskModel[]
@@ -18,6 +20,8 @@ export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
       const month = now.getMonth()
       return m('div', { class: 'calendar' },
         m('span', `${months[month]} ${year}`),
+        m(MonthSelector),
+        m(YearSelector),
         m(Header),
         m(Month, { tasks, onToggle }),
       )
