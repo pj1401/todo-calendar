@@ -1,7 +1,6 @@
 import m from 'mithril'
 import { Month } from './Month.js'
 import { Header } from './Header.js'
-import { months } from '../util/calendar.js'
 import TaskModel from '../models/TaskModel.js'
 import { TaskRepository } from '../models/TaskRepository.js'
 import { MonthSelector } from './MonthSelector.js'
@@ -33,7 +32,6 @@ export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
   return {
     view: ({ attrs: { tasks, onToggle }}) => {
       return m('div', { class: 'calendar' },
-        m('span', `${months[month]} ${year}`),
         m(MonthSelector, { month, onChange: (newMonth) => setDate(year, newMonth) }),
         m(YearSelector, { year, onChange: (newYear) => setDate(newYear, month) }),
         m(Header),

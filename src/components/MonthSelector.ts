@@ -8,9 +8,11 @@ interface MonthSelectorAttrs {
 
 export const MonthSelector: m.ClosureComponent<MonthSelectorAttrs> = () => {
   return {
-    view: ({ attrs: { month } }) => {
+    view: ({ attrs: { month, onChange } }) => {
       return m('div', { class: 'month-selector' },
+        m('button', { onclick: () => onChange(month - 1) }, '<'),
         m('span', `${months[month]}`),
+        m('button', { onclick: () => onChange(month + 1) }, '>'),
       )
     },
   }
