@@ -12,13 +12,8 @@ body {
 }
 
 .day {
-  text-overflow: ellipsis;
-}
-
-.task > label, .task > span {
   display: inline-block;
   overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
   width: 80px;
 }
