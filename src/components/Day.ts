@@ -1,10 +1,12 @@
 import m from 'mithril'
 import TaskModel from '../models/TaskModel.js'
+import { TaskRepository } from '../models/TaskRepository.js'
 
 interface DayAttrs {
   day: number
   startColumn?: number
-  task?: TaskModel
+  tasks: TaskModel[]
+  onToggle: TaskRepository['toggle']
 }
 
 export const Day: m.ClosureComponent<DayAttrs> = () => {
