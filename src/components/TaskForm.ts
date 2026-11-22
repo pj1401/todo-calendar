@@ -1,10 +1,13 @@
 import m from 'mithril'
 import ToDo from '../models/ToDo.js'
-import TaskStore from '../models/TaskStore.js'
 
-export const TaskForm = () => {
+interface TaskFormAttrs {
+  onAdd: (title: string, date: string) => void | Promise<void>
+}
+
+export const TaskForm: m.ClosureComponent<TaskFormAttrs> = () => {
   return {
-    view: () => {
+    view: ({ attrs: { onAdd } }) => {
       return m('div',
         m('input', { type: 'text', id: 'new-todo', placeholder: 'New ToDo', value: ToDo.task,
           oninput: (event: InputEvent) => {
@@ -19,8 +22,8 @@ export const TaskForm = () => {
             ToDo.setDate(value)
           } }),
         m('button', { type: 'button', id: 'new-todo-done-btn', disabled: !ToDo.canSubmit(),
-          onclick: () => {
-            TaskStore.add(ToDo.task, ToDo.date)
+          onclick: async () => {
+            await onAdd(ToDo.task, ToDo.date)
             ToDo.reset()
           } }, 'Done'),
       )

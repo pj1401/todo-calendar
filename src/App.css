@@ -3,10 +3,17 @@ body {
 }
 
 .calendar {
-  width: 500px;
+  width: 800px;
 }
 
 .month, .header {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+}
+
+.day {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 80px;
 }

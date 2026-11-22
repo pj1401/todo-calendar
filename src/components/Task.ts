@@ -1,16 +1,15 @@
 import m from 'mithril'
-import TaskStore from '../models/TaskStore.js'
 import TaskModel from '../models/TaskModel.js'
 
-export const Task: m.ClosureComponent<{ task: TaskModel }> = () => {
+export const Task: m.ClosureComponent<{ task: TaskModel, onToggle: () => void }> = () => {
   return {
-    view: ({ attrs: { task } }) => {
-      return m('div',
+    view: ({ attrs: { task, onToggle } }) => {
+      return m('div', { class: 'task' },
         m('input', {
           type: 'checkbox',
           checked: task.completed,
           id: `task-${task.id}`,
-          onchange: () => TaskStore.toggle(task.id),
+          onchange: onToggle,
         }),
         m('label', { for: `task-${task.id}` }, task.title),
         m('span', task.getDateString()),
