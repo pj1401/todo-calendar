@@ -1,11 +1,13 @@
 import m from 'mithril'
 import { months } from '../util/calendar.js'
 
-export const MonthSelector: m.ClosureComponent = () => {
+interface MonthSelectorAttrs {
+  month: number
+}
+
+export const MonthSelector: m.ClosureComponent<MonthSelectorAttrs> = () => {
   return {
-    view: () => {
-      const now = new Date()
-      const month = now.getMonth()
+    view: ({ attrs: { month } }) => {
       return m('div', { class: 'month-selector' },
         m('span', `${months[month]}`),
       )

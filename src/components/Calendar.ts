@@ -13,15 +13,15 @@ interface CalendarAttrs {
 }
 
 export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
+  const now = new Date()
+  const year = now.getFullYear()
+  const month = now.getMonth()
   return {
     view: ({ attrs: { tasks, onToggle }}) => {
-      const now = new Date()
-      const year = now.getFullYear()
-      const month = now.getMonth()
       return m('div', { class: 'calendar' },
         m('span', `${months[month]} ${year}`),
-        m(MonthSelector),
-        m(YearSelector),
+        m(MonthSelector, { month }),
+        m(YearSelector, { year }),
         m(Header),
         m(Month, { tasks, onToggle }),
       )

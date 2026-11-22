@@ -1,10 +1,12 @@
 import m from 'mithril'
 
-export const YearSelector: m.ClosureComponent = () => {
+interface YearSelectorAttrs {
+  year: number
+}
+
+export const YearSelector: m.ClosureComponent<YearSelectorAttrs> = () => {
   return {
-    view: () => {
-      const now = new Date()
-      const year = now.getFullYear()
+    view: ({ attrs: { year } }) => {
       return m('div', { class: 'year-selector' },
         m('span', `${year}`),
       )
