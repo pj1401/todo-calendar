@@ -15,7 +15,7 @@ export const ToDoCalendar: m.ClosureComponent<ToDoCalendarAttrs> = () => {
 
       return m('div',
         m(TaskForm, { onAdd: (title: string, date: string) => store.add(title, date) }),
-        m(Calendar, { tasks: datedTasks }),
+        m(Calendar, { tasks: datedTasks, onToggle: (id: string) => store.toggle(id) }),
         store.tasks.map((task) =>
           m(Task, { key: task.id, task, onToggle: () => store.toggle(task.id) }),
         ),
