@@ -2,6 +2,7 @@ import m from 'mithril'
 
 interface YearSelectorAttrs {
   year: number
+  onChange: (month: number) => void
 }
 
 export const YearSelector: m.ClosureComponent<YearSelectorAttrs> = () => {

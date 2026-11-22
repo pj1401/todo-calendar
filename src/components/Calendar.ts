@@ -14,15 +14,28 @@ interface CalendarAttrs {
 
 export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
   const now = new Date()
-  const year = now.getFullYear()
-  const month = now.getMonth()
+  let year = now.getFullYear()
+  let month = now.getMonth()
+
+  /**
+   * Set new values for year and month.
+   * @param {number} newYear The new value of year.
+   * @param {number} newMonth The new value of month.
+   */
+  const setDate = (newYear: number, newMonth: number) => {
+    // Use Date constructor to normalise out-of-range values.
+    // Month indexes outside of range 0-11 changes the year value.
+    const newDate = new Date(newYear, newMonth, 1)
+    year = newDate.getFullYear()
+    month = newDate.getMonth()
+  }
 
   return {
     view: ({ attrs: { tasks, onToggle }}) => {
       return m('div', { class: 'calendar' },
         m('span', `${months[month]} ${year}`),
-        m(MonthSelector, { month }),
-        m(YearSelector, { year }),
+        m(MonthSelector, { month, onChange: (newMonth) => setDate(year, newMonth) }),
+        m(YearSelector, { year, onChange: (newYear) => setDate(newYear, month) }),
         m(Header),
         m(Month, { tasks, onToggle, year, month }),
       )

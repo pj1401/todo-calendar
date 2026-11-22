@@ -3,6 +3,7 @@ import { months } from '../util/calendar.js'
 
 interface MonthSelectorAttrs {
   month: number
+  onChange: (month: number) => void
 }
 
 export const MonthSelector: m.ClosureComponent<MonthSelectorAttrs> = () => {
