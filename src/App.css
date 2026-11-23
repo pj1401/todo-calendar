@@ -27,6 +27,10 @@ body {
   overflow: hidden;
 }
 
+.task-info {
+  position: fixed;
+}
+
 .month-selector, .year-selector {
   display: flex;
   align-items: center;
