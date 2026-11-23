@@ -8,6 +8,7 @@ import { TaskRepository } from '../models/TaskRepository.js'
 interface MonthAttrs {
   tasks: TaskModel[]
   onToggle: TaskRepository['toggle']
+  onDelete: TaskRepository['delete']
   year: number
   month: number
   openInfoTaskId: string | null
@@ -17,7 +18,7 @@ interface MonthAttrs {
 
 export const Month: m.ClosureComponent<MonthAttrs> = () => {
   return {
-    view: ({ attrs: { tasks, onToggle, year, month, openInfoTaskId, onOpenInfo, onCloseInfo } }) => {
+    view: ({ attrs: { tasks, onToggle, onDelete, year, month, openInfoTaskId, onOpenInfo, onCloseInfo } }) => {
       const days = getMonthDays(year, month)
       const startColumn = getStartColumn(year, month)
       return m('div', { class: 'month' },
@@ -26,6 +27,7 @@ export const Month: m.ClosureComponent<MonthAttrs> = () => {
           startColumn: isStartDay(i, startColumn),
           tasks: tasks.filter((task) => task.isOnDay(year, month, day)),
           onToggle,
+          onDelete,
           openInfoTaskId,
           onOpenInfo,
           onCloseInfo,

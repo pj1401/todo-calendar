@@ -5,4 +5,5 @@ export interface TaskRepository {
   // Use Promise<void> to enable async storage.
   add(title: string, date: string): void | Promise<void>
   toggle(id: string): void | Promise<void>
+  delete(id: string): void | Promise<void>
 }

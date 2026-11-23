@@ -18,6 +18,14 @@ const save = () => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(TaskStore.tasks))
 }
 
+const findTask = (id: string) => {
+  return TaskStore.tasks.find((task: TaskItem) => task.id === id)
+}
+
+const findTaskIndex = (id: string) => {
+  return TaskStore.tasks.findIndex((task: TaskItem) => task.id === id)
+}
+
 const TaskStore: TaskRepository = {
   tasks: load(),
   add: function (title: string, date: string) {
@@ -25,9 +33,16 @@ const TaskStore: TaskRepository = {
     save()
   },
   toggle: function (id: string) {
-    const task = TaskStore.tasks.find((task: TaskItem) => task.id === id)
+    const task = findTask(id)
     if (task) {
       task.completed = !task.completed
+      save()
+    }
+  },
+  delete: function (id: string) {
+    const taskIndex = findTaskIndex(id)
+    if (taskIndex !== -1) {
+      TaskStore.tasks.splice(taskIndex, 1)
       save()
     }
   },

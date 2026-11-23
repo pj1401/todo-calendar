@@ -9,6 +9,7 @@ import { YearSelector } from './YearSelector.js'
 interface CalendarAttrs {
   tasks: TaskModel[]
   onToggle: TaskRepository['toggle']
+  onDelete: TaskRepository['delete']
 }
 
 export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
@@ -49,7 +50,7 @@ export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
   }
 
   return {
-    view: ({ attrs: { tasks, onToggle }}) => {
+    view: ({ attrs: { tasks, onToggle, onDelete }}) => {
       return m('div', { class: 'calendar' },
         m(MonthSelector, { month, onChange: (newMonth) => changeDate(year, newMonth) }),
         m(YearSelector, { year, onChange: (newYear) => changeDate(newYear, month) }),
@@ -57,6 +58,7 @@ export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
         m(Month, {
           tasks,
           onToggle,
+          onDelete,
           year,
           month,
           openInfoTaskId,
