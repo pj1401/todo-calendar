@@ -4,11 +4,12 @@ import TaskModel from '../models/TaskModel.js'
 interface TaskInfoAttrs {
   task: TaskModel
   onClose: () => void
+  onDelete: () => void
 }
 
 export const TaskInfo: m.ClosureComponent<TaskInfoAttrs> = () => {
   return {
-    view: ({ attrs: { task, onClose } }) => {
+    view: ({ attrs: { task, onClose, onDelete } }) => {
       return m('div', { class: 'task-info' },
         m('div',
           m('span', task.title),
@@ -20,7 +21,7 @@ export const TaskInfo: m.ClosureComponent<TaskInfoAttrs> = () => {
           }, 'X'),
         ),
         m('div', { class: 'task-info-btn-row' },
-          m('button', 'Delete'),
+          m('button', { onClick: onDelete }, 'Delete'),
         ),
       )
     },

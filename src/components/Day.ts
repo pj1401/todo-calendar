@@ -8,6 +8,7 @@ interface DayAttrs {
   startColumn?: number
   tasks: TaskModel[]
   onToggle: TaskRepository['toggle']
+  onDelete: TaskRepository['delete']
   openInfoTaskId: string | null
   onOpenInfo: (taskId: string) => void
   onCloseInfo: () => void
@@ -15,7 +16,7 @@ interface DayAttrs {
 
 export const Day: m.ClosureComponent<DayAttrs> = () => {
   return {
-    view: ({ attrs: { day, startColumn, tasks, onToggle, openInfoTaskId, onOpenInfo, onCloseInfo } }) => {
+    view: ({ attrs: { day, startColumn, tasks, onToggle, onDelete, openInfoTaskId, onOpenInfo, onCloseInfo } }) => {
       return m('div', {
         class: 'day',
         style: startColumn ? { gridColumnStart: startColumn } : undefined,
@@ -27,6 +28,7 @@ export const Day: m.ClosureComponent<DayAttrs> = () => {
           isInfoOpen: openInfoTaskId === task.id,
           task,
           onToggle: () => onToggle(task.id),
+          onDelete,
           onOpenInfo: () => onOpenInfo(task.id),
           onCloseInfo,
         }),

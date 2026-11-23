@@ -1,18 +1,20 @@
 import m from 'mithril'
 import TaskModel from '../models/TaskModel.js'
 import { TaskInfo } from './TaskInfo.js'
+import { TaskRepository } from '../models/TaskRepository.js'
 
 interface TaskAttrs {
   task: TaskModel
   isInfoOpen: boolean
   onToggle: () => void
+  onDelete: TaskRepository['delete']
   onOpenInfo: () => void
   onCloseInfo: () => void
 }
 
 export const Task: m.ClosureComponent<TaskAttrs> = () => {
   return {
-    view: ({ attrs: { task, isInfoOpen, onToggle, onOpenInfo, onCloseInfo } }) => {
+    view: ({ attrs: { task, isInfoOpen, onToggle, onDelete, onOpenInfo, onCloseInfo } }) => {
       return m('div', { class: 'task' },
         m('div', { class: 'task-label' },
           m('input', {
@@ -31,6 +33,7 @@ export const Task: m.ClosureComponent<TaskAttrs> = () => {
         isInfoOpen && m(TaskInfo, {
           task,
           onClose: onCloseInfo,
+          onDelete: () => onDelete(task.id),
         }),
       )
     },
