@@ -41,10 +41,8 @@ const TaskStore: TaskRepository = {
   },
   delete: function (id: string) {
     const taskIndex = findTaskIndex(id)
-    console.log(taskIndex)
     if (taskIndex !== -1) {
       TaskStore.tasks.splice(taskIndex, 1)
-      console.log(taskIndex)
       save()
     }
   },
