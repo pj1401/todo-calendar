@@ -10,11 +10,14 @@ interface MonthAttrs {
   onToggle: TaskRepository['toggle']
   year: number
   month: number
+  openInfoTaskId: string | null
+  onOpenInfo: (taskId: string) => void
+  onCloseInfo: () => void
 }
 
 export const Month: m.ClosureComponent<MonthAttrs> = () => {
   return {
-    view: ({ attrs: { tasks, onToggle, year, month } }) => {
+    view: ({ attrs: { tasks, onToggle, year, month, openInfoTaskId, onOpenInfo, onCloseInfo } }) => {
       const days = getMonthDays(year, month)
       const startColumn = getStartColumn(year, month)
       return m('div', { class: 'month' },
@@ -23,6 +26,9 @@ export const Month: m.ClosureComponent<MonthAttrs> = () => {
           startColumn: isStartDay(i, startColumn),
           tasks: tasks.filter((task) => task.isOnDay(year, month, day)),
           onToggle,
+          openInfoTaskId,
+          onOpenInfo,
+          onCloseInfo,
         })),
       )
     },
