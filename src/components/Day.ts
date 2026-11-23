@@ -9,11 +9,13 @@ interface DayAttrs {
   tasks: TaskModel[]
   onToggle: TaskRepository['toggle']
   openInfoTaskId: string | null
+  onOpenInfo: (taskId: string) => void
+  onCloseInfo: () => void
 }
 
 export const Day: m.ClosureComponent<DayAttrs> = () => {
   return {
-    view: ({ attrs: { day, startColumn, tasks, onToggle, openInfoTaskId } }) => {
+    view: ({ attrs: { day, startColumn, tasks, onToggle, openInfoTaskId, onOpenInfo, onCloseInfo } }) => {
       return m('div', {
         class: 'day',
         style: startColumn ? { gridColumnStart: startColumn } : undefined,
@@ -25,8 +27,8 @@ export const Day: m.ClosureComponent<DayAttrs> = () => {
           isInfoOpen: openInfoTaskId === task.id,
           task,
           onToggle: () => onToggle(task.id),
-          onOpenInfo: () => { openInfoTaskId = task.id },
-          onCloseInfo: () => { openInfoTaskId = null },
+          onOpenInfo: () => onOpenInfo(task.id),
+          onCloseInfo,
         }),
       ),
       )

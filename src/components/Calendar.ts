@@ -40,9 +40,13 @@ export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
     openInfoTaskId = null
   }
 
-  // const onOpenInfo = (taskId: string) => {
-  //   openInfoTaskId = taskId
-  // }
+  const onOpenInfo = (taskId: string) => {
+    openInfoTaskId = taskId
+  }
+
+  const onCloseInfo = () => {
+    openInfoTaskId = null
+  }
 
   return {
     view: ({ attrs: { tasks, onToggle }}) => {
@@ -50,7 +54,15 @@ export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
         m(MonthSelector, { month, onChange: (newMonth) => changeDate(year, newMonth) }),
         m(YearSelector, { year, onChange: (newYear) => changeDate(newYear, month) }),
         m(Header),
-        m(Month, { tasks, onToggle, year, month, openInfoTaskId }),
+        m(Month, {
+          tasks,
+          onToggle,
+          year,
+          month,
+          openInfoTaskId,
+          onOpenInfo,
+          onCloseInfo,
+        }),
       )
     },
   }
