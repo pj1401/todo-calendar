@@ -4,14 +4,15 @@ import { TaskInfo } from './TaskInfo.js'
 
 interface TaskAttrs {
   task: TaskModel
+  isInfoOpen: boolean
   onToggle: () => void
+  onOpenInfo: () => void
+  onCloseInfo: () => void
 }
 
 export const Task: m.ClosureComponent<TaskAttrs> = () => {
-  let isInfoOpen = false
-
   return {
-    view: ({ attrs: { task, onToggle } }) => {
+    view: ({ attrs: { task, isInfoOpen, onToggle, onOpenInfo, onCloseInfo } }) => {
       return m('div', { class: 'task' },
         m('div', { class: 'task-label' },
           m('input', {
@@ -24,12 +25,12 @@ export const Task: m.ClosureComponent<TaskAttrs> = () => {
         ),
         m('button', {
           class: 'open-task-info-btn',
-          onclick: () => isInfoOpen = true,
+          onclick: onOpenInfo,
           ariaLabel: 'See task info',
         }, '...'),
         isInfoOpen && m(TaskInfo, {
           task,
-          onClose: () => { isInfoOpen = false },
+          onClose: onCloseInfo,
         }),
       )
     },
