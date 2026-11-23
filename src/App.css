@@ -29,6 +29,7 @@ body {
 
 .task-info {
   position: fixed;
+  background-color: #EEE;
 }
 
 .month-selector, .year-selector {
