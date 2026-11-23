@@ -1,0 +1,13 @@
+import m from 'mithril'
+import TaskModel from '../models/TaskModel.js'
+
+export const TaskInfo: m.ClosureComponent<{ task: TaskModel }> = () => {
+  return {
+    view: ({ attrs: { task } }) => {
+      return m('div', { class: 'task-info' },
+        m('span', task.title),
+        m('span', task.getDateString())
+      )
+    },
+  }
+}
