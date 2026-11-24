@@ -4,6 +4,7 @@ import { Calendar } from './Calendar.js'
 import { Task } from './Task.js'
 import { TaskRepository } from '../models/TaskRepository.js'
 import { Modal } from './Modal.js'
+import { InfoPanel } from '../types/info.js'
 
 interface ToDoCalendarAttrs {
   store: TaskRepository
@@ -11,13 +12,11 @@ interface ToDoCalendarAttrs {
 
 export const ToDoCalendar: m.ClosureComponent<ToDoCalendarAttrs> = () => {
   let showDeleteModal = false
-  let openInfoTaskId: string | null = null
-  const onOpenInfo = (taskId: string) => {
-    openInfoTaskId = taskId
-  }
 
-  const onCloseInfo = () => {
-    openInfoTaskId = null
+  const info: InfoPanel = {
+    openTaskId: null,
+    open: (taskId) => { info.openTaskId = taskId },
+    close: () => { info.openTaskId = null },
   }
 
   return {
@@ -29,23 +28,18 @@ export const ToDoCalendar: m.ClosureComponent<ToDoCalendarAttrs> = () => {
         m(TaskForm, { onAdd: (title: string, date: string) => store.add(title, date) }),
         m(Calendar, {
           tasks: datedTasks,
-          onToggle: (id: string) => store.toggle(id),
-          onDelete: (id: string) => store.delete(id),
-          openInfoTaskId,
-          onOpenInfo,
-          onCloseInfo,
+          actions: store,
+          info,
         }),
         undatedTasks.map((task) =>
           m(Task, {
             key: task.id,
-            isInfoOpen: openInfoTaskId === task.id,
-            task, onToggle: () => store.toggle(task.id),
-            onDelete: (id: string) => store.delete(id),
-            onOpenInfo: () => onOpenInfo(task.id),
-            onCloseInfo,
+            task,
+            actions: store,
+            info,
           }),
         ),
-        m('button', { onclick: () => showDeleteModal = true }, 'Delete All'),
+        m('button', { onclick: () => { showDeleteModal = true }}, 'Delete All'),
         showDeleteModal && m(Modal, {
           message: 'Delete all tasks?',
           confirmBtnText: 'Delete All',
@@ -53,7 +47,7 @@ export const ToDoCalendar: m.ClosureComponent<ToDoCalendarAttrs> = () => {
             store.deleteAll()
             showDeleteModal = false
           },
-          onCancel: () => showDeleteModal = false,
+          onCancel: () => { showDeleteModal = false },
         }),
       )
     },

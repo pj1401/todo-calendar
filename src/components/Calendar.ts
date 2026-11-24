@@ -2,17 +2,15 @@ import m from 'mithril'
 import { Month } from './Month.js'
 import { Header } from './Header.js'
 import TaskModel from '../models/TaskModel.js'
-import { TaskRepository } from '../models/TaskRepository.js'
 import { MonthSelector } from './MonthSelector.js'
 import { YearSelector } from './YearSelector.js'
+import { InfoPanel } from '../types/info.js'
+import { TaskActions } from '../types/taskActions.js'
 
 interface CalendarAttrs {
   tasks: TaskModel[]
-  onToggle: TaskRepository['toggle']
-  onDelete: TaskRepository['delete']
-  openInfoTaskId: string | null
-  onOpenInfo: (taskId: string) => void
-  onCloseInfo: () => void
+  actions: TaskActions
+  info: InfoPanel
 }
 
 export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
@@ -34,7 +32,7 @@ export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
   }
 
   return {
-    view: ({ attrs: { tasks, onToggle, onDelete, openInfoTaskId, onOpenInfo, onCloseInfo }}) => {
+    view: ({ attrs: { tasks, actions, info }}) => {
       /**
        * Handler for updating the Month view.
        * @param {number} newYear The new value of year.
@@ -42,7 +40,7 @@ export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
        */
       const changeDate = (newYear: number, newMonth: number) => {
         setDate(newYear, newMonth)
-        onCloseInfo()
+        info.close()
       }
 
       return m('div', { class: 'calendar' },
@@ -51,13 +49,10 @@ export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
         m(Header),
         m(Month, {
           tasks,
-          onToggle,
-          onDelete,
           year,
           month,
-          openInfoTaskId,
-          onOpenInfo,
-          onCloseInfo,
+          actions,
+          info,
         }),
       )
     },
