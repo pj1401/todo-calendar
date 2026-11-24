@@ -17,7 +17,7 @@ export const TaskInfo: m.ClosureComponent<TaskInfoAttrs> = () => {
           m('button', {
             class: 'close-task-info-btn',
             onclick: onClose,
-            ariaLabel: 'Close task info',
+            ariaLabel: 'Close ToDo info',
           }, 'X'),
         ),
         m('div', { class: 'task-info-btn-row' },

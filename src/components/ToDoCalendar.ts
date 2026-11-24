@@ -32,15 +32,20 @@ export const ToDoCalendar: m.ClosureComponent<ToDoCalendarAttrs> = () => {
           actions: store,
           info,
         }),
-        undatedTasks.map((task) =>
-          m(Task, {
-            key: task.id,
-            task,
-            actions: store,
-            info,
-          }),
+        m('div', { class: 'undated-tasks' },
+          undatedTasks.map((task) =>
+            m(Task, {
+              key: task.id,
+              task,
+              actions: store,
+              info,
+            }),
+          ),
         ),
-        m('button', { onclick: () => { showDeleteModal = true }}, 'Delete All'),
+        m('button', {
+          id: 'open-delete-all-modal-btn',
+          onclick: () => { showDeleteModal = true },
+        }, 'Delete All'),
         showDeleteModal && m(Modal, {
           message: 'Delete all tasks?',
           confirmBtnText: 'Delete All',
