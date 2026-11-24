@@ -14,6 +14,7 @@ export const ToDoCalendar: m.ClosureComponent<ToDoCalendarAttrs> = () => {
   return {
     view: ({ attrs: { store } }) => {
       const datedTasks = store.tasks.filter((task) => task.dateIsNotEmpty())
+      const undatedTasks = store.tasks.filter((task) => !task.dateIsNotEmpty())
 
       return m('div',
         m(TaskForm, { onAdd: (title: string, date: string) => store.add(title, date) }),
@@ -22,7 +23,7 @@ export const ToDoCalendar: m.ClosureComponent<ToDoCalendarAttrs> = () => {
           onToggle: (id: string) => store.toggle(id),
           onDelete: (id: string) => store.delete(id),
         }),
-        store.tasks.map((task) =>
+        undatedTasks.map((task) =>
           m(Task, { key: task.id, task, onToggle: () => store.toggle(task.id) }),
         ),
         m('button', { onclick: () => showDeleteModal = true }, 'Delete All'),
