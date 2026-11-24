@@ -3,22 +3,20 @@ import { getMonthDays } from '@pj1401/date-utils'
 import { Day } from './Day.js'
 import { getStartColumn, isStartDay } from '../util/calendar.js'
 import TaskModel from '../models/TaskModel.js'
-import { TaskRepository } from '../models/TaskRepository.js'
+import { TaskActions } from '../types/taskActions.js'
+import { InfoPanel } from '../types/info.js'
 
 interface MonthAttrs {
   tasks: TaskModel[]
-  onToggle: TaskRepository['toggle']
-  onDelete: TaskRepository['delete']
   year: number
   month: number
-  openInfoTaskId: string | null
-  onOpenInfo: (taskId: string) => void
-  onCloseInfo: () => void
+  actions: TaskActions
+  info: InfoPanel
 }
 
 export const Month: m.ClosureComponent<MonthAttrs> = () => {
   return {
-    view: ({ attrs: { tasks, onToggle, onDelete, year, month, openInfoTaskId, onOpenInfo, onCloseInfo } }) => {
+    view: ({ attrs: { tasks, year, month, actions, info } }) => {
       const days = getMonthDays(year, month)
       const startColumn = getStartColumn(year, month)
       return m('div', { class: 'month' },
@@ -26,11 +24,8 @@ export const Month: m.ClosureComponent<MonthAttrs> = () => {
           day,
           startColumn: isStartDay(i, startColumn),
           tasks: tasks.filter((task) => task.isOnDay(year, month, day)),
-          onToggle,
-          onDelete,
-          openInfoTaskId,
-          onOpenInfo,
-          onCloseInfo,
+          actions,
+          info,
         })),
       )
     },
