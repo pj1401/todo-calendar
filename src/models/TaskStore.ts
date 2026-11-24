@@ -18,6 +18,10 @@ const save = () => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(TaskStore.tasks))
 }
 
+const removeStored = () => {
+  localStorage.removeItem(STORAGE_KEY)
+}
+
 const findTask = (id: string) => {
   return TaskStore.tasks.find((task: TaskItem) => task.id === id)
 }
@@ -45,6 +49,9 @@ const TaskStore: TaskRepository = {
       TaskStore.tasks.splice(taskIndex, 1)
       save()
     }
+  },
+  deleteAll: function () {
+    removeStored()
   },
 }
 
