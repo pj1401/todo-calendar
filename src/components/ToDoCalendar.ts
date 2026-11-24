@@ -4,6 +4,7 @@ import { Calendar } from './Calendar.js'
 import { Task } from './Task.js'
 import { TaskRepository } from '../models/TaskRepository.js'
 import { Modal } from './Modal.js'
+import { InfoPanel } from '../types/info.js'
 
 interface ToDoCalendarAttrs {
   store: TaskRepository
@@ -11,21 +12,34 @@ interface ToDoCalendarAttrs {
 
 export const ToDoCalendar: m.ClosureComponent<ToDoCalendarAttrs> = () => {
   let showDeleteModal = false
+
+  const info: InfoPanel = {
+    openTaskId: null,
+    open: (taskId) => { info.openTaskId = taskId },
+    close: () => { info.openTaskId = null },
+  }
+
   return {
     view: ({ attrs: { store } }) => {
       const datedTasks = store.tasks.filter((task) => task.dateIsNotEmpty())
+      const undatedTasks = store.tasks.filter((task) => !task.dateIsNotEmpty())
 
       return m('div',
         m(TaskForm, { onAdd: (title: string, date: string) => store.add(title, date) }),
         m(Calendar, {
           tasks: datedTasks,
-          onToggle: (id: string) => store.toggle(id),
-          onDelete: (id: string) => store.delete(id),
+          actions: store,
+          info,
         }),
-        store.tasks.map((task) =>
-          m(Task, { key: task.id, task, onToggle: () => store.toggle(task.id) }),
+        undatedTasks.map((task) =>
+          m(Task, {
+            key: task.id,
+            task,
+            actions: store,
+            info,
+          }),
         ),
-        m('button', { onclick: () => showDeleteModal = true }, 'Delete All'),
+        m('button', { onclick: () => { showDeleteModal = true }}, 'Delete All'),
         showDeleteModal && m(Modal, {
           message: 'Delete all tasks?',
           confirmBtnText: 'Delete All',
@@ -33,7 +47,7 @@ export const ToDoCalendar: m.ClosureComponent<ToDoCalendarAttrs> = () => {
             store.deleteAll()
             showDeleteModal = false
           },
-          onCancel: () => showDeleteModal = false,
+          onCancel: () => { showDeleteModal = false },
         }),
       )
     },

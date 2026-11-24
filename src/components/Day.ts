@@ -1,22 +1,20 @@
 import m from 'mithril'
 import TaskModel from '../models/TaskModel.js'
-import { TaskRepository } from '../models/TaskRepository.js'
 import { Task } from './Task.js'
+import { TaskActions } from '../types/taskActions.js'
+import { InfoPanel } from '../types/info.js'
 
 interface DayAttrs {
   day: number
   startColumn?: number
   tasks: TaskModel[]
-  onToggle: TaskRepository['toggle']
-  onDelete: TaskRepository['delete']
-  openInfoTaskId: string | null
-  onOpenInfo: (taskId: string) => void
-  onCloseInfo: () => void
+  actions: TaskActions
+  info: InfoPanel
 }
 
 export const Day: m.ClosureComponent<DayAttrs> = () => {
   return {
-    view: ({ attrs: { day, startColumn, tasks, onToggle, onDelete, openInfoTaskId, onOpenInfo, onCloseInfo } }) => {
+    view: ({ attrs: { day, startColumn, tasks, actions, info } }) => {
       return m('div', {
         class: 'day',
         style: startColumn ? { gridColumnStart: startColumn } : undefined,
@@ -25,12 +23,9 @@ export const Day: m.ClosureComponent<DayAttrs> = () => {
       tasks.map((task) =>
         m(Task, {
           key: task.id,
-          isInfoOpen: openInfoTaskId === task.id,
           task,
-          onToggle: () => onToggle(task.id),
-          onDelete,
-          onOpenInfo: () => onOpenInfo(task.id),
-          onCloseInfo,
+          actions,
+          info,
         }),
       ),
       )

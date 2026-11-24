@@ -2,21 +2,21 @@ import m from 'mithril'
 import { Month } from './Month.js'
 import { Header } from './Header.js'
 import TaskModel from '../models/TaskModel.js'
-import { TaskRepository } from '../models/TaskRepository.js'
 import { MonthSelector } from './MonthSelector.js'
 import { YearSelector } from './YearSelector.js'
+import { InfoPanel } from '../types/info.js'
+import { TaskActions } from '../types/taskActions.js'
 
 interface CalendarAttrs {
   tasks: TaskModel[]
-  onToggle: TaskRepository['toggle']
-  onDelete: TaskRepository['delete']
+  actions: TaskActions
+  info: InfoPanel
 }
 
 export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
   const now = new Date()
   let year = now.getFullYear()
   let month = now.getMonth()
-  let openInfoTaskId: string | null = null
 
   /**
    * Set new values for year and month.
@@ -31,39 +31,28 @@ export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
     month = newDate.getMonth()
   }
 
-  /**
-   * Handler for updating the Month view.
-   * @param {number} newYear The new value of year.
-   * @param {number} newMonth The new value of month.
-   */
-  const changeDate = (newYear: number, newMonth: number) => {
-    setDate(newYear, newMonth)
-    openInfoTaskId = null
-  }
-
-  const onOpenInfo = (taskId: string) => {
-    openInfoTaskId = taskId
-  }
-
-  const onCloseInfo = () => {
-    openInfoTaskId = null
-  }
-
   return {
-    view: ({ attrs: { tasks, onToggle, onDelete }}) => {
+    view: ({ attrs: { tasks, actions, info }}) => {
+      /**
+       * Handler for updating the Month view.
+       * @param {number} newYear The new value of year.
+       * @param {number} newMonth The new value of month.
+       */
+      const changeDate = (newYear: number, newMonth: number) => {
+        setDate(newYear, newMonth)
+        info.close()
+      }
+
       return m('div', { class: 'calendar' },
         m(MonthSelector, { month, onChange: (newMonth) => changeDate(year, newMonth) }),
         m(YearSelector, { year, onChange: (newYear) => changeDate(newYear, month) }),
         m(Header),
         m(Month, {
           tasks,
-          onToggle,
-          onDelete,
           year,
           month,
-          openInfoTaskId,
-          onOpenInfo,
-          onCloseInfo,
+          actions,
+          info,
         }),
       )
     },

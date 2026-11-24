@@ -1,6 +1,6 @@
 import m from 'mithril'
 import './App.css'
-import TaskStore from './models/TaskStore.js'
+import TaskStore from './db/TaskStore.js'
 import { ToDoCalendar } from './components/ToDoCalendar.js'
 
 export const App = () => {
