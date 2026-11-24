@@ -1,5 +1,5 @@
-import TaskModel, { TaskItem } from './TaskModel.js'
-import { TaskRepository } from './TaskRepository.js'
+import TaskModel, { TaskItem } from '../models/TaskModel.js'
+import { TaskRepository } from '../models/TaskRepository.js'
 
 // Tasks saved before the date attribute existed have no date field.
 type StoredTask = Omit<TaskItem, 'date'> & { date?: string }
