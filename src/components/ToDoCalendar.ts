@@ -1,4 +1,5 @@
 import m from 'mithril'
+import '../css/ToDoCalendar.css'
 import { TaskForm } from './TaskForm.js'
 import { Calendar } from './Calendar.js'
 import { Task } from './Task.js'
@@ -24,7 +25,7 @@ export const ToDoCalendar: m.ClosureComponent<ToDoCalendarAttrs> = () => {
       const datedTasks = store.tasks.filter((task) => task.dateIsNotEmpty())
       const undatedTasks = store.tasks.filter((task) => !task.dateIsNotEmpty())
 
-      return m('div',
+      return m('div', { class: 'todo-calendar' },
         m(TaskForm, { onAdd: (title: string, date: string) => store.add(title, date) }),
         m(Calendar, {
           tasks: datedTasks,
