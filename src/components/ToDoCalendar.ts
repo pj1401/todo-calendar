@@ -3,12 +3,14 @@ import { TaskForm } from './TaskForm.js'
 import { Calendar } from './Calendar.js'
 import { Task } from './Task.js'
 import { TaskRepository } from '../models/TaskRepository.js'
+import { Modal } from './Modal.js'
 
 interface ToDoCalendarAttrs {
   store: TaskRepository
 }
 
 export const ToDoCalendar: m.ClosureComponent<ToDoCalendarAttrs> = () => {
+  let showDeleteModal = false
   return {
     view: ({ attrs: { store } }) => {
       const datedTasks = store.tasks.filter((task) => task.dateIsNotEmpty())
@@ -23,6 +25,16 @@ export const ToDoCalendar: m.ClosureComponent<ToDoCalendarAttrs> = () => {
         store.tasks.map((task) =>
           m(Task, { key: task.id, task, onToggle: () => store.toggle(task.id) }),
         ),
+        m('button', { onclick: () => showDeleteModal = true }, 'Delete All'),
+        showDeleteModal && m(Modal, {
+          message: 'Delete all tasks?',
+          confirmBtnText: 'Delete All',
+          onConfirm: () => {
+            store.deleteAll()
+            showDeleteModal = false
+          },
+          onCancel: () => showDeleteModal = false,
+        }),
       )
     },
   }

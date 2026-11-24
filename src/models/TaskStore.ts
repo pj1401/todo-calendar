@@ -46,6 +46,10 @@ const TaskStore: TaskRepository = {
       save()
     }
   },
+  deleteAll: function () {
+    TaskStore.tasks.length = 0
+    save()
+  },
 }
 
 export default TaskStore
