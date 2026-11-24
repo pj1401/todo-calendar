@@ -1,6 +1,6 @@
 {
   "name": "todo-calendar",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "A calendar app",
   "main": "index.js",
   "type": "module",
