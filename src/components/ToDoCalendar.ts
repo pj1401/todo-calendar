@@ -29,7 +29,10 @@ export const ToDoCalendar: m.ClosureComponent<ToDoCalendarAttrs> = () => {
         showDeleteModal && m(Modal, {
           message: 'Delete all tasks?',
           confirmBtnText: 'Delete All',
-          onConfirm: () => store.deleteAll(),
+          onConfirm: () => {
+            store.deleteAll()
+            showDeleteModal = false
+          },
           onCancel: () => showDeleteModal = false,
         }),
       )
