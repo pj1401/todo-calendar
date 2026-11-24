@@ -23,9 +23,18 @@
   overflow: hidden;
 }
 
+.task-info, .modal {
+  width: 100%;
+  max-width: 375px;
+  background-color: #EEE;
+  white-space: wrap;
+}
+
 .task-info {
   position: fixed;
-  background-color: #EEE;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
 }
 
 .month-selector, .year-selector {
@@ -37,4 +46,10 @@
 
 .undated-tasks {
   max-width: 375px;
+}
+
+@media screen and (min-width: 375px) {
+  .task-info, .modal {
+    width: 375px;
+  }
 }
