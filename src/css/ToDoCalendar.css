@@ -1,0 +1,124 @@
+.todo-calendar {
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Lucida Sans Regular', Geneva, Verdana, sans-serif;
+
+  button {
+    color: #000;
+    display: inline-block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.25em;
+    padding: 0.25rem 0.5rem;
+    margin: 0;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 1rem;
+    text-align: center;
+    box-shadow: 0 0.1em 0.1em #33333340;
+    transition: background 250ms ease-in-out, 
+                  transform 150ms ease;
+  }
+
+  button:hover,
+  button:focus {
+      color: #782226;
+      background: #e8e8e8;
+  }
+
+  button:focus {
+      outline: 1px solid #fff;
+      outline-offset: -4px;
+  }
+
+  button:active {
+      transform: scale(0.99);
+  }
+
+  .month, .header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.1rem;
+  }
+
+  .day,
+  .undated-tasks {
+    background-color: #fefdfa;
+  }
+
+  .day {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-radius: 0.5rem;
+    border: solid #782226 1px;
+  }
+
+  .undated-tasks {
+    max-width: 375px;
+    white-space: nowrap;
+  }
+
+  .task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+  }
+
+  .task-label {
+    overflow: hidden;
+  }
+
+  .month, .undated-tasks {
+    position: relative;
+  }
+
+  .task-info, .modal {
+    width: 100%;
+    max-width: 375px;
+    background-color: #fefdfa;
+    white-space: wrap;
+    box-shadow: 0 0.6em 2em 0.4em #33333340;
+    border-radius: 0.5rem;
+  }
+
+  .task-info:focus-within,
+  .modal:focus-within {
+    box-shadow: 0 0.6em 2em 0.4em #1F1F1F60;
+  }
+
+  .task-info {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 375px;
+    min-height: 200px;
+    margin-inline: auto;
+    align-self: flex-start;
+  }
+
+  .task-info-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .task-info-btn-row {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .month-selector, .year-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 375px;
+  }
+
+  @media screen and (min-width: 820px) {
+    .month, .header {
+      gap: 0.5rem;
+    }
+  }
+}

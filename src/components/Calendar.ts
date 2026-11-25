@@ -44,8 +44,10 @@ export const Calendar: m.ClosureComponent<CalendarAttrs> = () => {
       }
 
       return m('div', { class: 'calendar' },
-        m(MonthSelector, { month, onChange: (newMonth) => changeDate(year, newMonth) }),
-        m(YearSelector, { year, onChange: (newYear) => changeDate(newYear, month) }),
+        m('div', { class: 'selectors' },
+          m(MonthSelector, { month, onChange: (newMonth) => changeDate(year, newMonth) }),
+          m(YearSelector, { year, onChange: (newYear) => changeDate(newYear, month) }),
+        ),
         m(Header),
         m(Month, {
           tasks,

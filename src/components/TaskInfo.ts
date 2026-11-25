@@ -11,14 +11,16 @@ export const TaskInfo: m.ClosureComponent<TaskInfoAttrs> = () => {
   return {
     view: ({ attrs: { task, onClose, onDelete } }) => {
       return m('div', { class: 'task-info' },
-        m('div',
-          m('span', task.title),
-          m('span', task.getDateString()),
+        m('div', { class: 'task-info-btn-row' },
           m('button', {
             class: 'close-task-info-btn',
             onclick: onClose,
-            ariaLabel: 'Close task info',
+            ariaLabel: 'Close ToDo info',
           }, 'X'),
+        ),
+        m('div', { class: 'task-info-content' },
+          m('span', task.title),
+          m('span', task.getDateString()),
         ),
         m('div', { class: 'task-info-btn-row' },
           m('button', { onclick: onDelete }, 'Delete'),

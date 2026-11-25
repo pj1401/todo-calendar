@@ -27,7 +27,7 @@ export const Task: m.ClosureComponent<TaskAttrs> = () => {
         m('button', {
           class: 'open-task-info-btn',
           onclick: () => info.open(task.id),
-          ariaLabel: 'See task info',
+          ariaLabel: 'See ToDo info',
         }, '...'),
         isInfoOpen && m(TaskInfo, {
           task,
