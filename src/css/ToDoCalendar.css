@@ -2,8 +2,34 @@
   font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Lucida Sans Regular', Geneva, Verdana, sans-serif;
 
   button {
-    font-family: inherit;
-    cursor: pointer;
+      display: inline-block;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 0.25em;
+      padding: 0.25rem 0.5rem;
+      margin: 0;
+      text-decoration: none;
+      font-family: inherit;
+      font-size: 1rem;
+      text-align: center;
+      transition: background 250ms ease-in-out, 
+                  transform 150ms ease;
+  }
+
+  button:hover,
+  button:focus {
+      color: #782226;
+      background: #e8e8e8;
+  }
+
+  button:focus {
+      outline: 1px solid #fff;
+      outline-offset: -4px;
+  }
+
+  button:active {
+      transform: scale(0.99);
   }
 
   .month, .header {
@@ -34,8 +60,15 @@
   .task-info, .modal {
     width: 100%;
     max-width: 375px;
-    background-color: #EEE;
+    background-color: #fefdfa;
     white-space: wrap;
+    box-shadow: 0 0.6em 2em 0.4em #33333340;
+    border-radius: 0.5rem;
+  }
+
+  .task-info:focus-within,
+  .modal:focus-within {
+    box-shadow: 0 0.6em 2em 0.4em #1F1F1F60;
   }
 
   .task-info {
