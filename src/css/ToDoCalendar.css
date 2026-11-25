@@ -46,6 +46,16 @@
   align-self: flex-start;
 }
 
+.task-info-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-info-btn-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .month-selector, .year-selector {
   display: flex;
   align-items: center;

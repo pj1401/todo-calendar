@@ -43,7 +43,6 @@ export const ToDoCalendar: m.ClosureComponent<ToDoCalendarAttrs> = () => {
           ),
         ),
         !showDeleteModal && m('button', {
-          id: 'open-delete-all-modal-btn',
           onclick: () => { showDeleteModal = true },
         }, 'Delete All'),
         showDeleteModal && m(Modal, {
