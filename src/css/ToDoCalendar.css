@@ -1,69 +1,74 @@
 .todo-calendar {
   font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Lucida Sans Regular', Geneva, Verdana, sans-serif;
-}
 
-.month, .header {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-}
+  button {
+    font-family: inherit;
+    cursor: pointer;
+  }
 
-.day {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-}
+  .month, .header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
 
-.task {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+  .day {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 
-.task-label {
-  overflow: hidden;
-}
+  .task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-.month, .undated-tasks {
-  position: relative;
-}
+  .task-label {
+    overflow: hidden;
+  }
 
-.task-info, .modal {
-  width: 100%;
-  max-width: 375px;
-  background-color: #EEE;
-  white-space: wrap;
-}
+  .month, .undated-tasks {
+    position: relative;
+  }
 
-.task-info {
-  position: absolute;
-  z-index: 1;
-  left: 0;
-  right: 0;
-  width: 100%;
-  max-width: 375px;
-  min-height: 200px;
-  margin-inline: auto;
-  align-self: flex-start;
-}
+  .task-info, .modal {
+    width: 100%;
+    max-width: 375px;
+    background-color: #EEE;
+    white-space: wrap;
+  }
 
-.task-info-content {
-  display: flex;
-  flex-direction: column;
-}
+  .task-info {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 375px;
+    min-height: 200px;
+    margin-inline: auto;
+    align-self: flex-start;
+  }
 
-.task-info-btn-row {
-  display: flex;
-  justify-content: flex-end;
-}
+  .task-info-content {
+    display: flex;
+    flex-direction: column;
+  }
 
-.month-selector, .year-selector {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 375px;
-}
+  .task-info-btn-row {
+    display: flex;
+    justify-content: flex-end;
+  }
 
-.undated-tasks {
-  max-width: 375px;
-  white-space: nowrap;
+  .month-selector, .year-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 375px;
+  }
+
+  .undated-tasks {
+    max-width: 375px;
+    white-space: nowrap;
+  }
 }
