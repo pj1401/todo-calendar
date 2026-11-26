@@ -1,4 +1,5 @@
 import { DateUtil } from '@pj1401/date-utils'
+import { convertWeekdayMondayStart, months, weekdays } from '../util/calendar.js'
 
 const dateUtil = new DateUtil()
 
@@ -30,9 +31,36 @@ export default class TaskModel implements TaskItem {
     const date = new Date(`${this.date}T00:00:00`)
     let dateString = ''
     if (this.dateIsNotEmpty()) {
-      dateString = ` ${dateUtil.countDays(date)} days`
+      const timeDistance = this.#getDaysFromNow(date)
+      dateString = `${this.#formatDateString(date)}, ${timeDistance}`
     }
     return dateString
+  }
+
+  #formatDateString (date: Date): string {
+    return `${weekdays[convertWeekdayMondayStart(date.getDay())]}, ${date.getDate()} ${months[date.getMonth()]}`
+  }
+
+  /**
+   * Get a string representing the number of days between a date and now.
+   * @param {number} date The date to compare the current time with.
+   * @returns {string} The string representing time distance in days.
+   */
+  #getDaysFromNow (date: Date): string {
+    const days = dateUtil.countDays(date)
+    let timeString = ''
+    if (days === 0) {
+      timeString = 'Today'
+    } else if (days > 1) {
+      timeString = `${days} days left`
+    } else if (days < -1) {
+      timeString = `${Math.abs(days)} days ago`
+    } else if (days === 1) {
+      timeString = 'Tomorrow'
+    } else if (days === -1) {
+      timeString = 'Yesterday'
+    }
+    return timeString
   }
 
   /**

@@ -2,9 +2,10 @@
   font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Lucida Sans Regular', Geneva, Verdana, sans-serif;
 
   button {
-    color: #000;
+    color: #FFF;
     display: inline-block;
     background: none;
+    background-color: #034694;
     border: none;
     cursor: pointer;
     border-radius: 0.25em;
@@ -14,15 +15,15 @@
     font-family: inherit;
     font-size: 1rem;
     text-align: center;
-    box-shadow: 0 0.1em 0.1em #33333340;
+    box-shadow: 0 0.1em 0.1em #02264F;
     transition: background 250ms ease-in-out, 
                   transform 150ms ease;
   }
 
   button:hover,
   button:focus {
-      color: #782226;
-      background: #e8e8e8;
+      background: #0F7DFA;
+      box-shadow: 0 0.1em 0.1em #034694
   }
 
   button:focus {
@@ -44,13 +45,19 @@
   .undated-tasks {
     background-color: #fefdfa;
   }
+  .calendar,
+  .task-form {
+    background-color: #F4EFEB;
+    padding: 1rem 0;
+    border-radius: 0.5rem;
+  }
 
   .day {
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
     border-radius: 0.5rem;
-    border: solid #782226 1px;
+    border: solid #604767 1px;
   }
 
   .undated-tasks {
@@ -114,6 +121,7 @@
     align-items: center;
     justify-content: space-between;
     max-width: 375px;
+    margin: 0.5rem 0;
   }
 
   @media screen and (min-width: 820px) {
