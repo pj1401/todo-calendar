@@ -30,9 +30,25 @@ export default class TaskModel implements TaskItem {
     const date = new Date(`${this.date}T00:00:00`)
     let dateString = ''
     if (this.dateIsNotEmpty()) {
-      dateString = ` ${dateUtil.countDays(date)} days`
+      const timeDistance = this.#getTimeFromNow(date)
+      dateString = `${timeDistance}`
     }
     return dateString
+  }
+
+  /**
+   * Get a string representing the time between a date and now.
+   * @param {number} date The date to compare the current time with.
+   * @returns {string} The string representing time distance in days.
+   */
+  #getTimeFromNow(date: Date): string {
+    const days = dateUtil.countDays(date)
+    let timeString = ''
+    if (days === 0) {
+      timeString = 'Today'
+    }
+    // TODO: change string depending on date is in the future or the past.
+    return timeString
   }
 
   /**
