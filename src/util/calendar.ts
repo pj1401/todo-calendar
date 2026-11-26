@@ -14,7 +14,16 @@ function getStartColumn (year: number, month: number): number {
   // (getFirstDayOfMonth(year, month) + 6) % 7 to change the week start to Monday.
   // Add 1 to get the correct grid-column-start value.
   // The value should not be 0 for the grid to display correctly.
-  return ((getFirstDayOfMonth(year, month) + 6) % 7) + 1
+  return convertWeekdayMondayStart(getFirstDayOfMonth(year, month)) + 1
+}
+
+/**
+ * Convert the number representing the day of the week to Monday starting the week.
+ * @param {number} day The day of the week, where 0 represents Sunday as in Date.getDay().
+ * @returns {number} The day of the week where 0 represents Monday.
+ */
+function convertWeekdayMondayStart (day: number): number {
+  return (day + 6) % 7
 }
 
 /**
@@ -42,4 +51,14 @@ const months = [
   'December',
 ]
 
-export { getStartColumn, isStartDay, months }
+const weekdays = [
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+  'Sunday',
+]
+
+export { getStartColumn, isStartDay, convertWeekdayMondayStart, months, weekdays }
