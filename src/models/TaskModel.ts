@@ -1,9 +1,7 @@
 import { DateUtil } from '@pj1401/date-utils'
-import { convertWeekdayMondayStart, weekdays } from '../util/calendar'
+import { convertWeekdayMondayStart, months, weekdays } from '../util/calendar.js'
 
 const dateUtil = new DateUtil()
-
-// const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 export interface TaskItem {
   id: string
@@ -40,7 +38,7 @@ export default class TaskModel implements TaskItem {
   }
 
   #formatDateString (date: Date): string {
-    return weekdays[convertWeekdayMondayStart(date.getDay())]
+    return `${weekdays[convertWeekdayMondayStart(date.getDay())]}, ${date.getDate()} ${months[date.getMonth()]}`
   }
 
   /**
