@@ -8,7 +8,7 @@ interface TaskFormAttrs {
 export const TaskForm: m.ClosureComponent<TaskFormAttrs> = () => {
   return {
     view: ({ attrs: { onAdd } }) => {
-      return m('div',
+      return m('div', { class: 'task-form' },
         m('input', { type: 'text', id: 'new-todo', placeholder: 'New ToDo', value: ToDo.task,
           oninput: (event: InputEvent) => {
             // TypeScript requires that the type of event.target is known.
