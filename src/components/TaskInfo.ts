@@ -21,6 +21,7 @@ export const TaskInfo: m.ClosureComponent<TaskInfoAttrs> = () => {
         m('div', { class: 'task-info-content' },
           m('span', task.title),
           m('span', task.getDateString()),
+          m('span', task.getWordCountInfo()),
         ),
         m('div', { class: 'task-info-btn-row' },
           m('button', { onclick: onDelete }, 'Delete'),
