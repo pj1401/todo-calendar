@@ -2,14 +2,13 @@ export interface InfoPanel {
   openTaskId: string | null
   open: (taskId: string) => void
   close: () => void
+  isInfoOpen: (taskId: string) => boolean
 }
 
 export default class Info implements InfoPanel {
-  openTaskId: string | null
-  constructor () {
-    this.openTaskId = null
-  }
+  openTaskId: string | null = null
 
-  open (taskId: string) { this.openTaskId = taskId }
-  close () { this.openTaskId = null }
+  open = (taskId: string) => { this.openTaskId = taskId }
+  close = () => { this.openTaskId = null }
+  isInfoOpen = (taskId: string) => { return this.openTaskId === taskId }
 }

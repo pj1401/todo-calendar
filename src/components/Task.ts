@@ -13,7 +13,7 @@ interface TaskAttrs {
 export const Task: m.ClosureComponent<TaskAttrs> = () => {
   return {
     view: ({ attrs: { task, actions, info } }) => {
-      const isInfoOpen = info.openTaskId === task.id
+      const isInfoOpen = info.isInfoOpen(task.id)
       return m('div', { class: 'task' },
         m('div', { class: 'task-label' },
           m('input', {
@@ -31,7 +31,7 @@ export const Task: m.ClosureComponent<TaskAttrs> = () => {
         }, '...'),
         isInfoOpen && m(TaskInfo, {
           task,
-          onClose: info.close,
+          onClose: () => info.close(),
           onDelete: () => actions.delete(task.id),
         }),
       )
