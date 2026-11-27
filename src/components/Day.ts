@@ -2,7 +2,7 @@ import m from 'mithril'
 import TaskModel from '../models/TaskModel.js'
 import { Task } from './Task.js'
 import { TaskActions } from '../types/taskActions.js'
-import { InfoPanel } from '../types/info.js'
+import { InfoPanel } from '../models/Info.js'
 
 interface DayAttrs {
   day: number

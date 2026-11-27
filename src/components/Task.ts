@@ -1,7 +1,7 @@
 import m from 'mithril'
 import TaskModel from '../models/TaskModel.js'
 import { TaskInfo } from './TaskInfo.js'
-import { InfoPanel } from '../types/info.js'
+import { InfoPanel } from '../models/Info.js'
 import { TaskActions } from '../types/taskActions.js'
 
 interface TaskAttrs {

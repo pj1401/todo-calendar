@@ -4,7 +4,7 @@ import { Day } from './Day.js'
 import { getStartColumn, isStartDay } from '../util/calendar.js'
 import TaskModel from '../models/TaskModel.js'
 import { TaskActions } from '../types/taskActions.js'
-import { InfoPanel } from '../types/info.js'
+import { InfoPanel } from '../models/Info.js'
 
 interface MonthAttrs {
   tasks: TaskModel[]

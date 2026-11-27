@@ -4,7 +4,7 @@ import { Header } from './Header.js'
 import TaskModel from '../models/TaskModel.js'
 import { MonthSelector } from './MonthSelector.js'
 import { YearSelector } from './YearSelector.js'
-import { InfoPanel } from '../types/info.js'
+import { InfoPanel } from '../models/Info.js'
 import { TaskActions } from '../types/taskActions.js'
 
 interface CalendarAttrs {
