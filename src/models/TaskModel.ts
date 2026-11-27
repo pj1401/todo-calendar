@@ -1,5 +1,6 @@
 import { DateUtil } from '@pj1401/date-utils'
 import { convertWeekdayMondayStart, months, weekdays } from '../util/calendar.js'
+import { TextCounter } from 'glyphalyze'
 
 const dateUtil = new DateUtil()
 
@@ -81,5 +82,21 @@ export default class TaskModel implements TaskItem {
   isOnDay (year: number, month: number, day: number): boolean {
     const date = new Date(`${this.date}T00:00:00`)
     return date.getFullYear() === year && date.getMonth() === month && date.getDate() === day
+  }
+
+  /**
+   * Get a string with info about the ToDo title.
+   * @returns {string} A string stating the number of words in the ToDo title.
+   */
+  getWordCountInfo (): string {
+    const counter = new TextCounter(this.title)
+    const words = counter.countWords()
+    let wordInfo
+    if (words === 1) {
+      wordInfo = `${words} word in ToDo title`
+    } else {
+      wordInfo = `${words} words in ToDo title`
+    }
+    return wordInfo
   }
 }
