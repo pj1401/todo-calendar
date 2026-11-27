@@ -8,7 +8,7 @@ export const App = () => {
     view: () => {
       return m('div', { class: 'todo-calendar-app' },
         m('h1', 'ToDo Calendar'),
-        m(new ToDoCalendar({ store: TaskStore }), { store: TaskStore }),
+        m(ToDoCalendar, { store: TaskStore }),
       )
     },
   }
