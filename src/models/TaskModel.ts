@@ -11,7 +11,13 @@ export interface TaskData {
   date: string
 }
 
-export default class TaskModel {
+interface TaskItem {
+  toggle(): void
+  dateIsNotEmpty(): boolean
+  isOnDay(year: number, month: number, day: number): boolean
+}
+
+export default class TaskModel implements TaskItem {
   #id: string
   #title: string
   #completed: boolean
@@ -29,7 +35,43 @@ export default class TaskModel {
   get completed (): boolean { return this.#completed }
   get date (): string { return this.#date }
 
+  /**
+   * Called automatically by JSON.stringify.
+   * @returns {TaskData} The JSON representation of the TaskModel object.
+   */
+  toJSON (): TaskData {
+    return {
+      id: this.id,
+      title: this.title,
+      completed: this.completed,
+      date: this.date,
+    }
+  }
+
+  /**
+   * Update Task completed status.
+   */
   toggle (): void { this.#completed = !this.#completed }
+
+  /**
+   * Checks if a Task has a date.
+   * @returns {boolean} True if the task has a set date.
+   */
+  dateIsNotEmpty (): boolean {
+    return this.#date.trim() !== ''
+  }
+
+  /**
+   * Checks if the task is on the given day.
+   * @param {number} year - The full year.
+   * @param {number} month The month index (0-11). Zero-based, 0 represents January.
+   * @param {number} day - The day of the month.
+   * @returns {boolean} True if the task's date is that day.
+   */
+  isOnDay (year: number, month: number, day: number): boolean {
+    const date = new Date(`${this.#date}T00:00:00`)
+    return date.getFullYear() === year && date.getMonth() === month && date.getDate() === day
+  }
 
   /**
    * Returns a string with the number of days left for a task. If the date is empty an empty string is returned.
@@ -69,26 +111,6 @@ export default class TaskModel {
       timeString = 'Yesterday'
     }
     return timeString
-  }
-
-  /**
-   * Checks if a Task has a date.
-   * @returns {boolean} True if the task has a set date.
-   */
-  dateIsNotEmpty (): boolean {
-    return this.#date.trim() !== ''
-  }
-
-  /**
-   * Checks if the task is on the given day.
-   * @param {number} year - The full year.
-   * @param {number} month The month index (0-11). Zero-based, 0 represents January.
-   * @param {number} day - The day of the month.
-   * @returns {boolean} True if the task's date is that day.
-   */
-  isOnDay (year: number, month: number, day: number): boolean {
-    const date = new Date(`${this.#date}T00:00:00`)
-    return date.getFullYear() === year && date.getMonth() === month && date.getDate() === day
   }
 
   /**
