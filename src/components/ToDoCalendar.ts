@@ -6,6 +6,7 @@ import { Task } from './Task.js'
 import { TaskRepository } from '../models/TaskRepository.js'
 import { Modal } from './Modal.js'
 import Info from '../models/Info.js'
+import TaskModel from '../models/TaskModel.js'
 
 interface ToDoCalendarAttrs {
   store: TaskRepository
@@ -22,7 +23,7 @@ export class ToDoCalendar implements m.ClassComponent<ToDoCalendarAttrs> {
    */
   view ({ attrs: { store } }: m.CVnode<ToDoCalendarAttrs>): m.Children {
     return m('div', { class: 'todo-calendar' },
-      this.#displayTaskForm(store),
+      this.#displayTaskForm(store.add),
       this.#displayCalendar(store),
       this.#displayUndatedTasks(store),
       this.#displayDeleteButton(),
@@ -30,23 +31,25 @@ export class ToDoCalendar implements m.ClassComponent<ToDoCalendarAttrs> {
     )
   }
 
-  #displayTaskForm (store: TaskRepository): m.Children {
-    return m(TaskForm, { onAdd: (title: string, date: string) => store.add(title, date) })
+  #displayTaskForm (add: TaskRepository['add']): m.Children {
+    return m(TaskForm, { onAdd: (title: string, date: string) => add(title, date) })
   }
 
   #displayCalendar (store: TaskRepository) {
-    const datedTasks = store.tasks.filter((task) => task.dateIsNotEmpty())
     return m(Calendar, {
-      tasks: datedTasks,
+      tasks: this.#getDatedTasks(store.tasks),
       actions: store,
       info: this.#info,
     })
   }
 
+  #getDatedTasks (tasks: TaskModel[]) {
+    return tasks.filter((task) => task.dateIsNotEmpty())
+  }
+
   #displayUndatedTasks (store: TaskRepository) {
-    const undatedTasks = store.tasks.filter((task) => !task.dateIsNotEmpty())
     return m('div', { class: 'undated-tasks' },
-      undatedTasks.map((task) =>
+      this.#getUndatedTasks(store.tasks).map((task) =>
         m(Task, {
           key: task.id,
           task,
@@ -57,13 +60,17 @@ export class ToDoCalendar implements m.ClassComponent<ToDoCalendarAttrs> {
     )
   }
 
+  #getUndatedTasks (tasks: TaskModel[]) {
+    return tasks.filter((task) => !task.dateIsNotEmpty())
+  }
+
   #displayDeleteButton () {
     return !this.#showDeleteModal && m('button', {
       onclick: () => { this.#showDeleteModal = true },
     }, 'Delete All')
   }
 
-  #displayDeleteModal (deleteAll: () => void | Promise<void>) {
+  #displayDeleteModal (deleteAll: TaskRepository['deleteAll']) {
     return this.#showDeleteModal && m(Modal, {
       message: 'Delete all tasks?',
       confirmBtnText: 'Delete All',
