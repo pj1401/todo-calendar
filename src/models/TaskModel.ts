@@ -4,42 +4,39 @@ import { TextCounter } from 'glyphalyze'
 
 const dateUtil = new DateUtil()
 
-export interface TaskItem {
+export interface TaskData {
+  id: string
+  title: string
   completed: boolean
   date: string
-  getId(): string
-  getTitle(): string
 }
 
-// TODO: change properties to private
-export default class TaskModel implements TaskItem {
+export default class TaskModel {
   #id: string
   #title: string
-  completed: boolean
-  date: string
+  #completed: boolean
+  #date: string
 
   constructor (id: string, title: string, completed: boolean, date: string) {
     this.#id = id
     this.#title = title
-    this.completed = completed
-    this.date = date
+    this.#completed = completed
+    this.#date = date
   }
 
-  getId (): string {
-    console.log('getId')
-    return this.#id
-  }
+  get id (): string { return this.#id }
+  get title (): string { return this.#title }
+  get completed (): boolean { return this.#completed }
+  get date (): string { return this.#date }
 
-  getTitle (): string {
-    return this.#title
-  }
+  toggle (): void { this.#completed = !this.#completed }
 
   /**
    * Returns a string with the number of days left for a task. If the date is empty an empty string is returned.
    * @returns {string} The string with the days left.
    */
   getDateString (): string {
-    const date = new Date(`${this.date}T00:00:00`)
+    const date = new Date(`${this.#date}T00:00:00`)
     let dateString = ''
     if (this.dateIsNotEmpty()) {
       const timeDistance = this.#getDaysFromNow(date)
@@ -79,7 +76,7 @@ export default class TaskModel implements TaskItem {
    * @returns {boolean} True if the task has a set date.
    */
   dateIsNotEmpty (): boolean {
-    return this.date.trim() !== ''
+    return this.#date.trim() !== ''
   }
 
   /**
@@ -90,7 +87,7 @@ export default class TaskModel implements TaskItem {
    * @returns {boolean} True if the task's date is that day.
    */
   isOnDay (year: number, month: number, day: number): boolean {
-    const date = new Date(`${this.date}T00:00:00`)
+    const date = new Date(`${this.#date}T00:00:00`)
     return date.getFullYear() === year && date.getMonth() === month && date.getDate() === day
   }
 

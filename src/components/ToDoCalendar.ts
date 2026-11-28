@@ -51,7 +51,7 @@ export class ToDoCalendar implements m.ClassComponent<ToDoCalendarAttrs> {
     return m('div', { class: 'undated-tasks' },
       this.#filterUndatedTasks(store.tasks).map((task) =>
         m(Task, {
-          key: task.getId(),
+          key: task.id,
           task,
           actions: store,
           info: this.#info,

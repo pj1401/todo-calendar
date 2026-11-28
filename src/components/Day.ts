@@ -22,7 +22,7 @@ export const Day: m.ClosureComponent<DayAttrs> = () => {
       m('span', day),
       tasks.map((task) =>
         m(Task, {
-          key: task.getId(),
+          key: task.id,
           task,
           actions,
           info,

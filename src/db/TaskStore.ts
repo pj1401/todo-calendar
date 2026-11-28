@@ -1,14 +1,14 @@
-import TaskModel, { TaskItem } from '../models/TaskModel.js'
+import TaskModel, { TaskData } from '../models/TaskModel.js'
 import { TaskRepository } from '../models/TaskRepository.js'
 
 // Tasks saved before the date attribute existed have no date field.
-type StoredTask = Omit<TaskItem, 'date'> & { date?: string }
+type StoredTask = Omit<TaskData, 'date'> & { date?: string }
 const STORAGE_KEY = 'todo-calendar.tasks'
 
 const load = (): TaskModel[] => {
   try {
     const stored: StoredTask[] = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]')
-    return stored.map(({ getId, getTitle, completed, date }) => new TaskModel(getId(), getTitle(), completed, date ?? ''))
+    return stored.map(({ id, title, completed, date }) => new TaskModel(id, title, completed, date ?? ''))
   } catch {
     return []
   }
@@ -19,11 +19,11 @@ const save = () => {
 }
 
 const findTask = (id: string) => {
-  return TaskStore.tasks.find((task: TaskItem) => task.getId() === id)
+  return TaskStore.tasks.find((task: TaskData) => task.id === id)
 }
 
 const findTaskIndex = (id: string) => {
-  return TaskStore.tasks.findIndex((task: TaskItem) => task.getId() === id)
+  return TaskStore.tasks.findIndex((task: TaskData) => task.id === id)
 }
 
 const TaskStore: TaskRepository = {
@@ -35,7 +35,7 @@ const TaskStore: TaskRepository = {
   toggle: function (id: string) {
     const task = findTask(id)
     if (task) {
-      task.completed = !task.completed
+      task.toggle()
       save()
     }
   },

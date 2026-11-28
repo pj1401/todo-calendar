@@ -13,26 +13,26 @@ interface TaskAttrs {
 export const Task: m.ClosureComponent<TaskAttrs> = () => {
   return {
     view: ({ attrs: { task, actions, info } }) => {
-      const isInfoOpen = info.isInfoOpen(task.getId())
+      const isInfoOpen = info.isInfoOpen(task.id)
       return m('div', { class: 'task' },
         m('div', { class: 'task-label' },
           m('input', {
             type: 'checkbox',
             checked: task.completed,
-            id: `task-${task.getId()}`,
-            onchange: () => actions.toggle(task.getId()),
+            id: `task-${task.id}`,
+            onchange: () => actions.toggle(task.id),
           }),
-          m('label', { for: `task-${task.getId()}` }, task.getTitle()),
+          m('label', { for: `task-${task.id}` }, task.title),
         ),
         m('button', {
           class: 'open-task-info-btn',
-          onclick: () => info.open(task.getId()),
+          onclick: () => info.open(task.id),
           ariaLabel: 'See ToDo info',
         }, '...'),
         isInfoOpen && m(TaskInfo, {
           task,
           onClose: () => info.close(),
-          onDelete: () => actions.delete(task.getId()),
+          onDelete: () => actions.delete(task.id),
         }),
       )
     },
