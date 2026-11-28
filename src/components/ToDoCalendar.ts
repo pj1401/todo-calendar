@@ -37,21 +37,21 @@ export class ToDoCalendar implements m.ClassComponent<ToDoCalendarAttrs> {
 
   #displayCalendar (store: TaskRepository) {
     return m(Calendar, {
-      tasks: this.#getDatedTasks(store.tasks),
+      tasks: this.#filterDatedTasks(store.tasks),
       actions: store,
       info: this.#info,
     })
   }
 
-  #getDatedTasks (tasks: TaskModel[]) {
+  #filterDatedTasks (tasks: TaskModel[]) {
     return tasks.filter((task) => task.dateIsNotEmpty())
   }
 
   #displayUndatedTasks (store: TaskRepository) {
     return m('div', { class: 'undated-tasks' },
-      this.#getUndatedTasks(store.tasks).map((task) =>
+      this.#filterUndatedTasks(store.tasks).map((task) =>
         m(Task, {
-          key: task.id,
+          key: task.getId(),
           task,
           actions: store,
           info: this.#info,
@@ -60,7 +60,7 @@ export class ToDoCalendar implements m.ClassComponent<ToDoCalendarAttrs> {
     )
   }
 
-  #getUndatedTasks (tasks: TaskModel[]) {
+  #filterUndatedTasks (tasks: TaskModel[]) {
     return tasks.filter((task) => !task.dateIsNotEmpty())
   }
 

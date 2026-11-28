@@ -8,7 +8,7 @@ const STORAGE_KEY = 'todo-calendar.tasks'
 const load = (): TaskModel[] => {
   try {
     const stored: StoredTask[] = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]')
-    return stored.map(({ id, title, completed, date }) => new TaskModel(id, title, completed, date ?? ''))
+    return stored.map(({ getId, getTitle, completed, date }) => new TaskModel(getId(), getTitle(), completed, date ?? ''))
   } catch {
     return []
   }
@@ -19,11 +19,11 @@ const save = () => {
 }
 
 const findTask = (id: string) => {
-  return TaskStore.tasks.find((task: TaskItem) => task.id === id)
+  return TaskStore.tasks.find((task: TaskItem) => task.getId() === id)
 }
 
 const findTaskIndex = (id: string) => {
-  return TaskStore.tasks.findIndex((task: TaskItem) => task.id === id)
+  return TaskStore.tasks.findIndex((task: TaskItem) => task.getId() === id)
 }
 
 const TaskStore: TaskRepository = {

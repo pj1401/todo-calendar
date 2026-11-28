@@ -19,7 +19,7 @@ export const TaskInfo: m.ClosureComponent<TaskInfoAttrs> = () => {
           }, 'X'),
         ),
         m('div', { class: 'task-info-content' },
-          m('span', task.title),
+          m('span', task.getTitle()),
           m('span', task.getDateString()),
           m('span', task.getWordCountInfo()),
         ),

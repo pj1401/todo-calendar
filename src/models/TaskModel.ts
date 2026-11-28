@@ -5,23 +5,33 @@ import { TextCounter } from 'glyphalyze'
 const dateUtil = new DateUtil()
 
 export interface TaskItem {
-  id: string
-  title: string
   completed: boolean
   date: string
+  getId(): string
+  getTitle(): string
 }
 
+// TODO: change properties to private
 export default class TaskModel implements TaskItem {
-  id: string
-  title: string
+  #id: string
+  #title: string
   completed: boolean
   date: string
 
   constructor (id: string, title: string, completed: boolean, date: string) {
-    this.id = id
-    this.title = title
+    this.#id = id
+    this.#title = title
     this.completed = completed
     this.date = date
+  }
+
+  getId (): string {
+    console.log('getId')
+    return this.#id
+  }
+
+  getTitle (): string {
+    return this.#title
   }
 
   /**
@@ -89,7 +99,7 @@ export default class TaskModel implements TaskItem {
    * @returns {string} A string stating the number of words in the ToDo title.
    */
   getWordCountInfo (): string {
-    const counter = new TextCounter(this.title)
+    const counter = new TextCounter(this.#title)
     const words = counter.countWords()
     let wordInfo
     if (words === 1) {
